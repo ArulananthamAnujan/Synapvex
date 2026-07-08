@@ -1,0 +1,432 @@
+export type UserRole = 'admin' | 'co_admin' | 'teacher' | 'student' | 'org_admin';
+
+export interface Profile {
+  id: string;
+  email: string;
+  full_name: string;
+  avatar_url: string;
+  role: UserRole;
+  is_active: boolean;
+  bio: string;
+  phone: string;
+  notification_email: boolean;
+  notification_deadlines: boolean;
+  notification_grades: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  short_description: string;
+  thumbnail_url: string;
+  price: number;
+  currency: string;
+  category: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  teacher_id: string | null;
+  is_published: boolean;
+  is_archived: boolean;
+  is_free: boolean;
+  duration_hours: number;
+  total_lessons: number;
+  total_students: number;
+  rating: number;
+  language: string;
+  what_you_learn: string[];
+  requirements: string[];
+  stripe_payment_link: string | null;
+  is_paid: boolean;
+  price_amount: number;
+  preview_enabled: boolean;
+  created_at: string;
+  updated_at: string;
+  teacher?: Profile;
+}
+
+export interface Section {
+  id: string;
+  course_id: string;
+  title: string;
+  order_index: number;
+  created_at: string;
+  lessons?: Lesson[];
+}
+
+export interface Lesson {
+  id: string;
+  section_id: string;
+  title: string;
+  type: 'video' | 'pdf' | 'article' | 'link';
+  content: string;
+  url: string;
+  duration_minutes: number;
+  order_index: number;
+  is_required: boolean;
+  is_preview: boolean;
+  created_at: string;
+}
+
+export interface Enrollment {
+  id: string;
+  student_id: string;
+  course_id: string;
+  enrolled_at: string;
+  completed_at: string | null;
+  progress_percent: number;
+  student?: Profile;
+  course?: Course;
+}
+
+export interface LessonProgress {
+  id: string;
+  student_id: string;
+  lesson_id: string;
+  completed_at: string;
+}
+
+export interface CourseEnrollment {
+  id: string;
+  user_id: string;
+  course_id: string;
+  enrollment_type: 'free' | 'paid' | 'admin_granted';
+  payment_status: 'not_required' | 'pending' | 'completed' | 'refunded';
+  payment_id: string | null;
+  amount_paid: number;
+  currency: string | null;
+  enrolled_at: string;
+  completed_at: string | null;
+  progress_percent: number;
+  last_accessed_at: string;
+  course?: Course;
+}
+
+export interface LessonProgressV2 {
+  id: string;
+  user_id: string;
+  lesson_id: string;
+  course_id: string;
+  status: 'not_started' | 'in_progress' | 'completed';
+  progress_percent: number;
+  last_position_seconds: number;
+  time_spent_seconds: number;
+  completed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserQuizAttempt {
+  id: string;
+  user_id: string;
+  quiz_id: string;
+  course_id: string;
+  score: number;
+  max_score: number;
+  percentage: number;
+  passed: boolean;
+  answers: Record<string, string>;
+  attempt_number: number;
+  started_at: string | null;
+  completed_at: string;
+}
+
+export interface Quiz {
+  id: string;
+  course_id: string;
+  section_id?: string;
+  title: string;
+  description: string;
+  time_limit_minutes: number | null;
+  pass_mark: number;
+  max_attempts: number;
+  is_required: boolean;
+  created_at: string;
+  questions?: QuizQuestion[];
+}
+
+export interface QuizQuestion {
+  id: string;
+  quiz_id: string;
+  question: string;
+  type: 'mcq' | 'true_false' | 'short_answer';
+  options: string[];
+  correct_answer: string;
+  points: number;
+  order_index: number;
+}
+
+export interface QuizAttempt {
+  id: string;
+  quiz_id: string;
+  student_id: string;
+  score: number;
+  total_points: number;
+  passed: boolean;
+  answers: Record<string, string>;
+  submitted_at: string;
+}
+
+export interface Assignment {
+  id: string;
+  course_id: string;
+  title: string;
+  description: string;
+  due_date: string | null;
+  max_marks: number;
+  is_required: boolean;
+  created_at: string;
+}
+
+export interface AssignmentSubmission {
+  id: string;
+  assignment_id: string;
+  student_id: string;
+  content: string;
+  file_url: string;
+  grade: number | null;
+  feedback: string;
+  submitted_at: string;
+  graded_at: string | null;
+  student?: Profile;
+  assignment?: Assignment;
+}
+
+export interface Certificate {
+  id: string;
+  student_id: string;
+  course_id: string;
+  certificate_id: string | null;
+  verification_code: string | null;
+  certificate_url: string | null;
+  issued_at: string;
+  revoked: boolean;
+  revoked_at: string | null;
+  student?: Profile;
+  course?: Course;
+}
+
+export interface Payment {
+  id: string;
+  student_id: string;
+  course_id: string;
+  amount: number;
+  currency: string;
+  stripe_payment_id: string;
+  promo_code: string;
+  discount_percent: number;
+  status: 'pending' | 'completed' | 'refunded' | 'failed';
+  created_at: string;
+  student?: Profile;
+  course?: Course;
+}
+
+export interface PromoCode {
+  id: string;
+  code: string;
+  discount_percent: number;
+  expires_at: string | null;
+  is_active: boolean;
+  usage_limit: number | null;
+  usage_count: number;
+  created_by: string;
+  created_at: string;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  created_by: string;
+  is_active: boolean;
+  created_at: string;
+  creator?: Profile;
+}
+
+export interface ActivityLog {
+  id: string;
+  user_id: string;
+  action: string;
+  entity_type?: string;
+  entity_id?: string;
+  details: string | Record<string, unknown>;
+  created_at: string;
+  user?: Profile;
+}
+
+export interface Discussion {
+  id: string;
+  course_id: string;
+  author_id: string;
+  parent_id: string | null;
+  title: string;
+  content: string;
+  is_pinned: boolean;
+  created_at: string;
+  author?: Profile;
+}
+
+export interface LiveSession {
+  id: string;
+  course_id: string;
+  teacher_id: string;
+  title: string;
+  description: string;
+  meeting_link: string;
+  scheduled_at: string;
+  duration_minutes: number;
+  created_at: string;
+  course?: Course;
+}
+
+export interface Toast {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  message: string;
+  duration?: number;
+}
+
+export type OrgPlanTier = 'starter' | 'professional' | 'growth' | 'enterprise';
+
+export interface OrgFeatureFlags {
+  ai_course_outline: boolean;
+  ai_lesson_content: boolean;
+  ai_quiz_generation: boolean;
+  ai_flashcards: boolean;
+  ai_full_curriculum: boolean;
+  ai_presentations: boolean;
+  ai_exams: boolean;
+  student_ai_access: boolean;
+}
+
+export const PLAN_FEATURES: Record<OrgPlanTier, OrgFeatureFlags> = {
+  starter: {
+    ai_course_outline: true, ai_lesson_content: true,
+    ai_quiz_generation: false, ai_flashcards: false,
+    ai_full_curriculum: false, ai_presentations: false,
+    ai_exams: false, student_ai_access: false,
+  },
+  professional: {
+    ai_course_outline: true, ai_lesson_content: true,
+    ai_quiz_generation: true, ai_flashcards: true,
+    ai_full_curriculum: true, ai_presentations: false,
+    ai_exams: false, student_ai_access: false,
+  },
+  growth: {
+    ai_course_outline: true, ai_lesson_content: true,
+    ai_quiz_generation: true, ai_flashcards: true,
+    ai_full_curriculum: true, ai_presentations: true,
+    ai_exams: false, student_ai_access: false,
+  },
+  enterprise: {
+    ai_course_outline: true, ai_lesson_content: true,
+    ai_quiz_generation: true, ai_flashcards: true,
+    ai_full_curriculum: true, ai_presentations: true,
+    ai_exams: true, student_ai_access: true,
+  },
+};
+
+export interface Organization {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url: string | null;
+  website: string | null;
+  description: string | null;
+  token_balance: number;
+  plan_tier: OrgPlanTier;
+  feature_flags: OrgFeatureFlags;
+  is_active: boolean;
+  stripe_customer_id: string | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CoursePage {
+  id: string;
+  owner_type: 'teacher' | 'org';
+  teacher_id: string | null;
+  org_id: string | null;
+  slug: string;
+  display_name: string;
+  tagline: string;
+  description: string;
+  logo_url: string | null;
+  hero_image_url: string | null;
+  brand_color: string;
+  accent_color: string;
+  website: string | null;
+  contact_email: string | null;
+  hide_platform_branding: boolean;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface OrgStudent {
+  id: string;
+  org_id: string;
+  user_id: string;
+  enrolled_by: string | null;
+  enrolled_at: string;
+  is_active: boolean;
+  profile?: Profile;
+  organization?: Organization;
+}
+
+export interface OrgMember {
+  id: string;
+  org_id: string;
+  user_id: string;
+  role: 'owner' | 'teacher';
+  invited_by: string | null;
+  joined_at: string;
+  organization?: Organization;
+  profile?: Profile;
+}
+
+export interface TokenPackage {
+  id: string;
+  name: string;
+  description: string | null;
+  token_amount: number;
+  price_cents: number;
+  currency: string;
+  is_active: boolean;
+  is_popular: boolean;
+  stripe_price_id: string | null;
+  plan_tier: OrgPlanTier;
+  created_at: string;
+}
+
+export interface TokenPurchase {
+  id: string;
+  org_id: string;
+  package_id: string | null;
+  purchased_by: string | null;
+  token_amount: number;
+  amount_paid_cents: number;
+  currency: string;
+  stripe_session_id: string | null;
+  stripe_payment_id: string | null;
+  status: 'pending' | 'completed' | 'failed' | 'refunded';
+  notes: string | null;
+  created_at: string;
+  completed_at: string | null;
+  organization?: Organization;
+  buyer?: Profile;
+}
+
+export interface TokenUsageLog {
+  id: string;
+  org_id: string;
+  user_id: string;
+  ai_task: string;
+  tokens_deducted: number;
+  ai_log_id: string | null;
+  created_at: string;
+  profile?: Profile;
+  organization?: Organization;
+}
