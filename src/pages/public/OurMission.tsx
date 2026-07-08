@@ -1,49 +1,49 @@
 import { Link } from 'react-router-dom';
-import { Target, Heart, Globe, Star, CheckCircle, ArrowRight, Users, BookOpen, Award } from 'lucide-react';
+import { Target, Heart, Globe, Star, CheckCircle, ArrowRight, Users, Package, Briefcase } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 
 const PILLARS = [
   {
-    icon: Globe,
-    title: 'Globally Focused Education',
-    desc: 'Our programs are designed with international standards in mind, preparing learners for global exams, careers, and opportunities beyond borders.',
+    icon: Star,
+    title: 'Innovation First',
+    desc: 'We build products and solutions on modern, proven technology — bringing AI, automation and cloud capability within reach of every business.',
     color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-100',
   },
   {
     icon: Target,
-    title: 'Practical & Result-Driven Learning',
-    desc: 'We focus on real skills, clear concepts, and structured preparation — not just theory. Every course is built to deliver measurable progress and confidence.',
+    title: 'Outcomes Over Output',
+    desc: 'Every project and product is measured by the results it delivers — efficiency gained, revenue grown, risk reduced — not by lines of code.',
     color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100',
   },
   {
-    icon: Star,
-    title: 'Expert-Led Guidance',
-    desc: 'Our instructors bring experience, clarity, and personalised support, ensuring learners stay motivated, focused, and well-prepared throughout their journey.',
+    icon: Heart,
+    title: 'Partners, Not Vendors',
+    desc: 'We work alongside our clients with transparent communication, honest timelines and long-term support — your success is our success.',
     color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-amber-100',
   },
   {
-    icon: Heart,
-    title: 'Flexible Online Learning',
-    desc: 'Learn anytime, anywhere. Our online-first approach allows students and professionals to balance education with work and life commitments.',
+    icon: Globe,
+    title: 'Built to Scale Globally',
+    desc: 'From a single storefront to an international academy, everything we ship is secure, reliable and ready to grow across borders.',
     color: 'text-rose-500', bg: 'bg-rose-50', border: 'border-rose-100',
   },
 ];
 
 const GOALS = [
-  'Make quality education accessible to every motivated learner',
-  'Prepare students to succeed in international exams and careers',
-  'Foster a supportive, inclusive, and inspiring learning environment',
-  'Bridge the gap between education and real-world application',
-  'Continuously innovate our teaching methodologies',
-  'Empower learners with confidence and practical skills',
+  'Build software products that businesses genuinely run on every day',
+  'Make enterprise-grade technology affordable for small and medium businesses',
+  'Empower educators and creators to build businesses under their own brand',
+  'Deliver every service engagement with transparency and measurable results',
+  'Keep security and reliability at the core of everything we ship',
+  'Grow a family of products that work better together',
 ];
 
 const MILESTONES = [
-  { value: '1,000+', label: 'Students Trained' },
-  { value: '9', label: 'Courses Offered' },
-  { value: '4.8/5', label: 'Average Rating' },
-  { value: '95%', label: 'Success Rate' },
+  { value: '200+', label: 'Projects Delivered' },
+  { value: '50+', label: 'Business Clients' },
+  { value: '4', label: 'Products in the Family' },
+  { value: '98%', label: 'Client Satisfaction' },
 ];
 
 export default function OurMission() {
@@ -61,10 +61,11 @@ export default function OurMission() {
             <span className="text-sky-300 text-sm font-semibold">Our Mission & Values</span>
           </div>
           <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-            Learn. Grow. Succeed.
+            Build. Empower. Grow.
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
-            Guiding aspirants with care, clarity, and commitment — at Synapvex, our mission is to empower every learner with the knowledge, skills, and confidence they need to succeed on a global stage.
+            SynapVex Technologies exists to put powerful, reliable software in the hands of every
+            business — through the products we build and the services we deliver.
           </p>
         </div>
       </section>
@@ -78,33 +79,38 @@ export default function OurMission() {
               <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-6">Our Mission</h2>
               <div className="space-y-5 text-slate-600 leading-relaxed">
                 <p>
-                  At Synapvex, we combine quality education, expert guidance, and global relevance to help learners achieve real outcomes.
+                  Great technology shouldn't be reserved for big enterprises. We started Synapvex to
+                  give growing businesses the same calibre of software, security and strategy — without
+                  the enterprise price tag or complexity.
                 </p>
                 <p>
-                  Whether you are preparing for an international exam, learning a new language, or building professional skills, our mission is to guide you with expert instruction, personalised feedback, and unwavering support.
+                  We do it two ways: hands-on services — custom software, websites, apps, cloud and
+                  cybersecurity — and a growing family of our own products, led by Synapvex Learn,
+                  that let businesses and creators launch under their own brand in days, not months.
                 </p>
                 <p>
-                  Shaping global futures through thoughtfully designed education, expert-led learning experiences, and accessible pathways to academic and professional success worldwide.
+                  Everything we ship carries the same promise: honest communication, dependable
+                  engineering, and technology that keeps working long after launch.
                 </p>
               </div>
               <div className="mt-8 flex gap-4 flex-wrap">
-                <Link to="/teach" className="px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
-                  Start Teaching <ArrowRight className="w-4 h-4" />
+                <Link to="/products" className="px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
+                  Explore Our Products <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/about" className="px-6 py-3 border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors">
-                  About Us
+                  Our Services
                 </Link>
               </div>
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
-                alt="Students at Synapvex"
+                src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
+                alt="The Synapvex team at work"
                 className="rounded-2xl w-full h-96 object-cover shadow-2xl"
               />
               <div className="absolute -bottom-6 -left-6 bg-sky-600 rounded-2xl p-5 shadow-xl">
-                <p className="font-playfair text-3xl font-bold text-white">95%</p>
-                <p className="text-sky-100 font-medium text-sm mt-1">Student Success Rate</p>
+                <p className="font-playfair text-3xl font-bold text-white">98%</p>
+                <p className="text-sky-100 font-medium text-sm mt-1">Client Satisfaction</p>
               </div>
             </div>
           </div>
@@ -125,14 +131,14 @@ export default function OurMission() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Core values */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Why Choose Us</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Core Pillars</h2>
+            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How We Work</p>
+            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              At Synapvex, we combine quality education, expert guidance, and global relevance to help learners achieve real outcomes.
+              Four principles guide every product we build and every engagement we take on.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -168,9 +174,9 @@ export default function OurMission() {
             </div>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { icon: Users, label: 'Community', value: '1,000+' },
-                { icon: BookOpen, label: 'Courses', value: '9' },
-                { icon: Award, label: 'Certificates', value: '500+' },
+                { icon: Briefcase, label: 'Projects', value: '200+' },
+                { icon: Users, label: 'Clients', value: '50+' },
+                { icon: Package, label: 'Products', value: '4' },
               ].map((stat, i) => (
                 <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
                   <stat.icon className="w-8 h-8 text-sky-400 mx-auto mb-3" />
@@ -186,16 +192,16 @@ export default function OurMission() {
       {/* CTA */}
       <section className="py-16 bg-sky-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-playfair text-3xl font-bold text-white mb-4">Be Part of Our Mission</h2>
+          <h2 className="font-playfair text-3xl font-bold text-white mb-4">Build the Future with Us</h2>
           <p className="text-sky-100 mb-8 text-lg">
-            Join the growing community of learners who are achieving their goals with Synapvex.
+            Whether you need a technology partner or a product to power your business, we're ready when you are.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/register" className="px-8 py-3.5 bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-50 transition-colors">
-              Enrol Today
-            </Link>
-            <Link to="/contact" className="px-8 py-3.5 border-2 border-white/50 text-white font-bold rounded-xl hover:border-white hover:bg-white/10 transition-colors">
+            <Link to="/contact" className="px-8 py-3.5 bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-50 transition-colors">
               Get in Touch
+            </Link>
+            <Link to="/products" className="px-8 py-3.5 border-2 border-white/50 text-white font-bold rounded-xl hover:border-white hover:bg-white/10 transition-colors">
+              See Our Products
             </Link>
           </div>
         </div>

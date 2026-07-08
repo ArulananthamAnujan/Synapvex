@@ -58,7 +58,7 @@ const PLATFORM_FEATURES = [
   { icon: BarChart2, title: 'Progress & Analytics', desc: 'Real-time student progress tracking, quiz scores, and completion reports.' },
   { icon: Award, title: 'Certificates', desc: 'Automatically issue branded certificates when students complete your courses.' },
   { icon: Clock, title: 'Flexible Scheduling', desc: 'Book live face-to-face sessions, manage schedules, and send announcements.' },
-  { icon: ShieldCheck, title: 'Secure Payments', desc: 'Collect course fees via Stripe. Earnings paid directly to you.' },
+  { icon: ShieldCheck, title: 'Secure Payments', desc: 'Collect course fees securely online. Earnings paid directly to you.' },
 ];
 
 const TESTIMONIALS = [

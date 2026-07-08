@@ -216,7 +216,8 @@ export default function Contact() {
                           required
                         >
                           <option value="">Select a subject</option>
-                          <option>Course enquiry</option>
+                          <option>Product enquiry</option>
+                          <option>Services & consulting</option>
                           <option>Technical support</option>
                           <option>Billing & payments</option>
                           <option>Corporate training</option>
@@ -261,7 +262,7 @@ export default function Contact() {
               <div className="text-center mb-12">
                 <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Common Questions</p>
                 <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-                <p className="text-slate-500">Everything you need to know about Synapvex Learn.</p>
+                <p className="text-slate-500">Common questions about our products and services.</p>
               </div>
               <div className="space-y-3">
                 {faqs.map(faq => (

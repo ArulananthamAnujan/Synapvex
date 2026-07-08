@@ -322,8 +322,8 @@ export default function Home() {
                 <Link to="/products/learn" className="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors flex items-center gap-2">
                   <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn
                 </Link>
-                <Link to="/teach/register" className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-sky-400 hover:text-sky-600 transition-colors flex items-center gap-2">
-                  <Users className="w-4 h-4" /> View Pricing Plans
+                <Link to="/products" className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-sky-400 hover:text-sky-600 transition-colors flex items-center gap-2">
+                  <Users className="w-4 h-4" /> View All Products
                 </Link>
               </div>
             </div>
@@ -511,8 +511,8 @@ export default function Home() {
             <Link to="/contact" className="px-8 py-3.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
               <Zap className="w-5 h-5" /> Get a Free Consultation
             </Link>
-            <Link to="/teach" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
-              <BookOpen className="w-5 h-5" /> Start Creating Courses
+            <Link to="/products" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
+              <BookOpen className="w-5 h-5" /> Explore Our Products
             </Link>
           </div>
         </div>

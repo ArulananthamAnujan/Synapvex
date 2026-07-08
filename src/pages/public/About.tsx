@@ -182,8 +182,8 @@ export default function About() {
               <Link to="/contact" className="px-7 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/teach" className="px-7 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
-                <GraduationCap className="w-4 h-4" /> Start Teaching on LMS
+              <Link to="/products" className="px-7 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
+                <GraduationCap className="w-4 h-4" /> Explore Our Products
               </Link>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function About() {
                     'Student portal with progress tracking',
                     'Quizzes, exams & auto-grading',
                     'Automated certificate issuance',
-                    'Stripe payment & enrolment gating',
+                    'Secure enrolment & access control',
                     'Multi-role: Admin, Teacher, Student',
                     'Organisation & team management',
                   ].map(item => (
@@ -256,10 +256,10 @@ export default function About() {
                   ))}
                 </ul>
                 <Link
-                  to="/teach"
+                  to="/products/learn"
                   className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors text-sm"
                 >
-                  <GraduationCap className="w-4 h-4" /> Start Teaching <ArrowRight className="w-4 h-4" />
+                  <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -307,10 +307,10 @@ export default function About() {
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/teach"
+                to="/products"
                 className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
               >
-                <GraduationCap className="w-4 h-4" /> Start Teaching
+                <GraduationCap className="w-4 h-4" /> Explore Our Products
               </Link>
             </div>
           </div>

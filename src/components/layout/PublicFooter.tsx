@@ -54,7 +54,6 @@ export default function PublicFooter() {
                 { label: 'Products', href: '/products' },
                 { label: 'Services', href: '/about' },
                 { label: 'Our Mission', href: '/our-mission' },
-                { label: 'Become a Teacher', href: '/teach' },
                 { label: 'Contact Us', href: '/contact' },
                 { label: 'Book Online', href: '/book-online' },
               ].map(link => (
@@ -73,12 +72,6 @@ export default function PublicFooter() {
               </li>
               <li>
                 <Link to="/products" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">All Products</Link>
-              </li>
-              <li>
-                <Link to="/teach" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">Become a Teacher</Link>
-              </li>
-              <li>
-                <Link to="/teach/register" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">Teacher Pricing</Link>
               </li>
               {['Synapvex Sites', 'Synapvex Desk', 'Synapvex Shield'].map(p => (
                 <li key={p} className="flex items-center gap-2">

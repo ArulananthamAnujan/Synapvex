@@ -38,7 +38,7 @@ export const PRODUCTS: SynapvexProduct[] = [
     features: [
       'Your own branded course page (white-label)',
       'AI course, quiz & exam builder',
-      'Sell courses with Stripe payments',
+      'Sell courses with secure online payments',
       'Progress tracking & auto certificates',
     ],
   },

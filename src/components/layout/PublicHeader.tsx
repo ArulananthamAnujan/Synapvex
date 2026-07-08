@@ -134,22 +134,16 @@ export default function PublicHeader() {
             ) : (
               <div className="flex items-center gap-2">
                 <Link
-                  to="/teach"
-                  className="px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-50 rounded-lg transition-all border border-emerald-200"
-                >
-                  Become a Teacher
-                </Link>
-                <Link
                   to="/login"
                   className="px-4 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-50 rounded-lg transition-all border border-sky-200"
                 >
                   Login
                 </Link>
                 <Link
-                  to="/register"
+                  to="/contact"
                   className="px-5 py-2 text-sm font-bold bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-all shadow-sm"
                 >
-                  Get Started
+                  Get in Touch
                 </Link>
               </div>
             )}
@@ -200,9 +194,8 @@ export default function PublicHeader() {
                 </>
               ) : (
                 <>
-                  <Link to="/teach" className="block px-4 py-2.5 text-emerald-700 border border-emerald-200 hover:bg-emerald-50 rounded-lg text-sm font-semibold text-center transition-colors">Become a Teacher</Link>
                   <Link to="/login" className="block px-4 py-2.5 text-sky-700 border border-sky-200 hover:bg-sky-50 rounded-lg text-sm font-semibold text-center transition-colors">Login</Link>
-                  <Link to="/register" className="block px-4 py-2.5 bg-sky-600 text-white rounded-lg text-sm font-bold text-center transition-colors hover:bg-sky-700">Get Started</Link>
+                  <Link to="/contact" className="block px-4 py-2.5 bg-sky-600 text-white rounded-lg text-sm font-bold text-center transition-colors hover:bg-sky-700">Get in Touch</Link>
                 </>
               )}
             </div>

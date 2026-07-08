@@ -33,7 +33,7 @@ const STEPS = [
 const TEACHER_FEATURES = [
   { icon: Store, title: 'Your Branded Course Page', desc: 'A white-label storefront with your logo, colors and only your courses — "Powered by" note optional.' },
   { icon: Bot, title: 'AI Course Builder', desc: 'Generate outlines, lesson content, quizzes, exams and flashcards with AI tokens.' },
-  { icon: CreditCard, title: 'Sell with Stripe', desc: 'Set your price, take card payments, offer promo codes — earnings tracked in your dashboard.' },
+  { icon: CreditCard, title: 'Sell Your Courses', desc: 'Set your price, accept secure card payments, offer promo codes — earnings tracked in your dashboard.' },
   { icon: ClipboardList, title: 'Quizzes, Exams & Assignments', desc: 'Auto-graded quizzes and exams with attempt limits, plus assignment submissions and grading.' },
   { icon: Video, title: 'Live Sessions & F2F', desc: 'Schedule live classes and manage face-to-face session requests from students.' },
   { icon: BarChart2, title: 'Student Analytics', desc: 'See enrolments, lesson-level progress and completion for every student.' },
