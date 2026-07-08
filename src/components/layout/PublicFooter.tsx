@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import MaximusLogo from '../ui/MaximusLogo';
 
 export default function PublicFooter() {
@@ -30,20 +30,9 @@ export default function PublicFooter() {
                 <a href="mailto:info@synapvex.com" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">info@synapvex.com</a>
               </li>
             </ul>
-            <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-slate-100 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors group" aria-label="Facebook">
-                <Facebook className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-slate-100 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors group" aria-label="Instagram">
-                <Instagram className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-slate-100 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors group" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-slate-100 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors group" aria-label="Twitter">
-                <Twitter className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
-              </a>
-            </div>
+            {/* Social icons removed until real profile URLs exist — dead
+                links undermine trust on a corporate site. Add them back as
+                <a href="https://..."> when the profiles are live. */}
           </div>
 
           <div>
@@ -118,9 +107,13 @@ export default function PublicFooter() {
             </ul>
             <h4 className="text-slate-900 font-bold mb-4 text-sm uppercase tracking-wider">Policies</h4>
             <ul className="space-y-3">
-              {['Privacy Policy', 'Terms of Service', 'Refund Policy'].map(item => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{item}</a>
+              {[
+                { label: 'Privacy Policy', href: '/privacy' },
+                { label: 'Terms of Service', href: '/terms' },
+                { label: 'Refund Policy', href: '/refund-policy' },
+              ].map(item => (
+                <li key={item.href}>
+                  <Link to={item.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{item.label}</Link>
                 </li>
               ))}
             </ul>

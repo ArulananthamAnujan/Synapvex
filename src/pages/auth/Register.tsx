@@ -75,7 +75,7 @@ export default function Register() {
             Start Your Learning Journey Today
           </h2>
           <p className="text-sky-100 text-lg leading-relaxed mb-8">
-            Create your student account and access hundreds of professional courses designed for the Australian workforce.
+            Create your student account and start learning — courses built by real teachers, with progress tracking and certificates included.
           </p>
           <div className="space-y-4">
             {[
@@ -132,7 +132,7 @@ export default function Register() {
           <div className="w-full max-w-md">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-navy-900 dark:text-white mb-2">Create your account</h1>
-              <p className="text-gray-500 dark:text-gray-400">Join thousands of learners across Australia</p>
+              <p className="text-gray-500 dark:text-gray-400">Start learning on Synapvex Learn in minutes</p>
             </div>
 
             {/* Social sign-up */}

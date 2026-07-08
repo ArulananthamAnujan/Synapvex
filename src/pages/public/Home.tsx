@@ -8,6 +8,7 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { PRODUCTS } from '../../lib/products';
+import { supabase } from '../../lib/supabase';
 
 const SERVICES = [
   {
@@ -475,7 +476,18 @@ export default function Home() {
             </div>
           ) : (
             <form
-              onSubmit={(e) => { e.preventDefault(); if (email) setSubscribed(true); }}
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!email) return;
+                // stored as a contact message so subscriptions reach the admin inbox
+                await supabase.from('contact_messages').insert({
+                  name: 'Newsletter subscriber',
+                  email,
+                  subject: 'Newsletter subscription',
+                  message: 'Please add me to the Synapvex newsletter.',
+                });
+                setSubscribed(true);
+              }}
               className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto"
             >
               <input

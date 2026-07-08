@@ -55,15 +55,15 @@ export default function Login() {
             <MaximusLogo height={64} variant="dark" />
           </Link>
           <h2 className="font-playfair text-4xl font-bold text-white mb-6 leading-tight">
-            Transform Your Career with World-Class Education
+            Welcome back to Synapvex Learn
           </h2>
           <p className="text-sky-100 text-lg leading-relaxed mb-10">
-            Join thousands of Australians upskilling through our premium online courses designed by industry experts.
+            Sign in to keep learning, teaching, or managing your courses — everything is right where you left it.
           </p>
           <div className="grid grid-cols-3 gap-6">
-            {[['10,000+', 'Students'], ['200+', 'Courses'], ['98%', 'Satisfaction']].map(([val, label]) => (
+            {[['AI', 'Course Builder'], ['Verified', 'Certificates'], ['Anywhere', 'Any Device']].map(([val, label]) => (
               <div key={label} className="text-center bg-white/10 rounded-xl py-4 px-2 backdrop-blur-sm">
-                <p className="text-3xl font-bold text-white font-playfair">{val}</p>
+                <p className="text-2xl font-bold text-white font-playfair">{val}</p>
                 <p className="text-sky-100 text-sm mt-1">{label}</p>
               </div>
             ))}
