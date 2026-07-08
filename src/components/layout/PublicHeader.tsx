@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, User, LogOut, Bell, ChevronDown } from 'lucide-react';
+import { Menu, X, User, LogOut, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MaximusLogo from '../ui/MaximusLogo';
 
@@ -87,18 +87,6 @@ export default function PublicHeader() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-2 shrink-0">
-            <Link
-              to="/notifications"
-              className={`p-2 rounded-lg transition-all ${
-                location.pathname === '/notifications'
-                  ? 'bg-sky-600 text-white'
-                  : 'text-slate-500 hover:bg-sky-50 hover:text-sky-600'
-              }`}
-              title="Notifications"
-            >
-              <Bell className="w-5 h-5" />
-            </Link>
-
             {user && profile ? (
               <div className="relative" ref={menuRef}>
                 <button
@@ -172,16 +160,6 @@ export default function PublicHeader() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/notifications"
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                location.pathname === '/notifications'
-                  ? 'bg-sky-600 text-white'
-                  : 'text-slate-700 hover:bg-sky-50 hover:text-sky-700'
-              }`}
-            >
-              <Bell className="w-4 h-4" /> Notifications
-            </Link>
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
               {user && profile ? (
                 <>

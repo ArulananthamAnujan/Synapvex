@@ -29,6 +29,16 @@ export default function Register() {
     setError('');
   };
 
+  const handleOAuth = async (provider: 'google' | 'microsoft') => {
+    setError('');
+    const { error } = provider === 'google'
+      ? await signInWithGoogle(next ?? undefined)
+      : await signInWithMicrosoft(next ?? undefined);
+    if (error) {
+      setError(`Could not start ${provider === 'google' ? 'Google' : 'Microsoft'} sign-up: ${error.message}`);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.email || !formData.password) {
@@ -128,7 +138,7 @@ export default function Register() {
             {/* Social sign-up */}
             <div className="flex gap-3 mb-6">
               <button
-                onClick={signInWithGoogle}
+                onClick={() => handleOAuth('google')}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 bg-white dark:bg-navy-800 transition-colors"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -140,7 +150,7 @@ export default function Register() {
                 Google
               </button>
               <button
-                onClick={signInWithMicrosoft}
+                onClick={() => handleOAuth('microsoft')}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 bg-white dark:bg-navy-800 transition-colors"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">

@@ -35,6 +35,16 @@ export default function Login() {
     }
   };
 
+  const handleOAuth = async (provider: 'google' | 'microsoft') => {
+    setError('');
+    const { error } = provider === 'google'
+      ? await signInWithGoogle(next ?? undefined)
+      : await signInWithMicrosoft(next ?? undefined);
+    if (error) {
+      setError(`Could not start ${provider === 'google' ? 'Google' : 'Microsoft'} sign-in: ${error.message}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-950 flex">
       <div className="hidden lg:flex lg:w-1/2 bg-sky-600 relative overflow-hidden">
@@ -85,14 +95,14 @@ export default function Login() {
 
             <div className="flex gap-3 mb-6">
               <button
-                onClick={signInWithGoogle}
+                onClick={() => handleOAuth('google')}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors"
               >
                 <Google className="w-4 h-4" />
                 Google
               </button>
               <button
-                onClick={signInWithMicrosoft}
+                onClick={() => handleOAuth('microsoft')}
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>

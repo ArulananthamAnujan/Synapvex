@@ -12,8 +12,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string, fullName: string, role?: string) => Promise<{ error: Error | null; data: { user: User | null } | null }>;
   signOut: () => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
-  signInWithMicrosoft: () => Promise<void>;
+  signInWithGoogle: (nextPath?: string) => Promise<{ error: Error | null }>;
+  signInWithMicrosoft: (nextPath?: string) => Promise<{ error: Error | null }>;
   refreshProfile: () => Promise<void>;
 }
 
@@ -22,8 +22,8 @@ const AuthContext = createContext<AuthContextType>({
   signIn: async () => ({ error: null }),
   signUp: async (_e, _p, _f, _r) => ({ error: null, data: null }),
   signOut: async () => {},
-  signInWithGoogle: async () => {},
-  signInWithMicrosoft: async () => {},
+  signInWithGoogle: async () => ({ error: null }),
+  signInWithMicrosoft: async () => ({ error: null }),
   refreshProfile: async () => {},
 });
 
@@ -108,18 +108,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await supabase.auth.signOut();
   };
 
-  const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+  // OAuth errors must reach the caller: if the provider isn't enabled in
+  // Supabase, signInWithOAuth fails without redirecting and the button
+  // would otherwise appear to do nothing.
+  const signInWithGoogle = async (nextPath?: string) => {
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: `${window.location.origin}${nextPath ?? '/dashboard'}` },
     });
+    return { error: error as Error | null };
   };
 
-  const signInWithMicrosoft = async () => {
-    await supabase.auth.signInWithOAuth({
+  const signInWithMicrosoft = async (nextPath?: string) => {
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'azure',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: `${window.location.origin}${nextPath ?? '/dashboard'}` },
     });
+    return { error: error as Error | null };
   };
 
   const refreshProfile = async () => {

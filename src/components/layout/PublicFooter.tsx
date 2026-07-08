@@ -108,9 +108,8 @@ export default function PublicFooter() {
               {[
                 { label: 'Why Choose Us', href: '/about' },
                 { label: 'FAQs', href: '/contact' },
-                { label: 'Student Portal', href: '/student' },
                 { label: 'Verify Certificate', href: '/verify' },
-                { label: 'Notifications', href: '/notifications' },
+                { label: 'Sign In', href: '/login' },
               ].map(link => (
                 <li key={link.label}>
                   <Link to={link.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{link.label}</Link>
