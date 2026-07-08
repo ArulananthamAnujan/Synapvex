@@ -139,18 +139,28 @@ export default function TeacherEarnings() {
     setSubmittingPayout(false);
   };
 
+  // Token purchases go through Stripe checkout; the webhook credits the
+  // tokens after payment. (Previously this credited tokens for free.)
   const handlePurchaseAI = async (plan: TeacherAIPlan) => {
     if (!profile) return;
     setPurchasingPlan(plan.id);
-    const { error } = await supabase.rpc('add_teacher_tokens', { p_user_id: profile.id, p_tokens: plan.token_amount });
-    if (error) {
-      toast.error('Purchase failed. Please try again.');
-    } else {
-      toast.success(`${plan.token_amount} AI tokens added to your account!`);
-      const { data } = await supabase.from('teacher_ai_credits').select('*').eq('user_id', profile.id).maybeSingle();
-      if (data) setAiCredits(data);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      if (!token) { toast.error('Please sign in again.'); return; }
+      const resp = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-create-checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ type: 'teacher_ai_plan', plan_id: plan.id }),
+      });
+      const data = await resp.json();
+      if (data.url) { window.location.href = data.url; return; }
+      toast.error(data.error || 'Could not start checkout. Please try again.');
+    } catch {
+      toast.error('Could not reach the payment service.');
+    } finally {
+      setPurchasingPlan(null);
     }
-    setPurchasingPlan(null);
   };
 
   const statusBadge = (s: string) => {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
   Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight, Mail,
-  CheckCircle, BookOpen, Users, Star, Zap, Award, TrendingUp, GraduationCap,
+  CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
@@ -123,13 +123,6 @@ const WHY_US = [
   { icon: Award, title: 'Transparent Communication', desc: 'Competitive pricing, clear timelines, and honest communication throughout every engagement.' },
 ];
 
-const STATS = [
-  { value: '200+', label: 'Projects Delivered' },
-  { value: '50+', label: 'Business Clients' },
-  { value: '10+', label: 'Services Offered' },
-  { value: '98%', label: 'Client Satisfaction' },
-];
-
 export default function Home() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -177,14 +170,6 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="flex flex-wrap gap-10 mt-14">
-              {STATS.map(stat => (
-                <div key={stat.label}>
-                  <p className="text-3xl font-bold text-white font-playfair">{stat.value}</p>
-                  <p className="text-slate-400 text-sm mt-0.5 font-medium">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -393,68 +378,6 @@ export default function Home() {
                 <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack / Gallery */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Our Work</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900">Technology in Action</h2>
-            <p className="text-slate-500 mt-3 max-w-lg mx-auto">A glimpse into the environments and solutions we create for our clients.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg',
-              'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg',
-              'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg',
-              'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg',
-              'https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg',
-              'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
-            ].map((src, i) => (
-              <div key={i} className={`overflow-hidden rounded-2xl ${i === 0 ? 'md:col-span-2' : ''}`}>
-                <img
-                  src={src}
-                  alt={`SynapVex work ${i + 1}`}
-                  className="w-full h-52 object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-8">Client Stories</p>
-          <div className="relative">
-            <div className="w-12 h-12 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Star className="w-6 h-6 text-sky-600" />
-            </div>
-            <blockquote className="font-playfair text-2xl sm:text-3xl text-slate-900 font-medium leading-relaxed mb-8 italic">
-              "SynapVex Technologies completely transformed our IT infrastructure. Their team is professional, responsive, and genuinely committed to delivering results."
-            </blockquote>
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-sky-100">
-                <img
-                  src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
-                  alt="Client"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="text-left">
-                <p className="font-semibold text-slate-900">James Mitchell</p>
-                <p className="text-sm text-slate-500">Operations Director, TechBridge Solutions</p>
-                <div className="flex items-center gap-0.5 mt-1">
-                  {[1, 2, 3, 4, 5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

@@ -20,8 +20,7 @@ export default function RefundPolicy() {
       <div>
         <h2>Teacher Subscriptions</h2>
         <ul>
-          <li>Teacher plans include a 7-day free trial — cancel during the trial and you won't be charged.</li>
-          <li>After billing, you can cancel anytime; your plan stays active until the end of the paid period. Partial months are not refunded.</li>
+          <li>Plans are paid per period (monthly or annual). You can cancel anytime; your plan stays active until the end of the period you paid for. Partial periods are not refunded.</li>
           <li>If we materially fail to provide the service you paid for, contact us and we'll make it right.</li>
         </ul>
       </div>

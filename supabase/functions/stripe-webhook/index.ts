@@ -94,7 +94,9 @@ Deno.serve(async (req: Request) => {
       }
 
       const now = new Date();
-      const periodEnd = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+      const interval = metadata.billing_interval === "yearly" ? "yearly" : "monthly";
+      const periodDays = interval === "yearly" ? 365 : 30;
+      const periodEnd = new Date(now.getTime() + periodDays * 24 * 60 * 60 * 1000);
 
       // Activate subscription
       const { error: subError } = await supabase
@@ -103,6 +105,9 @@ Deno.serve(async (req: Request) => {
           teacher_id,
           plan_id,
           status: "active",
+          billing_interval: interval,
+          cancel_at_period_end: false,
+          cancelled_at: null,
           stripe_session_id: stripeSessionId,
           stripe_payment_id: stripePaymentId || null,
           amount_paid_cents: amountCents,
@@ -136,6 +141,39 @@ Deno.serve(async (req: Request) => {
     }
 
     // --- AI Plan Purchase ---
+    if (purchaseType === "teacher_ai_plan") {
+      const { teacher_id, plan_id, token_amount } = metadata;
+      if (!teacher_id || !token_amount) {
+        console.error("Missing metadata for teacher AI top-up");
+        return new Response(JSON.stringify({ received: true, warning: "Missing metadata" }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const tokens = parseInt(token_amount, 10);
+      try {
+        await supabase.rpc("add_teacher_tokens", { p_user_id: teacher_id, p_tokens: tokens });
+      } catch (e) {
+        console.error("Teacher token add error:", e);
+      }
+
+      await safeUpsert(supabase, "payments", {
+        user_id: teacher_id,
+        amount: amountCents / 100,
+        currency: "AUD",
+        status: "completed",
+        stripe_session_id: stripeSessionId,
+        stripe_payment_id: stripePaymentId || null,
+      }, { onConflict: "stripe_session_id" });
+
+      console.log(`Added ${tokens} AI credits to teacher ${teacher_id} (plan ${plan_id})`);
+      return new Response(
+        JSON.stringify({ received: true, type: "teacher_ai_plan", tokens_added: tokens }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     if (purchaseType === "ai_plan") {
       const { student_id, plan_id, token_amount } = metadata;
       if (!student_id || !token_amount) {

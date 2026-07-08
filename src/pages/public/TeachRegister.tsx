@@ -12,6 +12,7 @@ interface Plan {
   name: string;
   slug: string;
   price_monthly_cents: number;
+  price_yearly_cents: number | null;
   max_courses: number;
   max_students: number;
   ai_tokens_monthly: number;
@@ -29,6 +30,7 @@ export default function TeachRegister() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [step, setStep] = useState<'plan' | 'register'>('plan');
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('monthly');
 
   const { signUp, user, profile, signOut } = useAuth();
   const { toast } = useToast();
@@ -77,6 +79,12 @@ export default function TeachRegister() {
     setError('');
   };
 
+  const planPriceCents = (plan: Plan) => billingInterval === 'yearly'
+    ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
+    : plan.price_monthly_cents;
+  const intervalSuffix = billingInterval === 'yearly' ? '/yr' : '/mo';
+  const periodDays = billingInterval === 'yearly' ? 365 : 30;
+
   // Start a subscription checkout for an already-signed-in teacher.
   const handleSubscribeExisting = async () => {
     if (!selectedPlan || !user) return;
@@ -86,8 +94,9 @@ export default function TeachRegister() {
       teacher_id: user.id,
       plan_id: selectedPlan.id,
       status: 'pending',
+      billing_interval: billingInterval,
       current_period_start: new Date().toISOString(),
-      current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      current_period_end: new Date(Date.now() + periodDays * 24 * 60 * 60 * 1000).toISOString(),
     });
     try {
       const session = await supabase.auth.getSession();
@@ -96,7 +105,7 @@ export default function TeachRegister() {
         const resp = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-create-checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ type: 'teacher_subscription', plan_id: selectedPlan.id }),
+          body: JSON.stringify({ type: 'teacher_subscription', plan_id: selectedPlan.id, billing_interval: billingInterval }),
         });
         const data = await resp.json();
         if (data.url) {
@@ -145,8 +154,9 @@ export default function TeachRegister() {
         teacher_id: userId,
         plan_id: selectedPlan.id,
         status: 'pending',
+        billing_interval: billingInterval,
         current_period_start: new Date().toISOString(),
-        current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        current_period_end: new Date(Date.now() + periodDays * 24 * 60 * 60 * 1000).toISOString(),
       });
     }
 
@@ -158,7 +168,7 @@ export default function TeachRegister() {
         const resp = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-create-checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ type: 'teacher_subscription', plan_id: selectedPlan.id }),
+          body: JSON.stringify({ type: 'teacher_subscription', plan_id: selectedPlan.id, billing_interval: billingInterval }),
         });
         const data = await resp.json();
         if (data.url) {
@@ -254,7 +264,26 @@ export default function TeachRegister() {
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Step 1 of 2</p>
             <h1 className="font-playfair text-4xl font-bold text-slate-900 mb-3">Choose Your Teaching Plan</h1>
-            <p className="text-slate-500 max-w-lg mx-auto">All plans include a 7-day free trial. Change or cancel anytime.</p>
+            <p className="text-slate-500 max-w-lg mx-auto">Pay monthly, or pay for the year upfront and save two months. Cancel anytime.</p>
+            <div className="inline-flex items-center bg-white border border-slate-200 rounded-xl p-1 mt-6">
+              {(['monthly', 'yearly'] as const).map(i => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setBillingInterval(i)}
+                  className={`px-5 py-2 rounded-lg text-sm font-bold transition-colors flex items-center gap-1.5 ${
+                    billingInterval === i ? 'bg-sky-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  {i === 'monthly' ? 'Monthly' : 'Annual'}
+                  {i === 'yearly' && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${billingInterval === i ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
+                      2 months free
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
           {plans.length === 0 ? (
@@ -288,10 +317,15 @@ export default function TeachRegister() {
                       </div>
                     )}
                     <h3 className="font-bold text-slate-900 text-lg mb-1">{plan.name}</h3>
-                    <div className="flex items-end gap-1 mb-4">
-                      <span className="font-black text-3xl text-slate-900">${(plan.price_monthly_cents / 100).toFixed(0)}</span>
-                      <span className="text-slate-400 text-sm mb-0.5">/mo</span>
+                    <div className="flex items-end gap-1 mb-1">
+                      <span className="font-black text-3xl text-slate-900">${(planPriceCents(plan) / 100).toFixed(0)}</span>
+                      <span className="text-slate-400 text-sm mb-0.5">{intervalSuffix}</span>
                     </div>
+                    {billingInterval === 'yearly' ? (
+                      <p className="text-xs text-emerald-600 font-semibold mb-4">≈ ${(planPriceCents(plan) / 1200).toFixed(2)}/month, paid upfront for the year</p>
+                    ) : (
+                      <div className="mb-4" />
+                    )}
                     <ul className="space-y-2">
                       {(plan.features as string[]).slice(0, 5).map(f => (
                         <li key={f} className="flex items-start gap-2 text-xs text-slate-600">
@@ -356,7 +390,7 @@ export default function TeachRegister() {
               <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sky-800 font-semibold">{selectedPlan.name} Plan</span>
-                  <span className="text-sky-700 font-black">${(selectedPlan.price_monthly_cents / 100).toFixed(0)}/mo</span>
+                  <span className="text-sky-700 font-black">${(planPriceCents(selectedPlan) / 100).toFixed(0)}{intervalSuffix}</span>
                 </div>
                 <ul className="space-y-1.5">
                   {(selectedPlan.features as string[]).slice(0, 5).map(f => (
@@ -402,7 +436,7 @@ export default function TeachRegister() {
             <div className="bg-white/10 border border-white/20 rounded-2xl p-5 mb-6">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-white font-bold">{selectedPlan.name} Plan</span>
-                <span className="text-sky-300 font-black">${(selectedPlan.price_monthly_cents / 100).toFixed(0)}/mo</span>
+                <span className="text-sky-300 font-black">${(planPriceCents(selectedPlan) / 100).toFixed(0)}{intervalSuffix}</span>
               </div>
               <ul className="space-y-1.5">
                 {(selectedPlan.features as string[]).map(f => (
@@ -423,7 +457,7 @@ export default function TeachRegister() {
           )}
           <div className="flex items-center gap-2 text-sky-300 text-sm">
             <Zap className="w-4 h-4" />
-            <span>7-day free trial included. No credit card required to start.</span>
+            <span>Cancel anytime — you keep access until the end of your paid period.</span>
           </div>
         </div>
         <p className="relative z-10 text-xs text-slate-600">
@@ -512,7 +546,7 @@ export default function TeachRegister() {
                 <div className="lg:hidden p-4 rounded-xl bg-sky-50 border border-sky-200">
                   <div className="flex items-center justify-between">
                     <span className="text-sky-800 font-semibold text-sm">{selectedPlan.name} Plan</span>
-                    <span className="text-sky-700 font-bold">${(selectedPlan.price_monthly_cents / 100).toFixed(0)}/mo</span>
+                    <span className="text-sky-700 font-bold">${(planPriceCents(selectedPlan) / 100).toFixed(0)}{intervalSuffix}</span>
                   </div>
                   <button type="button" onClick={() => setStep('plan')} className="text-xs text-sky-600 hover:underline mt-1">Change plan</button>
                 </div>

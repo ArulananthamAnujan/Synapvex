@@ -66,7 +66,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const body = await req.json();
-    const { type, course_id, plan_id } = body;
+    const { type, course_id, plan_id, billing_interval } = body;
     const siteUrl = getSiteUrl(req);
 
     // --- Teacher Subscription ---
@@ -80,7 +80,7 @@ Deno.serve(async (req: Request) => {
 
       const { data: plan } = await supabase
         .from("teacher_subscription_plans")
-        .select("id, name, slug, price_monthly_cents")
+        .select("id, name, slug, price_monthly_cents, price_yearly_cents")
         .eq("id", plan_id)
         .maybeSingle();
 
@@ -91,6 +91,12 @@ Deno.serve(async (req: Request) => {
         });
       }
 
+      const interval = billing_interval === "yearly" ? "yearly" : "monthly";
+      const unitAmount = interval === "yearly"
+        ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
+        : plan.price_monthly_cents;
+      const periodLabel = interval === "yearly" ? "12 Months" : "1 Month";
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
@@ -100,10 +106,12 @@ Deno.serve(async (req: Request) => {
             price_data: {
               currency: "aud",
               product_data: {
-                name: `SynapVex LMS — ${plan.name} Teacher Plan (1 Month)`,
-                description: "Monthly subscription for SynapVex LMS Teacher Platform",
+                name: `Synapvex Learn — ${plan.name} Teacher Plan (${periodLabel})`,
+                description: interval === "yearly"
+                  ? "Annual teacher plan for Synapvex Learn, paid upfront"
+                  : "Monthly teacher plan for Synapvex Learn",
               },
-              unit_amount: plan.price_monthly_cents,
+              unit_amount: unitAmount,
             },
             quantity: 1,
           },
@@ -112,6 +120,7 @@ Deno.serve(async (req: Request) => {
           teacher_id: user.id,
           plan_id: plan.id,
           plan_slug: plan.slug,
+          billing_interval: interval,
           type: "teacher_subscription",
         },
         success_url: `${siteUrl}/teacher?subscription=success&session_id={CHECKOUT_SESSION_ID}`,
@@ -240,6 +249,60 @@ Deno.serve(async (req: Request) => {
         },
         success_url: `${siteUrl}/student/ai-plans?payment=success&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${siteUrl}/student/ai-plans?payment=cancelled`,
+      });
+
+      return new Response(JSON.stringify({ url: session.url }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (type === "teacher_ai_plan") {
+      if (!plan_id) {
+        return new Response(JSON.stringify({ error: "plan_id required" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const { data: plan } = await supabase
+        .from("teacher_ai_plans")
+        .select("id, name, price_cents, token_amount")
+        .eq("id", plan_id)
+        .maybeSingle();
+
+      if (!plan) {
+        return new Response(JSON.stringify({ error: "Plan not found" }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "payment",
+        customer_email: user.email,
+        line_items: [
+          {
+            price_data: {
+              currency: "aud",
+              product_data: {
+                name: `Synapvex Learn — ${plan.name} (${plan.token_amount} AI Credits)`,
+                description: "AI credit top-up for your teacher account. Credits never expire.",
+              },
+              unit_amount: plan.price_cents,
+            },
+            quantity: 1,
+          },
+        ],
+        metadata: {
+          teacher_id: user.id,
+          plan_id: plan.id,
+          token_amount: String(plan.token_amount),
+          type: "teacher_ai_plan",
+        },
+        success_url: `${siteUrl}/teacher/billing?tokens=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${siteUrl}/teacher/billing?tokens=cancelled`,
       });
 
       return new Response(JSON.stringify({ url: session.url }), {

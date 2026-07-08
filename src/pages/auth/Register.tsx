@@ -79,7 +79,7 @@ export default function Register() {
           </p>
           <div className="space-y-4">
             {[
-              'Access to 200+ premium courses',
+              'Courses from independent teachers & academies',
               'Learn at your own pace',
               'AI-powered study tools',
               'Earn industry-recognised certificates',

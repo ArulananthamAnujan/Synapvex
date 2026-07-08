@@ -1,5 +1,5 @@
 import {
-  LayoutDashboard, BookOpen, Layers, HelpCircle, FileText, Users, MessageSquare, Video, Award, ClipboardList, DollarSign, CalendarDays, Store,
+  LayoutDashboard, BookOpen, Layers, HelpCircle, FileText, Users, MessageSquare, Video, Award, ClipboardList, DollarSign, CalendarDays, Store, CreditCard,
 } from 'lucide-react';
 import type { NavItem } from '../../components/layout/DashboardLayout';
 
@@ -17,4 +17,5 @@ export const teacherNavItems: NavItem[] = [
   { label: 'Certificates', href: '/teacher/certificates', icon: Award },
   { label: 'F2F Requests', href: '/teacher/f2f-requests', icon: CalendarDays },
   { label: 'Earnings & AI', href: '/teacher/earnings', icon: DollarSign },
+  { label: 'Plan & Billing', href: '/teacher/billing', icon: CreditCard },
 ];

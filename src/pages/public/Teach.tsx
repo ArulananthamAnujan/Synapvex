@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   BookOpen, CheckCircle, ChevronRight, ArrowRight, Users,
-  Star, GraduationCap, Globe, Award, BarChart2, ShieldCheck,
+  GraduationCap, Globe, Award, BarChart2, ShieldCheck,
   Video, Clock, DollarSign, Sparkles,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
@@ -59,30 +59,6 @@ const PLATFORM_FEATURES = [
   { icon: Award, title: 'Certificates', desc: 'Automatically issue branded certificates when students complete your courses.' },
   { icon: Clock, title: 'Flexible Scheduling', desc: 'Book live face-to-face sessions, manage schedules, and send announcements.' },
   { icon: ShieldCheck, title: 'Secure Payments', desc: 'Collect course fees securely online. Earnings paid directly to you.' },
-];
-
-const TESTIMONIALS = [
-  {
-    quote: 'I launched my first IELTS prep course in a weekend using the AI builder. I now have 120 enrolled students.',
-    name: 'Priya Sharma',
-    role: 'Language Teacher',
-    initials: 'PS',
-    color: 'from-sky-500 to-sky-700',
-  },
-  {
-    quote: 'The shareable course link is genius. I shared it on LinkedIn and students were enrolling the same day.',
-    name: 'David Nguyen',
-    role: 'IT Instructor',
-    initials: 'DN',
-    color: 'from-emerald-500 to-emerald-700',
-  },
-  {
-    quote: 'Best teacher platform I have used. The certificate system alone saves me hours every week.',
-    name: 'Sarah Mitchell',
-    role: 'Business Trainer',
-    initials: 'SM',
-    color: 'from-amber-500 to-amber-700',
-  },
 ];
 
 function PlanCard({ plan, isPopular }: { plan: Plan; isPopular: boolean }) {
@@ -296,7 +272,7 @@ export default function Teach() {
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Choose Your Plan</h2>
-            <p className="text-slate-500 max-w-xl mx-auto">All plans include a 7-day free trial. No hidden fees. Cancel anytime.</p>
+            <p className="text-slate-500 max-w-xl mx-auto">Simple per-period pricing — monthly or annual. No hidden fees. Cancel anytime.</p>
           </div>
 
           {plans.length === 0 ? (
@@ -319,37 +295,6 @@ export default function Teach() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Teacher Stories</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900">What Teachers Are Saying</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map(t => (
-              <div key={t.name} className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-                <div className="flex gap-0.5 mb-4">
-                  {[1, 2, 3, 4, 5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-slate-700 leading-relaxed mb-5 italic">"{t.quote}"</p>
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-sm font-bold text-white shrink-0`}>
-                    {t.initials}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
-                    <p className="text-xs text-slate-500">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -361,7 +306,7 @@ export default function Teach() {
               { q: 'Can I share my course links externally?', a: 'Yes. Every course gets a unique public link you can share on social media, email, your website, or anywhere. Students click the link, land on the course preview page, and enrol directly.' },
               { q: 'Who keeps the course earnings?', a: 'You set your own course price and keep 100% of what students pay. SynapVex charges only the monthly subscription fee — no per-sale commission.' },
               { q: 'Can I use the AI course builder on all plans?', a: 'AI tools are available on all plans. Starter includes 500 tokens/month; Professional includes 2,000; Business includes 10,000. Tokens reset each billing cycle.' },
-              { q: 'What happens after my trial ends?', a: 'After the 7-day trial, your chosen plan is billed monthly. You can cancel at any time from your dashboard and your account stays active until the end of the billing period.' },
+              { q: 'How does billing work?', a: 'Plans are paid per period — monthly, or annually with two months free. You can cancel at any time from Plan & Billing in your dashboard, and your account stays active until the end of the period you paid for.' },
               { q: 'Can I upgrade or downgrade my plan?', a: 'Yes. You can change your plan at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.' },
             ].map(({ q, a }) => (
               <details key={q} className="group bg-white rounded-xl border border-slate-200 p-5 cursor-pointer hover:border-sky-200 transition-colors">
@@ -382,7 +327,7 @@ export default function Teach() {
           <Users className="w-12 h-12 text-white/70 mx-auto mb-5" />
           <h2 className="font-playfair text-4xl font-bold text-white mb-4">Ready to Start Teaching?</h2>
           <p className="text-sky-100 text-lg mb-8 leading-relaxed">
-            Join teachers already growing their course business on Synapvex Learn. Start your 7-day free trial today — no credit card required.
+            Create your account, pick a plan, and publish your first course under your own brand. Cancel anytime.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link to="/teach/register" className="px-8 py-4 bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-50 transition-colors flex items-center gap-2">

@@ -129,6 +129,7 @@ const TeacherExams = lazy(() => import('./pages/teacher/TeacherExams'));
 const TeacherEarnings = lazy(() => import('./pages/teacher/TeacherEarnings'));
 const TeacherF2FRequests = lazy(() => import('./pages/teacher/TeacherF2FRequests'));
 const TeacherCoursePage = lazy(() => import('./pages/teacher/TeacherCoursePage'));
+const TeacherBilling = lazy(() => import('./pages/teacher/TeacherBilling'));
 
 const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'));
 const StudentCourses = lazy(() => import('./pages/student/StudentCourses'));
@@ -287,6 +288,7 @@ export default function App() {
                 <Route path="/teacher/earnings" element={<ProtectedRoute role="teacher"><TeacherEarnings /></ProtectedRoute>} />
                 <Route path="/teacher/f2f-requests" element={<ProtectedRoute role="teacher"><TeacherF2FRequests /></ProtectedRoute>} />
                 <Route path="/teacher/course-page" element={<ProtectedRoute role="teacher"><TeacherCoursePage /></ProtectedRoute>} />
+                <Route path="/teacher/billing" element={<ProtectedRoute role="teacher"><TeacherBilling /></ProtectedRoute>} />
 
                 <Route path="/student" element={<ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>} />
                 <Route path="/student/courses" element={<ProtectedRoute role="student"><StudentCourses /></ProtectedRoute>} />

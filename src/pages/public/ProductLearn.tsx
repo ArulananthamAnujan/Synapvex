@@ -246,7 +246,7 @@ export default function ProductLearn() {
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-3">Start small, scale to an academy</h2>
-            <p className="text-slate-500">Monthly teacher plans. Students always join free.</p>
+            <p className="text-slate-500">Pay monthly, or pay annually upfront and get two months free. Students always join free. Cancel anytime.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {PLANS.map(plan => (

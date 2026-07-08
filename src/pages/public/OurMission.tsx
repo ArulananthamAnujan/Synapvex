@@ -39,13 +39,6 @@ const GOALS = [
   'Grow a family of products that work better together',
 ];
 
-const MILESTONES = [
-  { value: '200+', label: 'Projects Delivered' },
-  { value: '50+', label: 'Business Clients' },
-  { value: '4', label: 'Products in the Family' },
-  { value: '98%', label: 'Client Satisfaction' },
-];
-
 export default function OurMission() {
   return (
     <div className="min-h-screen bg-white">
@@ -108,25 +101,8 @@ export default function OurMission() {
                 alt="The Synapvex team at work"
                 className="rounded-2xl w-full h-96 object-cover shadow-2xl"
               />
-              <div className="absolute -bottom-6 -left-6 bg-sky-600 rounded-2xl p-5 shadow-xl">
-                <p className="font-playfair text-3xl font-bold text-white">98%</p>
-                <p className="text-sky-100 font-medium text-sm mt-1">Client Satisfaction</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {MILESTONES.map((m, i) => (
-              <div key={i} className="text-center">
-                <p className="font-playfair text-4xl font-bold text-white mb-2">{m.value}</p>
-                <p className="text-slate-400 font-medium">{m.label}</p>
-              </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -174,14 +150,14 @@ export default function OurMission() {
             </div>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { icon: Briefcase, label: 'Projects', value: '200+' },
-                { icon: Users, label: 'Clients', value: '50+' },
-                { icon: Package, label: 'Products', value: '4' },
+                { icon: Package, label: 'Products', value: 'Learn live, more building' },
+                { icon: Briefcase, label: 'Services', value: '10 specialist areas' },
+                { icon: Users, label: 'Support', value: 'Direct to our team' },
               ].map((stat, i) => (
                 <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
                   <stat.icon className="w-8 h-8 text-sky-400 mx-auto mb-3" />
-                  <p className="font-playfair text-3xl font-bold text-white mb-1">{stat.value}</p>
-                  <p className="text-slate-400 text-sm">{stat.label}</p>
+                  <p className="font-bold text-white mb-1">{stat.label}</p>
+                  <p className="text-slate-400 text-sm">{stat.value}</p>
                 </div>
               ))}
             </div>
