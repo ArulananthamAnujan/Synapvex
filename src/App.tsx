@@ -162,15 +162,30 @@ function roleHome(role: string) {
 }
 
 function DashboardRedirect() {
-  const { profile, loading, user } = useAuth();
+  const { profile, loading, user, refreshProfile } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) return;
     if (!user) { navigate('/login', { replace: true }); return; }
-    if (profile) navigate(roleHome(profile.role), { replace: true });
-    else navigate('/student', { replace: true });
-  }, [profile, loading, user, navigate]);
+    if (!profile) { navigate('/student', { replace: true }); return; }
+
+    // A Google/Microsoft signup started from the "teach free" flow creates a
+    // student by default — promote it to teacher once, then continue.
+    const pendingRole = localStorage.getItem('sv_signup_role');
+    if (pendingRole === 'teacher' && profile.role === 'student') {
+      localStorage.removeItem('sv_signup_role');
+      import('./lib/supabase').then(({ supabase }) =>
+        supabase.from('profiles').update({ role: 'teacher' }).eq('id', user.id)
+      ).then(async () => {
+        await refreshProfile();
+        navigate('/teacher', { replace: true });
+      });
+      return;
+    }
+    localStorage.removeItem('sv_signup_role');
+    navigate(roleHome(profile.role), { replace: true });
+  }, [profile, loading, user, navigate, refreshProfile]);
 
   return <LoadingScreen />;
 }
