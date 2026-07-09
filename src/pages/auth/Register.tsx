@@ -99,10 +99,10 @@ export default function Register() {
             <div className="flex items-start gap-3">
               <Info className="w-4 h-4 text-sky-100 shrink-0 mt-0.5" />
               <div>
-                <p className="text-white font-semibold text-sm">Are you a teacher?</p>
+                <p className="text-white font-semibold text-sm">Are you a client?</p>
                 <p className="text-sky-100 text-xs mt-1 leading-relaxed">
                   Teachers get their own course builder, student management, and earnings dashboard.{' '}
-                  <a href="/teach" className="text-white underline hover:text-sky-200 font-semibold">View teacher plans →</a>
+                  <a href="/teach" className="text-white underline hover:text-sky-200 font-semibold">View client plans →</a>
                 </p>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function Register() {
                 <Info className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
                 <p className="text-xs text-sky-700 dark:text-sky-300">
                   Want to teach on Synapvex Learn?{' '}
-                  <Link to="/teach" className="underline font-semibold">View teacher plans →</Link>
+                  <Link to="/teach" className="underline font-semibold">View client plans →</Link>
                 </p>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle2, ArrowLeft, CheckCircle, Zap, Sparkles } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
+import { roleLabel } from '../../lib/utils';
 import { supabase } from '../../lib/supabase';
 import MaximusLogo from '../../components/ui/MaximusLogo';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
@@ -220,7 +221,7 @@ export default function TeachRegister() {
       // Stripe not configured — still let them in as teacher (admin can verify subscription)
     }
 
-    toast.success(`Welcome aboard! Your teacher account is active. Set up your first course.`);
+    toast.success(`Welcome aboard! Your client account is active. Set up your first course.`);
     navigate('/teacher');
   };
 
@@ -350,8 +351,8 @@ export default function TeachRegister() {
             </div>
             <h2 className="text-xl font-bold text-slate-900 mb-2">You're already signed in</h2>
             <p className="text-sm text-slate-500 mb-6">
-              You're signed in as <strong>{profile.email}</strong> ({profile.role.replace('_', ' ')} account).
-              To create a separate teacher account, sign out first — or head back to your dashboard.
+              You're signed in as <strong>{profile.email}</strong> ({roleLabel(profile.role)} account).
+              To create a separate client account, sign out first — or head back to your dashboard.
             </p>
             <div className="flex flex-col gap-2.5">
               <button onClick={() => navigate('/dashboard')} className="btn-primary w-full">Go to My Dashboard</button>
@@ -359,7 +360,7 @@ export default function TeachRegister() {
                 onClick={async () => { await signOut(); }}
                 className="w-full px-6 py-2.5 border-2 border-slate-200 text-slate-600 text-sm font-semibold rounded-xl hover:border-slate-300 transition-colors"
               >
-                Sign out & create a teacher account
+                Sign out & create a client account
               </button>
             </div>
           </div>
@@ -574,10 +575,10 @@ export default function TeachRegister() {
           </Link>
           <h2 className="font-playfair text-3xl font-bold text-white mb-4">
             You're signing up as a<br />
-            <span className="text-sky-400">{selectedPlan?.name} Teacher</span>
+            <span className="text-sky-400">{selectedPlan?.name} Client</span>
           </h2>
           <p className="text-slate-400 mb-8 leading-relaxed">
-            Create courses, share your link, and build your teaching business on Synapvex Learn.
+            Create courses, share your link, and build your course business on Synapvex Learn.
           </p>
           {selectedPlan && (
             <div className="bg-white/10 border border-white/20 rounded-2xl p-5 mb-6">
@@ -628,7 +629,7 @@ export default function TeachRegister() {
           <div className="w-full max-w-md">
             <div className="mb-6">
               <p className="text-sky-600 text-sm font-semibold uppercase tracking-wider mb-1">Step 2 of 2</p>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Teacher Account</h1>
+              <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Client Account</h1>
               <p className="text-gray-500 text-sm">Start free with AI credits to explore — or subscribe now to unlock full limits.</p>
             </div>
 

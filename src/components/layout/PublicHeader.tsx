@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, User, LogOut, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MaximusLogo from '../ui/MaximusLogo';
+import { roleLabel } from '../../lib/utils';
 
 export default function PublicHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,7 +107,7 @@ export default function PublicHeader() {
                     <div className="px-4 py-3 border-b border-slate-100 dark:border-navy-700">
                       <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{profile.full_name || 'User'}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{profile.email}</p>
-                      <span className="inline-flex mt-1.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full font-semibold capitalize">{profile.role}</span>
+                      <span className="inline-flex mt-1.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full font-semibold">{roleLabel(profile.role)}</span>
                     </div>
                     <button onClick={handleDashboard} className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors">
                       <User className="w-4 h-4 text-slate-400 dark:text-slate-500" /> My Dashboard

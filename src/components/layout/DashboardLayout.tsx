@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, LogOut, Bell, ChevronDown, ExternalLink, ChevronRight } from 'lucide-react';
 import DarkModeToggle from '../ui/DarkModeToggle';
 import { useAuth } from '../../contexts/AuthContext';
+import { roleLabel } from '../../lib/utils';
 import MaximusLogo from '../ui/MaximusLogo';
 import type { LucideIcon } from 'lucide-react';
 
@@ -118,7 +119,7 @@ export default function DashboardLayout({ navItems, children, title, subtitle }:
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-slate-800 dark:text-white truncate leading-tight">{profile?.full_name || 'User'}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 truncate capitalize">{profile?.role}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{roleLabel(profile?.role)}</p>
           </div>
           <button onClick={handleSignOut} title="Sign out"
             className="p-1.5 text-slate-400 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors shrink-0">
@@ -189,8 +190,8 @@ export default function DashboardLayout({ navItems, children, title, subtitle }:
                   <div className="px-4 py-3 border-b border-slate-100 dark:border-navy-700">
                     <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{profile?.full_name || 'User'}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{profile?.email}</p>
-                    <span className="inline-flex mt-1.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full font-medium capitalize">
-                      {profile?.role}
+                    <span className="inline-flex mt-1.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full font-medium">
+                      {roleLabel(profile?.role)}
                     </span>
                   </div>
                   <Link to="/" onClick={() => setUserMenuOpen(false)}

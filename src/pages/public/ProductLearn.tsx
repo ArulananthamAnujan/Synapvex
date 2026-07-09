@@ -12,7 +12,7 @@ const STEPS = [
   {
     icon: GraduationCap,
     title: 'Start free — no card',
-    desc: 'Create your teacher account and explore with free AI credits. Subscribe only when you are ready to scale.',
+    desc: 'Create your client account and explore with free AI credits. Subscribe only when you are ready to scale.',
   },
   {
     icon: Sparkles,
@@ -166,7 +166,7 @@ export default function ProductLearn() {
               Your students never feel like they left your website
             </h2>
             <p className="text-slate-300 text-lg max-w-3xl mx-auto mb-8">
-              Every teacher and academy gets a branded course page at their own link — your logo in the
+              Every client and academy gets a branded course page at their own link — your logo in the
               header, your colors on every button, only your courses on the shelf. Share it from your
               website, Instagram or WhatsApp; students enrol and learn without ever seeing another brand.
             </p>
@@ -220,7 +220,7 @@ export default function ProductLearn() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: Users, label: 'Team of teachers' },
+                { icon: Users, label: 'Team of clients' },
                 { icon: Bot, label: 'Shared AI token pool' },
                 { icon: Store, label: 'Org-branded course page' },
                 { icon: BarChart2, label: 'Organisation analytics' },

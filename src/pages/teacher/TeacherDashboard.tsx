@@ -115,8 +115,8 @@ export default function TeacherDashboard() {
   return (
     <DashboardLayout
       navItems={teacherNavItems}
-      title="Teacher Dashboard"
-      subtitle={`Welcome back, ${profile?.full_name?.split(' ')[0] || 'Teacher'}!`}
+      title="Client Dashboard"
+      subtitle={`Welcome back, ${profile?.full_name?.split(' ')[0] || 'there'}!`}
     >
       <div className="space-y-6">
         <TeacherCreditBanner />

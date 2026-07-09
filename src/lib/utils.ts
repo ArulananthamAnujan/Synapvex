@@ -14,3 +14,16 @@ export function safeInternalPath(raw: string | null | undefined): string | null 
   if (!raw.startsWith('/') || raw.startsWith('//')) return null;
   return raw;
 }
+
+/** Human-facing label for a role value. The course-creator role is stored
+ *  as 'teacher' internally but shown to users as 'Client'. */
+export function roleLabel(role?: string | null): string {
+  switch (role) {
+    case 'teacher': return 'Client';
+    case 'org_admin': return 'Organisation';
+    case 'co_admin': return 'Co-admin';
+    case 'admin': return 'Admin';
+    case 'student': return 'Student';
+    default: return role ?? '';
+  }
+}
