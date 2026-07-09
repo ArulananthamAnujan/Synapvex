@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Clock, Sparkles } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
 
 export default function Products() {
@@ -10,36 +11,39 @@ export default function Products() {
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
         {/* Hero */}
-        <section className="bg-slate-900 py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.15),transparent_60%)]" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
+        <section className="bg-mesh py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
+          <Reveal className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="inline-flex items-center gap-2 glass-card rounded-full px-4 py-1.5 mb-6">
               <Sparkles className="w-4 h-4 text-sky-300" />
-              <span className="text-sky-300 text-sm font-semibold">The Synapvex Product Family</span>
+              <span className="text-sky-200 text-sm font-semibold">The Synapvex Product Family</span>
             </div>
             <h1 className="font-playfair text-4xl lg:text-6xl font-bold text-white mb-5">
-              Products built to<br /><span className="text-sky-400">power your growth</span>
+              Products built to<br /><span className="text-gradient-sky">power your growth</span>
             </h1>
             <p className="text-slate-300 text-lg max-w-2xl mx-auto">
               Synapvex is more than services — we build software products businesses run on.
               One account, a growing family of tools.
             </p>
-          </div>
+          </Reveal>
         </section>
 
         {/* Product cards */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid md:grid-cols-2 gap-8">
-            {PRODUCTS.map(product => {
+            {PRODUCTS.map((product, idx) => {
               const live = product.status === 'live';
               return (
-                <div
+                <Reveal
+                  as="div"
                   key={product.key}
+                  delay={(idx % 2) * 100}
                   className={`rounded-3xl border overflow-hidden transition-all duration-300 ${
                     live
-                      ? 'border-sky-200 shadow-lg hover:shadow-2xl hover:-translate-y-1'
-                      : 'border-slate-200 opacity-90'
+                      ? 'border-sky-200 shadow-lg hover:shadow-2xl hover:-translate-y-1.5'
+                      : 'border-slate-200 opacity-90 hover:opacity-100'
                   }`}
                 >
                   <div className={`bg-gradient-to-br ${product.gradient} px-7 py-6 flex items-center justify-between`}>
@@ -94,7 +98,7 @@ export default function Products() {
                       </Link>
                     )}
                   </div>
-                </div>
+                </Reveal>
               );
             })}
           </div>

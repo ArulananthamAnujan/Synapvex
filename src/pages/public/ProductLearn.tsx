@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+import Reveal from '../../components/ui/Reveal';
 
 const STEPS = [
   {
@@ -69,9 +70,10 @@ export default function ProductLearn() {
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
         {/* Hero */}
-        <section className="bg-slate-900 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.18),transparent_55%)]" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl" />
+        <section className="bg-mesh relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[32rem] h-[32rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
@@ -101,8 +103,9 @@ export default function ProductLearn() {
             </div>
 
             {/* Mock storefront preview */}
-            <div className="hidden lg:block">
-              <div className="rounded-3xl bg-white shadow-2xl overflow-hidden border border-slate-200">
+            <div className="hidden lg:block relative">
+              <div className="absolute -inset-6 bg-gradient-to-tr from-sky-400/20 to-indigo-400/20 blur-3xl rounded-[2.5rem]" />
+              <div className="relative rounded-3xl bg-white shadow-2xl overflow-hidden border border-slate-200 animate-float-slow">
                 <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 border-b border-slate-200">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
@@ -141,14 +144,14 @@ export default function ProductLearn() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {STEPS.map((step, i) => (
-              <div key={step.title} className="relative p-6 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-lg transition-all">
+              <Reveal as="div" key={step.title} delay={i * 90} className="relative p-6 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all group">
                 <span className="absolute top-4 right-5 text-4xl font-black text-slate-200/80 font-playfair">{i + 1}</span>
-                <div className="w-11 h-11 bg-sky-600 rounded-xl flex items-center justify-center mb-4">
+                <div className="w-11 h-11 bg-sky-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <step.icon className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
                 <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>

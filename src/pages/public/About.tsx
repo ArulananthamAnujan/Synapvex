@@ -161,15 +161,10 @@ export default function About() {
       <div className="pt-20 lg:pt-24">
 
         {/* Hero */}
-        <section className="relative py-24 bg-slate-900 overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
-              alt=""
-              className="w-full h-full object-cover opacity-10"
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.15),transparent_60%)]" />
-          </div>
+        <section className="relative py-28 bg-mesh overflow-hidden">
+          <div className="absolute inset-0 bg-grid" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">SynapVex Technologies</p>
             <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">

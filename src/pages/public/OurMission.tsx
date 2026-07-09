@@ -45,9 +45,10 @@ export default function OurMission() {
       <PublicHeader />
 
       {/* Hero */}
-      <section className="relative pt-28 pb-20 bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.15),transparent_60%)]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl" />
+      <section className="relative pt-32 pb-24 bg-mesh overflow-hidden">
+        <div className="absolute inset-0 bg-grid" />
+        <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
             <Target className="w-4 h-4 text-sky-400" />
@@ -96,12 +97,20 @@ export default function OurMission() {
               </div>
             </div>
             <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
-                alt="The Synapvex team at work"
-                className="rounded-2xl w-full h-96 object-cover shadow-2xl"
-              />
-
+              <div className="absolute -inset-5 bg-gradient-to-tr from-sky-400/15 to-indigo-400/15 blur-3xl rounded-[2.5rem]" />
+              <div className="relative rounded-3xl bg-slate-900 p-8 shadow-2xl overflow-hidden animate-float-slow">
+                <div className="absolute inset-0 bg-grid opacity-60" />
+                <div className="relative grid grid-cols-2 gap-4">
+                  {PILLARS.map((v) => (
+                    <div key={v.title} className="glass-card rounded-2xl p-4">
+                      <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-3">
+                        <v.icon className="w-5 h-5 text-sky-300" />
+                      </div>
+                      <p className="text-white font-bold text-sm">{v.title}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

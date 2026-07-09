@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
 import { supabase } from '../../lib/supabase';
 
@@ -133,71 +134,102 @@ export default function Home() {
       <PublicHeader />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
-            alt="Technology team at work"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40" />
-        </div>
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-400/10 rounded-full blur-3xl" />
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-mesh">
+        <div className="absolute inset-0 bg-grid" />
+        {/* animated ambient blobs */}
+        <div className="absolute top-[-8rem] right-[-6rem] w-[36rem] h-[36rem] bg-sky-500/20 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-[-10rem] left-[-6rem] w-[30rem] h-[30rem] bg-indigo-500/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '6s' }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-36">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
-              <span className="text-sky-300 text-sm font-semibold">Technology Products & Services</span>
-            </div>
-            <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-5">
-              Powering Your<br />
-              <span className="text-sky-400">Digital Future</span>
-            </h1>
-            <p className="text-xl text-slate-200 font-semibold mb-3">SynapVex Technologies</p>
-            <p className="text-lg text-slate-300 leading-relaxed mb-10 max-w-2xl">
-              We build software products businesses run on — starting with Synapvex Learn, our course
-              platform — alongside full-spectrum technology services, from custom software and
-              cybersecurity to cloud and digital marketing.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/products" className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition-all text-base shadow-lg shadow-sky-600/30">
-                Explore Our Products <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link to="/contact" className="flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-bold hover:border-white/60 hover:bg-white/10 transition-all text-base">
-                Get a Free Consultation <ChevronRight className="w-5 h-5" />
-              </Link>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: copy */}
+            <div>
+              <div className="inline-flex items-center gap-2 glass-card rounded-full px-4 py-1.5 mb-6 animate-rise">
+                <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
+                <span className="text-sky-200 text-sm font-semibold">Technology Products &amp; Services</span>
+              </div>
+              <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-5 animate-rise" style={{ animationDelay: '80ms' }}>
+                Powering Your<br />
+                <span className="text-gradient-sky">Digital Future</span>
+              </h1>
+              <p className="text-lg text-slate-300 leading-relaxed mb-9 max-w-xl animate-rise" style={{ animationDelay: '160ms' }}>
+                SynapVex Technologies builds software products businesses run on — led by Synapvex
+                Learn — alongside full-spectrum technology services, from custom software and
+                cybersecurity to cloud and digital marketing.
+              </p>
+              <div className="flex flex-wrap gap-4 animate-rise" style={{ animationDelay: '240ms' }}>
+                <Link to="/products" className="group flex items-center gap-2 px-8 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:-translate-y-0.5">
+                  Explore Our Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link to="/contact" className="flex items-center gap-2 px-8 py-3.5 rounded-xl glass-card text-white font-bold hover:bg-white/15 transition-all text-base">
+                  Get a Free Consultation <ChevronRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
 
+            {/* Right: floating product-family mockup */}
+            <div className="hidden lg:block animate-rise" style={{ animationDelay: '320ms' }}>
+              <div className="relative animate-float-slow">
+                <div className="absolute -inset-4 bg-gradient-to-tr from-sky-500/30 to-indigo-500/20 blur-2xl rounded-[2rem]" />
+                <div className="relative glass-card rounded-3xl p-6 shadow-2xl">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-black text-white text-sm">S</div>
+                      <span className="text-white font-bold text-sm">Synapvex Product Family</span>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded-full">Live</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {PRODUCTS.slice(0, 4).map((p, i) => (
+                      <div
+                        key={p.key}
+                        className={`rounded-2xl p-4 border border-white/10 bg-white/5 ${i === 0 ? 'ring-1 ring-sky-400/40' : ''}`}
+                      >
+                        <div className={`w-9 h-9 rounded-lg ${p.status === 'live' ? p.accentBg : 'bg-white/10'} flex items-center justify-center mb-3`}>
+                          <p.icon className="w-5 h-5 text-white" />
+                        </div>
+                        <p className="text-white text-xs font-bold leading-tight">{p.name}</p>
+                        <p className="text-slate-400 text-[10px] mt-0.5 leading-snug line-clamp-2">{p.tagline}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* floating accent chip */}
+                <div className="absolute -bottom-5 -left-5 glass-card rounded-2xl px-4 py-3 shadow-xl animate-float" style={{ animationDelay: '1.5s' }}>
+                  <p className="text-white text-sm font-bold">Synapvex Learn</p>
+                  <p className="text-sky-300 text-[11px]">Live now →</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Our Products */}
-      <section id="products" className="py-20 bg-white">
+      <section id="products" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <Reveal className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Our Products</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">One company, a growing family of products</h2>
             <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
               Like the tools you already rely on every day, Synapvex products share one account and one
               standard of quality — starting with Synapvex Learn, live today.
             </p>
-          </div>
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {PRODUCTS.map(product => {
+            {PRODUCTS.map((product, idx) => {
               const live = product.status === 'live';
               const card = (
                 <div
                   className={`h-full rounded-2xl border p-6 transition-all duration-300 ${
                     live
-                      ? 'border-sky-200 bg-gradient-to-b from-sky-50 to-white shadow-md hover:shadow-xl hover:-translate-y-1 ring-1 ring-sky-100'
-                      : 'border-slate-100 bg-slate-50/60'
+                      ? 'border-sky-200 bg-gradient-to-b from-sky-50 to-white shadow-md hover:shadow-2xl hover:-translate-y-1.5 ring-1 ring-sky-100'
+                      : 'border-slate-100 bg-slate-50/60 hover:shadow-lg hover:-translate-y-0.5'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${live ? product.accentBg : 'bg-slate-200'}`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${live ? product.accentBg : 'bg-slate-200'}`}>
                       <product.icon className={`w-6 h-6 ${live ? 'text-white' : 'text-slate-500'}`} />
                     </div>
                     {live ? (
@@ -215,9 +247,13 @@ export default function Home() {
                   )}
                 </div>
               );
-              return live && product.href
-                ? <Link key={product.key} to={product.href} className="block h-full">{card}</Link>
-                : <div key={product.key} className="h-full">{card}</div>;
+              return (
+                <Reveal key={product.key} delay={idx * 90} className="group h-full">
+                  {live && product.href
+                    ? <Link to={product.href} className="block h-full">{card}</Link>
+                    : <div className="h-full">{card}</div>}
+                </Reveal>
+              );
             })}
           </div>
           <div className="text-center mt-10">
@@ -229,19 +265,21 @@ export default function Home() {
       </section>
 
       {/* Services Overview */}
-      <section id="services" className="py-20 bg-slate-50">
+      <section id="services" className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <Reveal className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Do</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Services</h2>
             <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
               SynapVex Technologies delivers end-to-end technology solutions designed to modernise your operations, strengthen your security, and accelerate your growth.
             </p>
-          </div>
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {SERVICES.map((svc, i) => (
-              <div
+              <Reveal
+                as="div"
                 key={svc.title}
+                delay={(i % 4) * 80}
                 className={`group rounded-2xl border p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${svc.color} ${svc.border} ${activeService === i ? 'shadow-xl -translate-y-1' : ''}`}
                 onClick={() => setActiveService(activeService === i ? null : i)}
               >
@@ -262,17 +300,17 @@ export default function Home() {
                   {activeService === i ? 'Less info' : 'Learn more'}
                   <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeService === i ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Featured Product: LMS */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <div>
+            <Reveal direction="right">
               <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 rounded-full px-4 py-1.5 mb-5">
                 <BookOpen className="w-4 h-4 text-sky-600" />
                 <span className="text-sky-700 text-sm font-semibold">Flagship Product · Live Now</span>
@@ -305,78 +343,84 @@ export default function Home() {
                 ))}
               </div>
               <div className="flex flex-wrap gap-4">
-                <Link to="/products/learn" className="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors flex items-center gap-2">
+                <Link to="/products/learn" className="group px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-600/25 flex items-center gap-2">
                   <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn
                 </Link>
                 <Link to="/products" className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-sky-400 hover:text-sky-600 transition-colors flex items-center gap-2">
                   <Users className="w-4 h-4" /> View All Products
                 </Link>
               </div>
-            </div>
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
-                <img
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
-                  alt="LMS Platform"
-                  className="w-full h-96 object-cover"
-                />
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-slate-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900 text-sm">Synapvex Learn</p>
-                    <p className="text-xs text-slate-500">Create & Sell Courses</p>
+            </Reveal>
+
+            {/* Designed browser mockup of a branded course storefront */}
+            <Reveal direction="left" delay={120} className="relative">
+              <div className="absolute -inset-6 bg-gradient-to-tr from-sky-400/20 to-indigo-400/20 blur-3xl rounded-[2.5rem]" />
+              <div className="relative rounded-3xl bg-white border border-slate-200 shadow-2xl overflow-hidden animate-float-slow">
+                {/* browser chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 bg-slate-100 border-b border-slate-200">
+                  <span className="w-3 h-3 rounded-full bg-red-400" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                  <div className="ml-3 flex items-center gap-1.5 bg-white rounded-md px-3 py-1 text-xs text-slate-400 flex-1 truncate">
+                    synapvex.com/school/<span className="text-slate-700 font-semibold">your-academy</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-3 text-center">
-                  {[
-                    { val: 'Unlimited', lbl: 'Course Types' },
-                    { val: 'AI', lbl: 'Course Builder' },
-                    { val: '$29', lbl: 'From/Month' },
-                  ].map(s => (
-                    <div key={s.lbl} className="bg-slate-50 rounded-xl py-2">
-                      <p className="font-bold text-slate-900 text-sm">{s.val}</p>
-                      <p className="text-xs text-slate-400">{s.lbl}</p>
+                {/* branded hero */}
+                <div className="px-6 py-8 text-center bg-gradient-to-br from-sky-600 to-indigo-700">
+                  <div className="w-12 h-12 bg-white rounded-2xl mx-auto mb-3 flex items-center justify-center font-black text-sky-600 text-xl shadow-lg">Y</div>
+                  <p className="text-white font-bold text-lg">Your Academy</p>
+                  <p className="text-white/70 text-xs">Your logo · Your colors · Your courses</p>
+                </div>
+                {/* course grid */}
+                <div className="p-5 grid grid-cols-3 gap-3">
+                  {['Fundamentals', 'Advanced', 'Masterclass'].map((c, i) => (
+                    <div key={c} className="rounded-xl border border-slate-100 overflow-hidden shadow-sm">
+                      <div className={`h-16 bg-gradient-to-br ${['from-sky-100 to-sky-50', 'from-indigo-100 to-indigo-50', 'from-emerald-100 to-emerald-50'][i]}`} />
+                      <div className="p-2">
+                        <p className="text-[10px] font-bold text-slate-700 truncate">{c}</p>
+                        <p className="text-[9px] text-sky-600 font-bold mt-1">Enrol →</p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
+              {/* floating stat chip */}
+              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl px-4 py-3 shadow-xl border border-slate-100 animate-float" style={{ animationDelay: '2s' }}>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 bg-sky-600 rounded-xl flex items-center justify-center">
+                    <GraduationCap className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900 text-sm leading-none">From $29/mo</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Students join free</p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* Why Choose SynapVex */}
-      <section className="py-20 relative overflow-hidden bg-slate-900">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
-            alt="Team collaborating"
-            className="w-full h-full object-cover opacity-10"
-          />
-          <div className="absolute inset-0 bg-slate-900/90" />
-        </div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-sky-400/10 rounded-full blur-3xl" />
+      <section className="py-24 relative overflow-hidden bg-mesh">
+        <div className="absolute inset-0 bg-grid" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <Reveal className="text-center mb-14">
             <p className="text-sky-400 font-semibold text-sm uppercase tracking-widest mb-2">Our Difference</p>
             <h2 className="font-playfair text-4xl font-bold text-white mb-4">Why Choose SynapVex Technologies?</h2>
             <p className="text-slate-400 max-w-xl mx-auto leading-relaxed">We are a partner in your success — delivering technology that works, scales, and evolves with your business.</p>
-          </div>
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {WHY_US.map((item, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white/8 border border-white/10 hover:bg-white/12 hover:border-sky-500/40 transition-all duration-300 group">
-                <div className="w-11 h-11 bg-sky-500/20 border border-sky-500/30 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-500/30 transition-colors">
+              <Reveal as="div" key={i} delay={(i % 3) * 90} className="p-6 rounded-2xl glass-card hover:bg-white/12 hover:border-sky-500/40 transition-all duration-300 group hover:-translate-y-1">
+                <div className="w-11 h-11 bg-sky-500/20 border border-sky-500/30 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-500/30 group-hover:scale-110 transition-all">
                   <item.icon className="w-5 h-5 text-sky-400" />
                 </div>
                 <h3 className="font-bold text-white text-lg mb-2">{item.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -431,11 +475,10 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-16 bg-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Technology" className="w-full h-full object-cover opacity-10" />
-        </div>
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-mesh relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-sky-500/10 rounded-full blur-3xl animate-blob" />
+        <Reveal className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to Transform Your Business with Technology?
           </h2>
@@ -443,14 +486,14 @@ export default function Home() {
             Partner with SynapVex Technologies for innovative, reliable, and cost-effective IT solutions that drive real results.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/contact" className="px-8 py-3.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
+            <Link to="/contact" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-500/30 flex items-center gap-2">
               <Zap className="w-5 h-5" /> Get a Free Consultation
             </Link>
-            <Link to="/products" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
+            <Link to="/products" className="px-8 py-3.5 glass-card text-white font-bold rounded-xl hover:bg-white/15 transition-colors flex items-center gap-2">
               <BookOpen className="w-5 h-5" /> Explore Our Products
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <PublicFooter />

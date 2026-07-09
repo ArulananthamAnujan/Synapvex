@@ -188,3 +188,55 @@
     background-color: rgba(148, 163, 184, 0.6);
   }
 }
+
+@layer utilities {
+  /* Animated brand mesh — layered radial glows over a deep base. */
+  .bg-mesh {
+    background-color: #0b1220;
+    background-image:
+      radial-gradient(40rem 40rem at 15% 10%, rgba(2,132,199,0.28), transparent 60%),
+      radial-gradient(36rem 36rem at 85% 20%, rgba(56,189,248,0.20), transparent 60%),
+      radial-gradient(44rem 44rem at 50% 100%, rgba(37,99,235,0.24), transparent 60%);
+  }
+
+  /* Subtle dotted grid for tech texture. */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(148,163,184,0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148,163,184,0.09) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  /* Animated gradient text used for hero accents. */
+  .text-gradient-sky {
+    background-image: linear-gradient(90deg, #38bdf8, #0ea5e9, #6366f1, #0ea5e9, #38bdf8);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  /* Glass card used over dark heroes. */
+  .glass-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+}
+
+/* Honor users who prefer reduced motion — stop the ambient loops. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-blob,
+  .animate-gradient,
+  .animate-shimmer,
+  .animate-spin-slow,
+  .text-gradient-sky {
+    animation: none !important;
+  }
+}

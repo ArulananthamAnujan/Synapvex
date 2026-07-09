@@ -110,6 +110,13 @@ export default {
         'slide-down': 'slideDown 0.3s ease-out',
         'slide-in':   'slideIn 0.3s ease-out',
         'pulse-sky':  'pulseSky 2s infinite',
+        'float':        'float 6s ease-in-out infinite',
+        'float-slow':   'float 9s ease-in-out infinite',
+        'blob':         'blob 18s ease-in-out infinite',
+        'gradient':     'gradientShift 8s ease infinite',
+        'shimmer':      'shimmer 2.5s linear infinite',
+        'rise':         'rise 0.8s cubic-bezier(0.22,1,0.36,1) both',
+        'spin-slow':    'spin 22s linear infinite',
       },
       keyframes: {
         fadeIn:    { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -117,6 +124,18 @@ export default {
         slideDown: { '0%': { opacity: '0', transform: 'translateY(-12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         slideIn:   { '0%': { opacity: '0', transform: 'translateX(-12px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
         pulseSky:  { '0%, 100%': { boxShadow: '0 0 0 0 rgba(2,132,199,0.35)' }, '50%': { boxShadow: '0 0 0 8px rgba(2,132,199,0)' } },
+        float:     { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+        blob:      {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%':      { transform: 'translate(24px, -30px) scale(1.08)' },
+          '66%':      { transform: 'translate(-18px, 18px) scale(0.94)' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%':      { backgroundPosition: '100% 50%' },
+        },
+        shimmer:   { '0%': { transform: 'translateX(-120%)' }, '100%': { transform: 'translateX(220%)' } },
+        rise:      { '0%': { opacity: '0', transform: 'translateY(24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
       },
       boxShadow: {
         'sky-sm': '0 1px 3px 0 rgba(2,132,199,0.15), 0 1px 2px -1px rgba(2,132,199,0.1)',
