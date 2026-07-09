@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   GraduationCap, ArrowRight, CheckCircle, Store, Share2, Sparkles,
-  CreditCard, Award, BarChart2, Users, BookOpen, Palette, Link2,
+  CreditCard, BarChart2, Users, Palette, Link2,
   Building2, Video, ClipboardList, Bot,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
@@ -38,12 +38,6 @@ const TEACHER_FEATURES = [
   { icon: ClipboardList, title: 'Quizzes, Exams & Assignments', desc: 'Auto-graded quizzes and exams with attempt limits, plus assignment submissions and grading.' },
   { icon: Video, title: 'Live Sessions & F2F', desc: 'Schedule live classes and manage face-to-face session requests from students.' },
   { icon: BarChart2, title: 'Student Analytics', desc: 'See enrolments, lesson-level progress and completion for every student.' },
-];
-
-const STUDENT_FEATURES = [
-  { icon: BookOpen, title: 'Learn anywhere', desc: 'Video, PDF and article lessons with progress that syncs across devices.' },
-  { icon: Award, title: 'Verified certificates', desc: 'Certificates are issued automatically on completion and publicly verifiable.' },
-  { icon: Users, title: 'Discussions & support', desc: 'Course discussions, announcements and direct contact with the teacher.' },
 ];
 
 const PLANS = [
@@ -187,32 +181,21 @@ export default function ProductLearn() {
           </div>
         </section>
 
-        {/* Feature grids */}
+        {/* Feature grid */}
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <Reveal className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Everything Included</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900">Built for teachers, loved by students</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {TEACHER_FEATURES.map(f => (
-              <div key={f.title} className="p-6 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+            <h2 className="font-playfair text-4xl font-bold text-slate-900">Everything you need to teach online</h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TEACHER_FEATURES.map((f, i) => (
+              <Reveal as="div" key={f.title} delay={(i % 3) * 80} className="p-6 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all">
                 <div className="w-10 h-10 bg-sky-50 rounded-xl flex items-center justify-center mb-3">
                   <f.icon className="w-5 h-5 text-sky-600" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-sm mb-1.5">{f.title}</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="grid sm:grid-cols-3 gap-5">
-            {STUDENT_FEATURES.map(f => (
-              <div key={f.title} className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mb-3 border border-slate-100">
-                  <f.icon className="w-5 h-5 text-emerald-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 text-sm mb-1.5">{f.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>

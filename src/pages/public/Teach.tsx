@@ -245,25 +245,27 @@ export default function Teach() {
               </div>
             </div>
             <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
-                alt="Teacher creating course"
-                className="rounded-3xl shadow-2xl w-full h-96 object-cover"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-5 shadow-xl border border-slate-100 max-w-xs">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-5 h-5 text-white" />
+              <div className="absolute -inset-5 bg-gradient-to-tr from-sky-400/15 to-indigo-400/15 blur-3xl rounded-[2.5rem]" />
+              <div className="relative rounded-3xl bg-slate-900 p-7 shadow-2xl overflow-hidden">
+                <div className="absolute inset-0 bg-grid opacity-50" />
+                <div className="relative">
+                  <div className="flex items-center gap-2.5 mb-5">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm">AI Course Builder</p>
+                      <p className="text-slate-400 text-xs">Draft a full course in minutes</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-slate-900 text-sm">AI Course Builder</p>
-                    <p className="text-xs text-slate-400">Generate a full curriculum in minutes</p>
+                  <div className="space-y-2.5">
+                    {['Course outline & lessons', 'Quizzes & exams', 'Flashcards & summaries'].map((t, i) => (
+                      <div key={t} className="glass-card rounded-xl px-4 py-3 flex items-center justify-between">
+                        <span className="text-sm text-white font-medium">{t}</span>
+                        <CheckCircle className={`w-4 h-4 ${i === 0 ? 'text-sky-300' : 'text-slate-500'}`} />
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  {['Lessons', 'Quizzes', 'Exams'].map(t => (
-                    <span key={t} className="text-xs bg-sky-50 text-sky-700 font-semibold px-2 py-1 rounded-lg">{t}</span>
-                  ))}
                 </div>
               </div>
             </div>

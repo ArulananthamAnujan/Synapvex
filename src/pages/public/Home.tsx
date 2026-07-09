@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
-  Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight, Mail,
+  Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight,
   CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap, Sparkles,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
-import { supabase } from '../../lib/supabase';
 
 const SERVICES = [
   {
@@ -125,10 +123,6 @@ const WHY_US = [
 ];
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [activeService, setActiveService] = useState<number | null>(null);
-
   return (
     <div className="min-h-screen bg-white dark:bg-navy-950">
       <PublicHeader />
@@ -154,9 +148,8 @@ export default function Home() {
                 <span className="text-gradient-sky">Digital Future</span>
               </h1>
               <p className="text-lg text-slate-300 leading-relaxed mb-9 max-w-xl animate-rise" style={{ animationDelay: '160ms' }}>
-                SynapVex Technologies builds software products businesses run on — led by Synapvex
-                Learn — alongside full-spectrum technology services, from custom software and
-                cybersecurity to cloud and digital marketing.
+                We build software products businesses run on — led by Synapvex Learn — and deliver
+                the technology services to match.
               </p>
               <div className="flex flex-wrap gap-4 animate-rise" style={{ animationDelay: '240ms' }}>
                 <Link to="/products" className="group flex items-center gap-2 px-8 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:-translate-y-0.5">
@@ -307,8 +300,8 @@ export default function Home() {
           <Reveal className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Do</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Services</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
-              SynapVex Technologies delivers end-to-end technology solutions designed to modernise your operations, strengthen your security, and accelerate your growth.
+            <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+              End-to-end technology solutions to modernise, secure and grow your business.
             </p>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -316,30 +309,22 @@ export default function Home() {
               <Reveal
                 as="div"
                 key={svc.title}
-                delay={(i % 4) * 80}
-                className={`group rounded-2xl border p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${svc.color} ${svc.border} ${activeService === i ? 'shadow-xl -translate-y-1' : ''}`}
-                onClick={() => setActiveService(activeService === i ? null : i)}
+                delay={(i % 4) * 70}
+                className={`group rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${svc.color} ${svc.border}`}
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${svc.iconBg} ${svc.iconColor}`}>
                   <svc.icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-base mb-2 leading-snug">{svc.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-4">{svc.desc}</p>
-                <ul className={`space-y-1.5 overflow-hidden transition-all duration-300 ${activeService === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  {svc.highlights.map(h => (
-                    <li key={h} className="flex items-center gap-2 text-xs text-slate-600">
-                      <CheckCircle className={`w-3.5 h-3.5 shrink-0 ${svc.iconColor}`} />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <div className={`flex items-center gap-1 mt-3 text-xs font-semibold ${svc.iconColor}`}>
-                  {activeService === i ? 'Less info' : 'Learn more'}
-                  <ChevronRight className={`w-3.5 h-3.5 transition-transform ${activeService === i ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
-                </div>
+                <h3 className="font-bold text-slate-900 text-base mb-1.5 leading-snug">{svc.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{svc.desc}</p>
               </Reveal>
             ))}
           </div>
+          <Reveal className="text-center mt-10">
+            <Link to="/about" className="inline-flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors">
+              See all services <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -460,54 +445,6 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Newsletter / Contact CTA */}
-      <section className="py-20 bg-sky-600">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-16 h-16 bg-white/15 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Mail className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="font-playfair text-4xl font-bold text-white mb-4">Stay Connected</h2>
-          <p className="text-sky-100 mb-8">
-            Subscribe for technology insights, industry news, product updates, and exclusive offers from SynapVex Technologies.
-          </p>
-          {subscribed ? (
-            <div className="flex items-center justify-center gap-3 text-white font-semibold">
-              <CheckCircle className="w-6 h-6" />
-              Thank you for subscribing! We will be in touch soon.
-            </div>
-          ) : (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                if (!email) return;
-                // stored as a contact message so subscriptions reach the admin inbox
-                await supabase.from('contact_messages').insert({
-                  name: 'Newsletter subscriber',
-                  email,
-                  subject: 'Newsletter subscription',
-                  message: 'Please add me to the Synapvex newsletter.',
-                });
-                setSubscribed(true);
-              }}
-              className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="flex-1 px-5 py-3.5 rounded-xl bg-white/15 border border-white/30 text-white placeholder:text-sky-200 focus:outline-none focus:border-white focus:bg-white/20 transition-colors"
-              />
-              <button type="submit" className="px-6 py-3.5 bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-50 transition-colors whitespace-nowrap flex items-center gap-2">
-                Subscribe <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
-          )}
-          <p className="text-sky-200 text-xs mt-4">We respect your privacy. Unsubscribe at any time.</p>
         </div>
       </section>
 
