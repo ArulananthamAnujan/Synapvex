@@ -688,22 +688,76 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // ── Solo-teacher credit gate (free exploration credits + purchased) ───────
+    // ── Solo-teacher credit + freemium gate ───────────────────────────────────
     // Teachers who are NOT in an organisation draw on their personal
-    // teacher_ai_credits balance (seeded with free credits on signup).
+    // teacher_ai_credits balance. Free (unsubscribed) teachers can generate
+    // exactly ONE course outline to try the platform; everything else is
+    // locked until they subscribe. Paid teachers get full access, spending
+    // plan credits first (1×) then top-up credits (2×).
     let deductTeacherCredits = false;
     if (profile.role === 'teacher' && !orgId) {
+      const bodyPeek = await req.clone().json().catch(() => ({ task: '' })) as { task: string };
+      const requestedTask = bodyPeek.task ?? '';
+
+      // Active subscription?
+      const { data: sub } = await supabaseAdmin
+        .from('teacher_subscriptions')
+        .select('status, current_period_end')
+        .eq('teacher_id', userId)
+        .eq('status', 'active')
+        .order('current_period_end', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      const isPaid = !!sub && new Date(sub.current_period_end).getTime() > Date.now();
+
       const { data: credits } = await supabaseAdmin
         .from('teacher_ai_credits')
-        .select('token_balance')
+        .select('token_balance, topup_balance')
         .eq('user_id', userId)
         .maybeSingle();
+      const planBal = credits?.token_balance ?? 0;
+      const topupBal = credits?.topup_balance ?? 0;
+      const cost = ({
+        course_outline: 5, lesson_content: 8, quiz_from_content: 6, flashcards: 4,
+        summarize_lesson: 3, rewrite_content: 5, translate_content: 7, activity_ideas: 4,
+        full_curriculum: 20, lesson_notes: 5, presentation_slides: 10,
+        section_content: 8, section_notes: 5, section_slides: 10, generate_exam: 10,
+      } as Record<string, number>)[requestedTask] ?? 5;
 
-      if ((credits?.token_balance ?? 0) < 1) {
-        return new Response(JSON.stringify({
-          error: 'You have used all your AI credits. Subscribe to a plan or top up your credits to continue.',
-          code: 'no_credits',
-        }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      if (!isPaid) {
+        // FREE tier: only one course outline, nothing else.
+        if (requestedTask !== 'course_outline') {
+          return new Response(JSON.stringify({
+            error: 'This feature is available on paid plans. Subscribe to generate lessons, quizzes, exams and more.',
+            code: 'upgrade_required',
+          }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
+        const { count: outlineCount } = await supabaseAdmin
+          .from('ai_usage_logs')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .eq('ai_task', 'course_outline')
+          .eq('success', true);
+        if ((outlineCount ?? 0) >= 1) {
+          return new Response(JSON.stringify({
+            error: "You've used your free course outline. Subscribe to a plan to keep building your course.",
+            code: 'free_limit_reached',
+          }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
+        if (planBal < cost) {
+          return new Response(JSON.stringify({
+            error: 'Your free credits are used up. Subscribe to a plan to continue.',
+            code: 'no_credits',
+          }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
+      } else {
+        // PAID tier: plan credits (1×) or top-up credits (2×) must cover it.
+        if (planBal < cost && topupBal < cost * 2) {
+          return new Response(JSON.stringify({
+            error: 'You are out of AI credits. Upgrade your plan or top up your credits to continue.',
+            code: 'no_credits',
+          }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
       }
       deductTeacherCredits = true;
     }

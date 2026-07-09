@@ -89,7 +89,7 @@ export default function ProductLearn() {
                 payments, quizzes, progress and certificates behind the scenes.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/teach/register" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
+                <Link to="/teach/register?free=1" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
                   Start Free <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link to="/teach" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors">

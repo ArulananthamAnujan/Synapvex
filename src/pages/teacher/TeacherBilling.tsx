@@ -57,6 +57,7 @@ export default function TeacherBilling() {
   const [plans, setPlans] = useState<SubPlan[]>([]);
   const [packs, setPacks] = useState<TokenPack[]>([]);
   const [tokenBalance, setTokenBalance] = useState<number>(0);
+  const [topupBalance, setTopupBalance] = useState<number>(0);
   const [freeGranted, setFreeGranted] = useState<number>(0);
   const [totalPurchased, setTotalPurchased] = useState<number>(0);
   const [loading, setLoading] = useState(true);
@@ -75,7 +76,7 @@ export default function TeacherBilling() {
         .maybeSingle(),
       supabase.from('teacher_subscription_plans').select('*').eq('is_active', true).order('sort_order'),
       supabase.from('teacher_ai_plans').select('id, name, description, token_amount, price_cents, is_popular').eq('is_active', true).order('sort_order'),
-      supabase.from('teacher_ai_credits').select('token_balance, free_credits_granted, total_purchased').eq('user_id', user.id).maybeSingle(),
+      supabase.from('teacher_ai_credits').select('token_balance, topup_balance, free_credits_granted, total_purchased').eq('user_id', user.id).maybeSingle(),
     ]);
     if (subRes.data) {
       const sub = subRes.data as Subscription;
@@ -85,6 +86,7 @@ export default function TeacherBilling() {
     if (plansRes.data) setPlans(plansRes.data as SubPlan[]);
     if (packsRes.data) setPacks(packsRes.data as TokenPack[]);
     setTokenBalance(creditsRes.data?.token_balance ?? 0);
+    setTopupBalance(creditsRes.data?.topup_balance ?? 0);
     setFreeGranted(creditsRes.data?.free_credits_granted ?? 0);
     setTotalPurchased(creditsRes.data?.total_purchased ?? 0);
     setLoading(false);
@@ -297,14 +299,20 @@ export default function TeacherBilling() {
               <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-violet-500" /> AI Credits
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">Top up anytime — purchased credits never expire.</p>
+              <p className="text-xs text-slate-400 mt-0.5">Plan &amp; free credits are used first. Top-up credits never expire and are used at 2× once the others run out.</p>
             </div>
-            <div className="text-right">
-              <p className="text-2xl font-black text-slate-900 dark:text-white">{tokenBalance.toLocaleString()}</p>
-              <p className="text-xs text-slate-400">
-                credits available
-                {totalPurchased === 0 && freeGranted > 0 && <span className="text-emerald-600 font-semibold"> · free trial</span>}
-              </p>
+            <div className="flex items-center gap-5 text-right">
+              <div>
+                <p className="text-2xl font-black text-slate-900 dark:text-white">{tokenBalance.toLocaleString()}</p>
+                <p className="text-xs text-slate-400">
+                  plan / free
+                  {totalPurchased === 0 && freeGranted > 0 && <span className="text-emerald-600 font-semibold"> · free trial</span>}
+                </p>
+              </div>
+              <div>
+                <p className="text-2xl font-black text-violet-600">{topupBalance.toLocaleString()}</p>
+                <p className="text-xs text-slate-400">top-up (2×)</p>
+              </div>
             </div>
           </div>
           <div className="grid sm:grid-cols-3 gap-4">

@@ -167,7 +167,7 @@ export default function Teach() {
               <span className="text-sky-100 text-sm font-semibold">Start free with AI credits — no credit card required</span>
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link to="/teach/register" className="flex items-center gap-2 px-8 py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
+              <Link to="/teach/register?free=1" className="flex items-center gap-2 px-8 py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
                 Start Free <ArrowRight className="w-5 h-5" />
               </Link>
               <a href="#pricing" className="flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/30 text-white font-bold hover:border-white/60 hover:bg-white/10 transition-all text-base">

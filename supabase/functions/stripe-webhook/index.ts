@@ -118,6 +118,19 @@ Deno.serve(async (req: Request) => {
 
       if (subError) console.error("Teacher subscription upsert error:", subError);
 
+      // Grant the plan's monthly AI credits into the plan/free bucket
+      const { data: planRow } = await supabase
+        .from("teacher_subscription_plans")
+        .select("ai_tokens_monthly")
+        .eq("id", plan_id)
+        .maybeSingle();
+      if (planRow?.ai_tokens_monthly) {
+        await supabase.rpc("add_teacher_tokens", {
+          p_user_id: teacher_id,
+          p_tokens: planRow.ai_tokens_monthly,
+        });
+      }
+
       // Also ensure the profile role is teacher
       await supabase
         .from("profiles")
@@ -153,9 +166,10 @@ Deno.serve(async (req: Request) => {
 
       const tokens = parseInt(token_amount, 10);
       try {
-        await supabase.rpc("add_teacher_tokens", { p_user_id: teacher_id, p_tokens: tokens });
+        // Top-ups go into the top-up bucket (spent at 2× once plan credits run out)
+        await supabase.rpc("add_teacher_topup", { p_user_id: teacher_id, p_tokens: tokens });
       } catch (e) {
-        console.error("Teacher token add error:", e);
+        console.error("Teacher top-up add error:", e);
       }
 
       await safeUpsert(supabase, "payments", {

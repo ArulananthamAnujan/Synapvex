@@ -22,6 +22,7 @@ interface Plan {
 export default function TeachRegister() {
   const [searchParams] = useSearchParams();
   const planSlug = searchParams.get('plan') || 'professional';
+  const freeMode = searchParams.get('free') === '1';
 
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
@@ -208,6 +209,83 @@ export default function TeachRegister() {
     toast.success(`Welcome aboard! Your teacher account is active. Set up your first course.`);
     navigate('/teacher');
   };
+
+  // Direct free signup (?free=1) — no pricing, no plan selection. Create an
+  // account and land on the dashboard with free credits. Only shown to
+  // visitors who aren't already signed in (signed-in users fall through to
+  // the guards below).
+  if (freeMode && !user) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="flex items-center justify-between p-4 bg-white border-b border-slate-200">
+          <Link to="/products/learn" className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Back
+          </Link>
+          <Link to="/"><MaximusLogo height={40} variant="dark" /></Link>
+          <DarkModeToggle />
+        </div>
+        <div className="flex-1 flex items-center justify-center p-6">
+          <div className="w-full max-w-sm">
+            <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 rounded-full px-3 py-1 mb-5">
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+              <span className="text-sky-700 text-xs font-semibold">Free · No card required</span>
+            </div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-1.5">Create your free account</h1>
+            <p className="text-slate-500 text-sm mb-6">Start with free AI credits — generate your first course outline in minutes.</p>
+
+            <form onSubmit={(e) => { e.preventDefault(); handleRegisterFree(); }} className="space-y-3.5">
+              {error && (
+                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <AlertCircle className="w-4 h-4 text-red-500 shrink-0" />
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
+              <input type="text" value={formData.fullName} onChange={handleChange('fullName')} className="input-field" placeholder="Full name" required />
+              <input type="email" value={formData.email} onChange={handleChange('email')} className="input-field" placeholder="Email address" required />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.password}
+                  onChange={handleChange('password')}
+                  className="input-field pr-10"
+                  placeholder="Password (min 8 characters)"
+                  required
+                />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              <input
+                type="password"
+                value={formData.confirmPassword}
+                onChange={handleChange('confirmPassword')}
+                className="input-field"
+                placeholder="Confirm password"
+                required
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                {loading ? 'Creating account…' : 'Start Free'}
+              </button>
+            </form>
+
+            <p className="mt-4 text-center text-xs text-slate-400">
+              By continuing you agree to our{' '}
+              <Link to="/terms" className="text-sky-600 hover:underline">Terms</Link> and{' '}
+              <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
+            </p>
+            <p className="mt-3 text-center text-sm text-slate-500">
+              Already have an account?{' '}
+              <Link to="/login" className="text-sky-600 hover:text-sky-700 font-medium">Sign in</Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Signed in with a non-teacher account: don't offer the signup form —
   // signing up while logged in would clash with the current session.
