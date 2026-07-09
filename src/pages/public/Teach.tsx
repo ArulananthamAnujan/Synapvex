@@ -158,12 +158,17 @@ export default function Teach() {
               Teach the World.<br />
               <span className="text-sky-400">On Your Terms.</span>
             </h1>
-            <p className="text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl">
-              Create online courses, share your unique course link, and let students enrol directly. Build your teaching business on Synapvex Learn — starting from just $29/month.
+            <p className="text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
+              Create online courses, share your unique course link, and let students enrol directly. Build your teaching business on Synapvex Learn.
             </p>
+            {/* Free-trial highlight */}
+            <div className="inline-flex items-center gap-2.5 rounded-xl bg-sky-500/15 border border-sky-400/30 px-4 py-2.5 mb-8">
+              <Sparkles className="w-4 h-4 text-sky-300 shrink-0" />
+              <span className="text-sky-100 text-sm font-semibold">Start free with AI credits — no credit card required</span>
+            </div>
             <div className="flex flex-wrap gap-4">
-              <Link to="/teach/register" className="flex items-center gap-2 px-8 py-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition-all text-base shadow-lg shadow-sky-600/30">
-                Start Teaching Today <ArrowRight className="w-5 h-5" />
+              <Link to="/teach/register" className="flex items-center gap-2 px-8 py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
+                Start Free <ArrowRight className="w-5 h-5" />
               </Link>
               <a href="#pricing" className="flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/30 text-white font-bold hover:border-white/60 hover:bg-white/10 transition-all text-base">
                 View Pricing <ChevronRight className="w-5 h-5" />
@@ -171,9 +176,9 @@ export default function Teach() {
             </div>
             <div className="flex flex-wrap gap-10 mt-14">
               {[
-                { value: '1,000+', label: 'Active Students' },
-                { value: '$29', label: 'Starting Per Month' },
-                { value: '100%', label: 'You Keep Your Earnings' },
+                { value: 'Free', label: 'To Get Started' },
+                { value: '$29', label: 'Plans From /Month' },
+                { value: '70%', label: 'You Keep Per Sale' },
               ].map(stat => (
                 <div key={stat.label}>
                   <p className="text-3xl font-bold text-white font-playfair">{stat.value}</p>

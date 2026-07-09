@@ -11,8 +11,8 @@ import Reveal from '../../components/ui/Reveal';
 const STEPS = [
   {
     icon: GraduationCap,
-    title: 'Sign up & pick a plan',
-    desc: 'Create your teacher account and choose a plan that fits — from solo starter to full academy.',
+    title: 'Start free — no card',
+    desc: 'Create your teacher account and explore with free AI credits. Subscribe only when you are ready to scale.',
   },
   {
     icon: Sparkles,
@@ -89,16 +89,19 @@ export default function ProductLearn() {
                 payments, quizzes, progress and certificates behind the scenes.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/teach/register" className="px-8 py-3.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2 shadow-lg shadow-sky-600/30">
-                  Start Teaching <ArrowRight className="w-5 h-5" />
+                <Link to="/teach/register" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
+                  Start Free <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link to="/teach/register" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors">
+                <Link to="/teach" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors">
                   View Pricing
                 </Link>
               </div>
-              <p className="text-slate-300 text-sm mt-5 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-sky-300" />
-                <span><strong className="text-white">Start free</strong> — explore with free AI credits, no card required.</span>
+              <p className="text-slate-200 text-sm mt-5 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 px-3 py-1">
+                  <Sparkles className="w-3.5 h-3.5 text-sky-300" />
+                  <strong className="text-white">Free AI credits</strong>
+                </span>
+                <span className="text-slate-400">No credit card required.</span>
               </p>
               <p className="text-slate-500 text-sm mt-2">
                 Plans from $29/month · Students join free ·{' '}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
   Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight, Mail,
-  CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap,
+  CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap, Sparkles,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
@@ -171,34 +171,71 @@ export default function Home() {
             {/* Right: floating product-family mockup */}
             <div className="hidden lg:block animate-rise" style={{ animationDelay: '320ms' }}>
               <div className="relative animate-float-slow">
-                <div className="absolute -inset-4 bg-gradient-to-tr from-sky-500/30 to-indigo-500/20 blur-2xl rounded-[2rem]" />
-                <div className="relative glass-card rounded-3xl p-6 shadow-2xl">
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center font-black text-white text-sm">S</div>
-                      <span className="text-white font-bold text-sm">Synapvex Product Family</span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded-full">Live</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    {PRODUCTS.slice(0, 4).map((p, i) => (
-                      <div
-                        key={p.key}
-                        className={`rounded-2xl p-4 border border-white/10 bg-white/5 ${i === 0 ? 'ring-1 ring-sky-400/40' : ''}`}
-                      >
-                        <div className={`w-9 h-9 rounded-lg ${p.status === 'live' ? p.accentBg : 'bg-white/10'} flex items-center justify-center mb-3`}>
-                          <p.icon className="w-5 h-5 text-white" />
-                        </div>
-                        <p className="text-white text-xs font-bold leading-tight">{p.name}</p>
-                        <p className="text-slate-400 text-[10px] mt-0.5 leading-snug line-clamp-2">{p.tagline}</p>
+                {/* soft glow behind the panel */}
+                <div className="absolute -inset-6 bg-gradient-to-tr from-sky-500/30 via-blue-500/20 to-indigo-500/20 blur-3xl rounded-[2.5rem]" />
+
+                <div className="relative rounded-[1.75rem] p-[1px] bg-gradient-to-b from-white/25 to-white/5 shadow-2xl">
+                  <div className="rounded-[1.7rem] bg-slate-900/80 backdrop-blur-xl p-6">
+                    {/* header */}
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-sky-500/30">S</div>
+                        <span className="text-white font-bold text-[15px]">Synapvex Product Family</span>
                       </div>
-                    ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      {PRODUCTS.slice(0, 4).map(p => {
+                        const live = p.status === 'live';
+                        return (
+                          <div
+                            key={p.key}
+                            className={`relative rounded-2xl p-4 border transition-colors ${
+                              live
+                                ? 'border-sky-400/40 bg-gradient-to-br from-sky-500/15 to-indigo-500/10 shadow-lg shadow-sky-500/10'
+                                : 'border-white/10 bg-white/[0.03]'
+                            }`}
+                          >
+                            {/* status pill */}
+                            <span className={`absolute top-3 right-3 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
+                              live ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-slate-400'
+                            }`}>
+                              {live ? 'Live' : 'Soon'}
+                            </span>
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${
+                              live ? `bg-gradient-to-br ${p.gradient} shadow-lg` : 'bg-white/[0.06]'
+                            }`}>
+                              <p.icon className={`w-5 h-5 ${live ? 'text-white' : 'text-slate-400'}`} />
+                            </div>
+                            <p className={`text-[13px] font-bold leading-tight ${live ? 'text-white' : 'text-slate-300'}`}>{p.name}</p>
+                            <p className="text-slate-400 text-[10px] mt-1 leading-snug line-clamp-2">{p.tagline}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* free-trial strip inside the panel */}
+                    <div className="mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-sky-500/20 to-transparent border border-sky-400/25 px-4 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <Sparkles className="w-4 h-4 text-sky-300 shrink-0" />
+                        <p className="text-[13px] text-white font-semibold">Synapvex Learn — free trial</p>
+                      </div>
+                      <span className="text-[11px] text-sky-300 font-bold whitespace-nowrap">No card →</span>
+                    </div>
                   </div>
                 </div>
+
                 {/* floating accent chip */}
-                <div className="absolute -bottom-5 -left-5 glass-card rounded-2xl px-4 py-3 shadow-xl animate-float" style={{ animationDelay: '1.5s' }}>
-                  <p className="text-white text-sm font-bold">Synapvex Learn</p>
-                  <p className="text-sky-300 text-[11px]">Live now →</p>
+                <div className="absolute -bottom-5 -left-5 rounded-2xl bg-white px-4 py-3 shadow-2xl animate-float" style={{ animationDelay: '1.5s' }}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center">
+                      <GraduationCap className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-slate-900 text-sm font-bold leading-none">Start teaching free</p>
+                      <p className="text-slate-400 text-[11px] mt-1">Free AI credits included</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
