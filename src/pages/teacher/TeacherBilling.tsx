@@ -57,6 +57,8 @@ export default function TeacherBilling() {
   const [plans, setPlans] = useState<SubPlan[]>([]);
   const [packs, setPacks] = useState<TokenPack[]>([]);
   const [tokenBalance, setTokenBalance] = useState<number>(0);
+  const [freeGranted, setFreeGranted] = useState<number>(0);
+  const [totalPurchased, setTotalPurchased] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [interval, setInterval_] = useState<'monthly' | 'yearly'>('monthly');
   const [working, setWorking] = useState<string | null>(null);
@@ -73,7 +75,7 @@ export default function TeacherBilling() {
         .maybeSingle(),
       supabase.from('teacher_subscription_plans').select('*').eq('is_active', true).order('sort_order'),
       supabase.from('teacher_ai_plans').select('id, name, description, token_amount, price_cents, is_popular').eq('is_active', true).order('sort_order'),
-      supabase.from('teacher_ai_credits').select('token_balance').eq('user_id', user.id).maybeSingle(),
+      supabase.from('teacher_ai_credits').select('token_balance, free_credits_granted, total_purchased').eq('user_id', user.id).maybeSingle(),
     ]);
     if (subRes.data) {
       const sub = subRes.data as Subscription;
@@ -83,6 +85,8 @@ export default function TeacherBilling() {
     if (plansRes.data) setPlans(plansRes.data as SubPlan[]);
     if (packsRes.data) setPacks(packsRes.data as TokenPack[]);
     setTokenBalance(creditsRes.data?.token_balance ?? 0);
+    setFreeGranted(creditsRes.data?.free_credits_granted ?? 0);
+    setTotalPurchased(creditsRes.data?.total_purchased ?? 0);
     setLoading(false);
   }, [user]);
 
@@ -205,12 +209,14 @@ export default function TeacherBilling() {
               <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-bold text-slate-900 dark:text-white">
-                  {expired ? 'Your plan has expired' : 'No active plan'}
+                  {expired ? 'Your plan has expired' : totalPurchased === 0 && freeGranted > 0 ? "You're exploring on free credits" : 'No active plan'}
                 </h3>
                 <p className="text-sm text-slate-500 mt-1">
                   {expired && periodEnd
                     ? `Your ${subscription?.plan?.name ?? ''} plan ended on ${fmtDate(periodEnd)}. Choose a plan below to continue.`
-                    : 'Choose a plan below to activate your teaching account.'}
+                    : totalPurchased === 0 && freeGranted > 0
+                      ? `You have ${tokenBalance} of ${freeGranted} free AI credits left. Subscribe to a monthly or annual plan below to unlock higher limits and keep building once they run out.`
+                      : 'Choose a plan below to activate your teaching account.'}
                 </p>
               </div>
             </div>
@@ -295,7 +301,10 @@ export default function TeacherBilling() {
             </div>
             <div className="text-right">
               <p className="text-2xl font-black text-slate-900 dark:text-white">{tokenBalance.toLocaleString()}</p>
-              <p className="text-xs text-slate-400">credits available</p>
+              <p className="text-xs text-slate-400">
+                credits available
+                {totalPurchased === 0 && freeGranted > 0 && <span className="text-emerald-600 font-semibold"> · free trial</span>}
+              </p>
             </div>
           </div>
           <div className="grid sm:grid-cols-3 gap-4">

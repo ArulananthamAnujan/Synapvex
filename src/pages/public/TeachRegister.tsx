@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Eye, EyeOff, AlertCircle, CheckCircle2, ArrowLeft, CheckCircle, Zap } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle, CheckCircle2, ArrowLeft, CheckCircle, Zap, Sparkles } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import { supabase } from '../../lib/supabase';
@@ -117,6 +117,31 @@ export default function TeachRegister() {
       // Stripe not configured — admin can verify the subscription manually
     }
     toast.success('Plan selected! Your subscription is being set up.');
+    navigate('/teacher');
+  };
+
+  // Freemium: create a teacher account with no subscription. Free AI
+  // credits are granted automatically (DB trigger); the dashboard nudges
+  // them to subscribe as those credits run down.
+  const handleRegisterFree = async () => {
+    if (!formData.fullName || !formData.email || !formData.password) {
+      setError('Please fill in all fields.'); return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match.'); return;
+    }
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters.'); return;
+    }
+    setLoading(true);
+    setError('');
+    const { error: signUpError } = await signUp(formData.email, formData.password, formData.fullName, 'teacher');
+    if (signUpError) {
+      setError(signUpError.message || 'Registration failed. Please try again.');
+      setLoading(false);
+      return;
+    }
+    toast.success('Welcome! Your free AI credits are ready — start building your first course.');
     navigate('/teacher');
   };
 
@@ -482,7 +507,7 @@ export default function TeachRegister() {
             <div className="mb-6">
               <p className="text-sky-600 text-sm font-semibold uppercase tracking-wider mb-1">Step 2 of 2</p>
               <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Teacher Account</h1>
-              <p className="text-gray-500 text-sm">You'll be redirected to payment to activate your plan.</p>
+              <p className="text-gray-500 text-sm">Start free with AI credits to explore — or subscribe now to unlock full limits.</p>
             </div>
 
             <form onSubmit={handleRegisterAndCheckout} className="space-y-4">
@@ -559,12 +584,28 @@ export default function TeachRegister() {
               >
                 {loading ? 'Creating account...' : `Create Account & Subscribe`}
               </button>
+
+              <div className="flex items-center gap-3 py-1">
+                <div className="flex-1 h-px bg-slate-200" />
+                <span className="text-xs text-slate-400">or</span>
+                <div className="flex-1 h-px bg-slate-200" />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleRegisterFree}
+                disabled={loading}
+                className="w-full py-3.5 border-2 border-sky-200 text-sky-700 hover:border-sky-400 hover:bg-sky-50 font-bold rounded-xl transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-4 h-4" /> Start Free with AI Credits
+              </button>
+              <p className="text-center text-xs text-slate-400">No card required — subscribe later from your dashboard.</p>
             </form>
 
             <p className="mt-4 text-center text-xs text-gray-400">
               By creating an account you agree to our{' '}
-              <a href="#" className="text-sky-600 hover:underline">Terms of Service</a> and{' '}
-              <a href="#" className="text-sky-600 hover:underline">Privacy Policy</a>.
+              <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and{' '}
+              <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
             </p>
             <p className="mt-3 text-center text-sm text-gray-500">
               Already have an account?{' '}

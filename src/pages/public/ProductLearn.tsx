@@ -96,7 +96,11 @@ export default function ProductLearn() {
                   View Pricing
                 </Link>
               </div>
-              <p className="text-slate-500 text-sm mt-5">
+              <p className="text-slate-300 text-sm mt-5 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-sky-300" />
+                <span><strong className="text-white">Start free</strong> — explore with free AI credits, no card required.</span>
+              </p>
+              <p className="text-slate-500 text-sm mt-2">
                 Plans from $29/month · Students join free ·{' '}
                 <Link to="/login" className="text-sky-400 hover:text-sky-300 font-semibold">Already teaching? Sign in</Link>
               </p>

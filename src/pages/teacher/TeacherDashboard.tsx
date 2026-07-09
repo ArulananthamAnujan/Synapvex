@@ -6,6 +6,7 @@ import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { DashboardStatSkeleton } from '../../components/ui/LoadingSkeleton';
+import TeacherCreditBanner from '../../components/teacher/TeacherCreditBanner';
 import type { Course, Assignment, LiveSession } from '../../types';
 
 interface RecentSubmission {
@@ -118,6 +119,7 @@ export default function TeacherDashboard() {
       subtitle={`Welcome back, ${profile?.full_name?.split(' ')[0] || 'Teacher'}!`}
     >
       <div className="space-y-6">
+        <TeacherCreditBanner />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map(stat => (
             stat.value === null ? (

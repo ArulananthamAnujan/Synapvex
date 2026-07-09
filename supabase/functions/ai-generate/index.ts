@@ -688,6 +688,26 @@ Deno.serve(async (req: Request) => {
       }
     }
 
+    // ── Solo-teacher credit gate (free exploration credits + purchased) ───────
+    // Teachers who are NOT in an organisation draw on their personal
+    // teacher_ai_credits balance (seeded with free credits on signup).
+    let deductTeacherCredits = false;
+    if (profile.role === 'teacher' && !orgId) {
+      const { data: credits } = await supabaseAdmin
+        .from('teacher_ai_credits')
+        .select('token_balance')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if ((credits?.token_balance ?? 0) < 1) {
+        return new Response(JSON.stringify({
+          error: 'You have used all your AI credits. Subscribe to a plan or top up your credits to continue.',
+          code: 'no_credits',
+        }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
+      deductTeacherCredits = true;
+    }
+
     // ── Rate limit: 100 calls per user per minute ────────────────────────────
     const oneMinuteAgo = new Date(Date.now() - 60_000).toISOString();
     const { count } = await supabaseAdmin
@@ -790,6 +810,13 @@ Deno.serve(async (req: Request) => {
         p_ai_task: task,
         p_tokens: tokensToDeduct,
         p_ai_log_id: logRow?.id ?? null,
+      });
+    } else if (deductTeacherCredits) {
+      // Solo teacher: spend from their personal (free + purchased) credits
+      const tokensToDeduct = TOKEN_COSTS[task] ?? 5;
+      await supabaseAdmin.rpc('deduct_teacher_tokens', {
+        p_user_id: userId,
+        p_tokens: tokensToDeduct,
       });
     }
 
