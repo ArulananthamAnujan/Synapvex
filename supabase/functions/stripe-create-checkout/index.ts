@@ -66,7 +66,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const body = await req.json();
-    const { type, course_id, plan_id, billing_interval } = body;
+    const { type, course_id, plan_id, billing_interval, amount_cents, token_amount } = body;
     const siteUrl = getSiteUrl(req);
 
     // --- Teacher Subscription ---
@@ -300,6 +300,48 @@ Deno.serve(async (req: Request) => {
           plan_id: plan.id,
           token_amount: String(plan.token_amount),
           type: "teacher_ai_plan",
+        },
+        success_url: `${siteUrl}/teacher/billing?tokens=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${siteUrl}/teacher/billing?tokens=cancelled`,
+      });
+
+      return new Response(JSON.stringify({ url: session.url }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (type === "teacher_topup_custom") {
+      const cents = Math.round(Number(amount_cents) || 0);
+      const credits = Math.round(Number(token_amount) || 0);
+      if (cents < 500 || credits < 1) {
+        return new Response(JSON.stringify({ error: "Minimum top-up is $5." }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        mode: "payment",
+        customer_email: user.email,
+        line_items: [
+          {
+            price_data: {
+              currency: "aud",
+              product_data: {
+                name: `Synapvex Learn — AI Credit Top-up (${credits.toLocaleString()} credits)`,
+                description: "Custom AI credit top-up. Credits never expire.",
+              },
+              unit_amount: cents,
+            },
+            quantity: 1,
+          },
+        ],
+        metadata: {
+          teacher_id: user.id,
+          token_amount: String(credits),
+          type: "teacher_topup_custom",
         },
         success_url: `${siteUrl}/teacher/billing?tokens=success&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${siteUrl}/teacher/billing?tokens=cancelled`,

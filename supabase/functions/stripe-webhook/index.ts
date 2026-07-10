@@ -153,8 +153,8 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // --- AI Plan Purchase ---
-    if (purchaseType === "teacher_ai_plan") {
+    // --- AI Plan / custom credit top-up ---
+    if (purchaseType === "teacher_ai_plan" || purchaseType === "teacher_topup_custom") {
       const { teacher_id, plan_id, token_amount } = metadata;
       if (!teacher_id || !token_amount) {
         console.error("Missing metadata for teacher AI top-up");

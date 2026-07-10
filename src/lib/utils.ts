@@ -27,3 +27,9 @@ export function roleLabel(role?: string | null): string {
     default: return role ?? '';
   }
 }
+
+/** Display AI credits with the branded "M" suffix (e.g. 200 -> "200M").
+ *  Purely cosmetic — the underlying values are unchanged. */
+export function formatCredits(n: number | null | undefined): string {
+  return `${(n ?? 0).toLocaleString()}M`;
+}

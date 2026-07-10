@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   CreditCard, CalendarClock, CheckCircle, AlertTriangle, Sparkles,
-  RefreshCw, XCircle, Zap, BadgePercent,
+  RefreshCw, XCircle, Zap, BadgePercent, Plus,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
+import { formatCredits } from '../../lib/utils';
 
 interface SubPlan {
   id: string;
@@ -63,6 +64,9 @@ export default function TeacherBilling() {
   const [loading, setLoading] = useState(true);
   const [interval, setInterval_] = useState<'monthly' | 'yearly'>('monthly');
   const [working, setWorking] = useState<string | null>(null);
+  // Custom top-up: $1 = 12 credits (convenience rate)
+  const [customAmount, setCustomAmount] = useState('');
+  const customCredits = Math.max(0, Math.round((Number(customAmount) || 0) * 12));
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -217,7 +221,7 @@ export default function TeacherBilling() {
                   {expired && periodEnd
                     ? `Your ${subscription?.plan?.name ?? ''} plan ended on ${fmtDate(periodEnd)}. Choose a plan below to continue.`
                     : totalPurchased === 0 && freeGranted > 0
-                      ? `You have ${tokenBalance} of ${freeGranted} free AI credits left. Subscribe to a monthly or annual plan below to unlock higher limits and keep building once they run out.`
+                      ? `You have ${formatCredits(tokenBalance)} of ${formatCredits(freeGranted)} free AI credits left. Subscribe to a monthly or annual plan below to unlock higher limits and keep building once they run out.`
                       : 'Choose a plan below to activate your teaching account.'}
                 </p>
               </div>
@@ -273,7 +277,7 @@ export default function TeacherBilling() {
                   <ul className="text-xs text-slate-500 space-y-1.5 my-3 flex-1">
                     <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{plan.max_courses === -1 ? 'Unlimited' : `Up to ${plan.max_courses}`} courses</li>
                     <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{plan.max_students === -1 ? 'Unlimited' : `Up to ${plan.max_students}`} students</li>
-                    <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{plan.ai_tokens_monthly.toLocaleString()} AI credits/month</li>
+                    <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{formatCredits(plan.ai_tokens_monthly)} AI credits/month</li>
                   </ul>
                   <button
                     onClick={() => startCheckout({ type: 'teacher_subscription', plan_id: plan.id, billing_interval: interval }, `plan-${plan.id}`)}
@@ -303,28 +307,63 @@ export default function TeacherBilling() {
             </div>
             <div className="flex items-center gap-5 text-right">
               <div>
-                <p className="text-2xl font-black text-slate-900 dark:text-white">{tokenBalance.toLocaleString()}</p>
+                <p className="text-2xl font-black text-slate-900 dark:text-white">{formatCredits(tokenBalance)}</p>
                 <p className="text-xs text-slate-400">
                   plan / free
                   {totalPurchased === 0 && freeGranted > 0 && <span className="text-emerald-600 font-semibold"> · free trial</span>}
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-black text-violet-600">{topupBalance.toLocaleString()}</p>
+                <p className="text-2xl font-black text-violet-600">{formatCredits(topupBalance)}</p>
                 <p className="text-xs text-slate-400">top-up (2×)</p>
               </div>
             </div>
           </div>
+
+          {/* Custom top-up — add any amount, like adding money to a wallet */}
+          <div className="rounded-2xl border-2 border-violet-200 dark:border-violet-800 bg-violet-50/40 dark:bg-violet-900/10 p-5 mb-4">
+            <div className="flex flex-wrap items-end gap-4">
+              <div className="flex-1 min-w-[200px]">
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Add credits — any amount</h4>
+                <p className="text-xs text-slate-500 mb-3">Out of credits before your plan renews? Top up any amount and keep generating. Credits never expire.</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-400 font-bold">$</span>
+                  <input
+                    type="number" min={5} step={1} value={customAmount}
+                    onChange={e => setCustomAmount(e.target.value)}
+                    placeholder="20"
+                    className="input-field w-28 font-bold"
+                  />
+                  <span className="text-sm text-slate-500">
+                    = <strong className="text-violet-700 dark:text-violet-300">{formatCredits(customCredits)}</strong> credits
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  if (customCredits <= 0) return;
+                  startCheckout({ type: 'teacher_topup_custom', amount_cents: Number(customAmount) * 100, token_amount: customCredits }, 'custom-topup');
+                }}
+                disabled={working === 'custom-topup' || customCredits <= 0}
+                className="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <Plus className="w-4 h-4" /> {working === 'custom-topup' ? 'Redirecting…' : 'Add Credits'}
+              </button>
+            </div>
+          </div>
+
+          {/* Quick packs */}
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-3">Or pick a pack</p>
           <div className="grid sm:grid-cols-3 gap-4">
             {packs.map(pack => (
               <div key={pack.id} className={`rounded-2xl border-2 p-5 flex flex-col ${pack.is_popular ? 'border-violet-300' : 'border-slate-200 dark:border-navy-600'}`}>
                 <div className="flex items-center justify-between mb-1">
                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">{pack.name}</h4>
-                  {pack.is_popular && <span className="text-[10px] font-bold uppercase bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">Popular</span>}
+                  {pack.is_popular && <span className="text-[10px] font-bold uppercase bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">Best value</span>}
                 </div>
                 <p className="mb-2">
                   <span className="text-xl font-black text-slate-900 dark:text-white">${(pack.price_cents / 100).toFixed(0)}</span>
-                  <span className="text-slate-400 text-xs"> · {pack.token_amount.toLocaleString()} credits</span>
+                  <span className="text-slate-400 text-xs"> · {formatCredits(pack.token_amount)} credits</span>
                 </p>
                 {pack.description && <p className="text-xs text-slate-500 mb-3 flex-1">{pack.description}</p>}
                 <button
