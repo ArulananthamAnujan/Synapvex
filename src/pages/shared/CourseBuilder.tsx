@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Video, FileText,
+  Plus, Trash2, GripVertical, ChevronDown, ChevronUp, ChevronLeft, Video, FileText,
   Link as LinkIcon, BookOpen, Save, Settings, Layers, HelpCircle, Calendar,
   Clock, CheckCircle, AlertCircle, Pencil, Upload, X, Eye,
   PlayCircle, ExternalLink, XCircle, ChevronRight, Image, DollarSign,
@@ -535,6 +535,28 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
     const { data } = await query.order('title');
     if (data) setCourses(data as Course[]);
     setLoading(false);
+  };
+
+  const [creatingCourse, setCreatingCourse] = useState(false);
+  const handleCreateBlankCourse = async () => {
+    if (!profile || creatingCourse) return;
+    setCreatingCourse(true);
+    const { data, error } = await supabase.from('courses').insert({
+      title: 'Untitled Course',
+      teacher_id: role === 'teacher' ? profile.id : null,
+      category: '',
+      level: 'beginner',
+      is_free: true,
+      is_published: false,
+    }).select().single();
+    if (error || !data) {
+      toast.error('Could not create the course. Please try again.');
+    } else {
+      await fetchCourses();
+      setSelectedCourse(data.id);
+      setActiveTab('details');
+    }
+    setCreatingCourse(false);
   };
 
   const fetchSections = async () => {
@@ -1205,65 +1227,101 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
       title="Course Builder"
       subtitle={selectedCourseName ? `Editing: ${selectedCourseName}` : 'Select a course to start building'}
     >
-      <div className="space-y-5">
+      <div className="space-y-6">
+        {/* ── First-run / course picker (no course selected) ── */}
         {!selectedCourse && !loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            {[
-              { icon: BookOpen, label: 'Build Curriculum', desc: 'Add sections and lessons', color: 'bg-sky-50 text-sky-600' },
-              { icon: Upload, label: 'Upload Content', desc: 'Videos, PDFs and more', color: 'bg-blue-50 text-blue-600' },
-              { icon: HelpCircle, label: 'Create Quizzes', desc: 'Test student knowledge', color: 'bg-slate-50 text-slate-600' },
-            ].map(({ icon: Icon, label, desc, color }) => (
-              <div key={label} className="card p-5 flex items-start gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color} shrink-0`}>
-                  <Icon className="w-5 h-5" />
+          courses.length === 0 ? (
+            /* Empty state — modern first-run hero */
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-navy-700 bg-gradient-to-br from-white to-slate-50 dark:from-navy-800 dark:to-navy-900">
+              <div className="absolute -top-16 -right-10 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl" />
+              <div className="relative px-6 py-14 sm:px-12 text-center max-w-2xl mx-auto">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                  <Sparkles className="w-8 h-8 text-white" />
                 </div>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your first course</h2>
+                <p className="text-slate-500 dark:text-slate-400 mb-8">
+                  Let AI draft a full course outline in seconds, or start from a blank course and build it your way.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <button
+                    onClick={() => setShowAIGenerator(true)}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-600/25"
+                  >
+                    <Sparkles className="w-5 h-5" /> Generate with AI
+                  </button>
+                  <button
+                    onClick={handleCreateBlankCourse}
+                    disabled={creatingCourse}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border-2 border-slate-200 dark:border-navy-600 text-slate-700 dark:text-slate-200 font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors disabled:opacity-60"
+                  >
+                    <Plus className="w-5 h-5" /> {creatingCourse ? 'Creating…' : 'Start from scratch'}
+                  </button>
+                </div>
+                <p className="text-xs text-slate-400 mt-6">Free plan includes one AI course outline to get you started.</p>
+              </div>
+            </div>
+          ) : (
+            /* Course picker — modern card grid */
+            <div>
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="font-semibold text-slate-800">{label}</p>
-                  <p className="text-sm text-slate-500 mt-0.5">{desc}</p>
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white">Your courses</h2>
+                  <p className="text-sm text-slate-400">Pick a course to edit, or create a new one.</p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setShowAIGenerator(true)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xl transition-colors"
+                  >
+                    <Sparkles className="w-4 h-4" /> Generate with AI
+                  </button>
+                  <button
+                    onClick={handleCreateBlankCourse}
+                    disabled={creatingCourse}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold bg-sky-600 hover:bg-sky-700 text-white rounded-xl transition-colors disabled:opacity-60"
+                  >
+                    <Plus className="w-4 h-4" /> {creatingCourse ? 'Creating…' : 'New course'}
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex-1 min-w-[200px]">
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Select Course to Edit</label>
-            <div className="relative max-w-sm">
-              <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-              <select
-                value={selectedCourse}
-                onChange={e => { setSelectedCourse(e.target.value); setActiveTab('details'); setPreviewLesson(null); }}
-                className="input-field pl-9 pr-4 appearance-none cursor-pointer font-medium"
-              >
-                <option value="">Choose a course...</option>
-                {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-          <button
-            onClick={() => setShowAIGenerator(true)}
-            className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xl transition-colors whitespace-nowrap"
-          >
-            <Sparkles className="w-4 h-4" /> Generate Course with AI
-          </button>
-        </div>
-
-        {!selectedCourse && !loading && (
-          <div className="lms-panel">
-            <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-              <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mb-5">
-                <BookOpen className="w-8 h-8 text-sky-500" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {courses.map(c => (
+                  <button
+                    key={c.id}
+                    onClick={() => { setSelectedCourse(c.id); setActiveTab('details'); setPreviewLesson(null); }}
+                    className="group text-left rounded-2xl border border-slate-200 dark:border-navy-700 bg-white dark:bg-navy-800 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                  >
+                    <div className="h-24 bg-gradient-to-br from-sky-100 to-indigo-50 dark:from-navy-700 dark:to-navy-900 relative overflow-hidden">
+                      {c.thumbnail_url
+                        ? <img src={c.thumbnail_url} alt="" className="w-full h-full object-cover" />
+                        : <BookOpen className="w-8 h-8 text-sky-400 absolute inset-0 m-auto" />}
+                      <span className={`absolute top-2 right-2 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${c.is_published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                        {c.is_published ? 'Live' : 'Draft'}
+                      </span>
+                    </div>
+                    <div className="p-4">
+                      <p className="font-bold text-slate-900 dark:text-white text-sm line-clamp-1 group-hover:text-sky-600 transition-colors">{c.title}</p>
+                      <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                        <BookOpen className="w-3 h-3" /> {c.total_lessons || 0} lessons
+                        <span className="text-slate-300">·</span>
+                        {c.is_free ? 'Free' : `A$${Number(c.price_amount ?? c.price ?? 0).toFixed(0)}`}
+                      </p>
+                    </div>
+                  </button>
+                ))}
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Select a course to start building</h3>
-              <p className="text-slate-500 text-sm max-w-sm">Choose a course from the dropdown above to edit its details, add lessons, upload videos, documents and create quizzes.</p>
             </div>
-          </div>
+          )
         )}
 
         {selectedCourse && (
           <div className="space-y-4">
+            <button
+              onClick={() => { setSelectedCourse(''); setPreviewLesson(null); }}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-sky-600 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" /> All courses
+            </button>
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex gap-1 p-1 bg-slate-100 rounded-xl">
                 {tabs.map(tab => (
