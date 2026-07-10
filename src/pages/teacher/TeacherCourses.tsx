@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { BookOpen, CreditCard as Edit, Users, Star, Clock, Globe, EyeOff, Share2 } from 'lucide-react';
+import { BookOpen, Pencil, Users, Star, Clock, Globe, EyeOff, Share2, Plus, SlidersHorizontal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
-import Badge from '../../components/ui/Badge';
 import { useOwnCoursePage, coursePageCourseUrl } from '../../hooks/useCoursePage';
 import type { Course } from '../../types';
 
@@ -70,46 +69,66 @@ export default function TeacherCourses() {
   };
 
   return (
-    <DashboardLayout navItems={teacherNavItems} title="My Courses" subtitle="View and manage your assigned courses">
-      <div className="space-y-5">
+    <DashboardLayout navItems={teacherNavItems} title="My Courses" subtitle="Create, edit and publish your courses">
+      <div className="space-y-6">
+        {/* Header row with primary action */}
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Your courses</h2>
+            <p className="text-sm text-slate-400">{loading ? 'Loading…' : `${courses.length} course${courses.length === 1 ? '' : 's'}`}</p>
+          </div>
+          <Link to="/teacher/builder" className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold bg-sky-600 hover:bg-sky-700 text-white rounded-xl transition-colors shadow-sm">
+            <Plus className="w-4 h-4" /> New Course
+          </Link>
+        </div>
+
         {loading ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[1,2,3].map(i => <div key={i} className="card animate-pulse"><div className="h-40 bg-gray-200 dark:bg-navy-700" /><div className="p-4 space-y-3"><div className="h-5 bg-gray-200 dark:bg-navy-700 rounded w-3/4" /><div className="h-4 bg-gray-200 dark:bg-navy-700 rounded" /></div></div>)}
+            {[1,2,3].map(i => <div key={i} className="rounded-2xl border border-slate-200 dark:border-navy-700 overflow-hidden animate-pulse"><div className="h-32 bg-slate-200 dark:bg-navy-700" /><div className="p-4 space-y-3"><div className="h-5 bg-slate-200 dark:bg-navy-700 rounded w-3/4" /><div className="h-8 bg-slate-200 dark:bg-navy-700 rounded" /></div></div>)}
           </div>
         ) : courses.length === 0 ? (
-          <div className="card text-center py-16">
-            <BookOpen className="w-10 h-10 text-gray-400 mx-auto mb-3" />
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No courses yet</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Create your first course and start teaching under your own brand.</p>
-            <Link to="/teacher/builder" className="btn-primary inline-block text-sm">Create Your First Course</Link>
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-navy-700 bg-gradient-to-br from-white to-slate-50 dark:from-navy-800 dark:to-navy-900">
+            <div className="absolute -top-16 -right-10 w-72 h-72 bg-sky-400/10 rounded-full blur-3xl" />
+            <div className="relative px-6 py-14 text-center max-w-md mx-auto">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                <BookOpen className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Create your first course</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-7">Build it your way or let AI draft a full outline in seconds.</p>
+              <Link to="/teacher/builder" className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors shadow-lg shadow-sky-600/25">
+                <Plus className="w-5 h-5" /> Create Course
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {courses.map(course => (
-              <div key={course.id} className="card hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5">
-                <div className="relative h-40 overflow-hidden">
-                  <img src={course.thumbnail_url || 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg'} alt={course.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute top-3 left-3 flex gap-1.5">
-                    <Badge variant={course.is_published ? 'success' : 'warning'}>{course.is_published ? 'Published' : 'Draft'}</Badge>
-                  </div>
+              <div key={course.id} className="group rounded-2xl border border-slate-200 dark:border-navy-700 bg-white dark:bg-navy-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+                <div className="relative h-32 overflow-hidden bg-gradient-to-br from-sky-100 to-indigo-50 dark:from-navy-700 dark:to-navy-900">
+                  {course.thumbnail_url
+                    ? <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover" />
+                    : <BookOpen className="w-9 h-9 text-sky-400 absolute inset-0 m-auto" />}
+                  <span className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${course.is_published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                    {course.is_published ? 'Live' : 'Draft'}
+                  </span>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 text-sm">{course.title}</h3>
-                  <div className="flex items-center gap-3 text-xs text-gray-400 mb-4">
-                    <span className="flex items-center gap-1"><Users className="w-3 h-3" />{course.total_students} students</span>
-                    <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-gold-400 text-gold-400" />{course.rating}</span>
+                  <h3 className="font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 text-sm leading-snug group-hover:text-sky-600 transition-colors">{course.title}</h3>
+                  <div className="flex items-center gap-3 text-xs text-slate-400 mb-4">
+                    <span className="flex items-center gap-1"><Users className="w-3 h-3" />{course.total_students}</span>
+                    <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-amber-400 text-amber-400" />{course.rating}</span>
                     <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{course.duration_hours}h</span>
                   </div>
                   <div className="flex gap-2">
-                    <Link to={`/teacher/builder?courseId=${course.id}`} className="flex-1 text-center px-3 py-1.5 bg-navy-900 dark:bg-navy-700 text-white text-xs font-medium rounded-lg hover:bg-navy-800 transition-colors">
-                      Build Course
+                    {/* Primary: full editor (edit all course components) */}
+                    <Link to={`/teacher/builder?courseId=${course.id}`} className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-lg transition-colors">
+                      <Pencil className="w-3.5 h-3.5" /> Edit
                     </Link>
                     <button
                       onClick={() => handleTogglePublish(course)}
                       disabled={publishing === course.id}
                       title={course.is_published ? 'Unpublish course' : 'Publish course'}
-                      className={`p-1.5 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors disabled:opacity-60 ${
+                      className={`p-2 rounded-lg transition-colors disabled:opacity-60 ${
                         course.is_published
                           ? 'border border-emerald-200 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20'
                           : 'border border-amber-200 dark:border-amber-700 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20'
@@ -117,22 +136,19 @@ export default function TeacherCourses() {
                     >
                       {publishing === course.id
                         ? <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                        : course.is_published
-                          ? <EyeOff className="w-3.5 h-3.5" />
-                          : <Globe className="w-3.5 h-3.5" />
-                      }
+                        : course.is_published ? <EyeOff className="w-3.5 h-3.5" /> : <Globe className="w-3.5 h-3.5" />}
                     </button>
                     {course.is_published && (
                       <button
                         onClick={() => handleShare(course)}
                         title="Copy share link for students"
-                        className="p-1.5 border border-sky-200 dark:border-sky-700 rounded-lg text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors"
+                        className="p-2 border border-sky-200 dark:border-sky-700 rounded-lg text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors"
                       >
                         <Share2 className="w-3.5 h-3.5" />
                       </button>
                     )}
-                    <button onClick={() => setEditCourse(course)} className="p-1.5 border border-gray-200 dark:border-navy-600 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors">
-                      <Edit className="w-3.5 h-3.5" />
+                    <button onClick={() => setEditCourse(course)} title="Quick edit details" className="p-2 border border-slate-200 dark:border-navy-600 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors">
+                      <SlidersHorizontal className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

@@ -106,7 +106,7 @@ export default function TeacherDashboard() {
   const loading = loadingStats && loadingCourses;
 
   const stats = [
-    { title: 'My Courses', value: loadingCourses ? null : courses.length, icon: BookOpen, color: 'bg-gold-500', href: '/teacher/courses' },
+    { title: 'My Courses', value: loadingCourses ? null : courses.length, icon: BookOpen, color: 'bg-sky-500', href: '/teacher/courses' },
     { title: 'Total Students', value: loadingStats ? null : totalStudents, icon: Users, color: 'bg-blue-500', href: '/teacher/students' },
     { title: 'Pending Grades', value: loadingActivity ? null : pendingGrades, icon: FileText, color: 'bg-orange-500', href: '/teacher/assignments' },
     { title: 'Live Sessions', value: loadingStats ? null : liveSessions.length, icon: Video, color: 'bg-teal-500', href: '/teacher/live-sessions' },
@@ -133,7 +133,7 @@ export default function TeacherDashboard() {
                   </div>
                 </div>
                 <div className="flex items-end justify-between">
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white font-playfair">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
                   <ArrowUpRight className="w-4 h-4 text-gray-300 dark:text-navy-600 group-hover:text-gray-400 transition-colors mb-0.5" />
                 </div>
               </Link>
@@ -146,7 +146,7 @@ export default function TeacherDashboard() {
             <div className="card">
               <div className="p-4 border-b border-gray-100 dark:border-navy-700 flex items-center justify-between">
                 <h2 className="font-semibold text-gray-900 dark:text-white">My Courses</h2>
-                <Link to="/teacher/courses" className="text-sm text-gold-600 hover:text-gold-700 flex items-center gap-1">
+                <Link to="/teacher/courses" className="text-sm text-sky-600 hover:text-sky-700 flex items-center gap-1">
                   View all <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -157,19 +157,20 @@ export default function TeacherDashboard() {
               ) : courses.length === 0 ? (
                 <div className="p-10 text-center">
                   <BookOpen className="w-10 h-10 text-gray-300 dark:text-navy-600 mx-auto mb-3" />
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">No courses assigned yet</p>
-                  <p className="text-xs text-gray-400 mt-1">Contact your admin to get courses assigned</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">No courses yet</p>
+                  <Link to="/teacher/builder" className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold rounded-lg transition-colors">Create your first course</Link>
                 </div>
               ) : (
                 <div className="divide-y divide-gray-50 dark:divide-navy-700">
                   {courses.slice(0, 5).map(course => (
                     <div key={course.id} className="flex items-center gap-3 p-4 hover:bg-gray-50 dark:hover:bg-navy-700/30 transition-colors">
-                      <img
-                        src={course.thumbnail_url || 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg'}
-                        alt=""
-                        className="w-11 h-11 rounded-lg object-cover shrink-0"
-                        loading="lazy"
-                      />
+                      {course.thumbnail_url ? (
+                        <img src={course.thumbnail_url} alt="" className="w-11 h-11 rounded-lg object-cover shrink-0" loading="lazy" />
+                      ) : (
+                        <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-sky-100 to-indigo-50 dark:from-navy-700 dark:to-navy-900 flex items-center justify-center shrink-0">
+                          <BookOpen className="w-5 h-5 text-sky-400" />
+                        </div>
+                      )}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{course.title}</p>
                         <div className="flex items-center gap-3 mt-0.5">
@@ -183,7 +184,7 @@ export default function TeacherDashboard() {
                         <span className={`text-xs px-2 py-1 rounded-full font-medium ${course.is_published ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-600 dark:bg-navy-700 dark:text-gray-400'}`}>
                           {course.is_published ? 'Live' : 'Draft'}
                         </span>
-                        <Link to={`/teacher/builder/${course.id}`} className="text-xs text-gold-600 hover:text-gold-700 font-medium">
+                        <Link to={`/teacher/builder/${course.id}`} className="text-xs text-sky-600 hover:text-sky-700 font-medium">
                           Edit
                         </Link>
                       </div>
@@ -204,7 +205,7 @@ export default function TeacherDashboard() {
                     </span>
                   )}
                 </h2>
-                <Link to="/teacher/assignments" className="text-sm text-gold-600 hover:text-gold-700 flex items-center gap-1">
+                <Link to="/teacher/assignments" className="text-sm text-sky-600 hover:text-sky-700 flex items-center gap-1">
                   Grade all <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -246,7 +247,7 @@ export default function TeacherDashboard() {
                   <Video className="w-4 h-4 text-teal-500" />
                   Upcoming Sessions
                 </h2>
-                <Link to="/teacher/live-sessions" className="text-sm text-gold-600 hover:text-gold-700">
+                <Link to="/teacher/live-sessions" className="text-sm text-sky-600 hover:text-sky-700">
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -258,7 +259,7 @@ export default function TeacherDashboard() {
                 <div className="p-6 text-center">
                   <Video className="w-8 h-8 text-gray-300 dark:text-navy-600 mx-auto mb-2" />
                   <p className="text-gray-400 text-sm">No sessions scheduled</p>
-                  <Link to="/teacher/live-sessions" className="text-xs text-gold-600 hover:text-gold-700 mt-1 inline-block">
+                  <Link to="/teacher/live-sessions" className="text-xs text-sky-600 hover:text-sky-700 mt-1 inline-block">
                     Schedule one
                   </Link>
                 </div>
@@ -325,7 +326,7 @@ export default function TeacherDashboard() {
               <h2 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm">Quick Actions</h2>
               <div className="space-y-2">
                 {[
-                  { label: 'Build a Course', href: '/teacher/builder', color: 'text-gold-600 bg-gold-50 dark:bg-gold-900/20' },
+                  { label: 'Build a Course', href: '/teacher/builder', color: 'text-sky-600 bg-sky-50 dark:bg-sky-900/20' },
                   { label: 'Create Quiz', href: '/teacher/quizzes', color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' },
                   { label: 'Post Assignment', href: '/teacher/assignments', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20' },
                   { label: 'Schedule Session', href: '/teacher/live-sessions', color: 'text-teal-600 bg-teal-50 dark:bg-teal-900/20' },
