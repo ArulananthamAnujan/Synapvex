@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Plus, Trash2, ChevronDown, ChevronUp, BookOpen, Clock, Star, CheckCircle2, AlertCircle, CreditCard as Edit2, Eye, Check, X, Users, Sparkles, FileText, ChevronRight } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
+import EmptyState from '../../components/ui/EmptyState';
+import { Link } from 'react-router-dom';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -539,11 +541,12 @@ export default function TeacherExams() {
             </div>
           </div>
         ) : courses.length === 0 ? (
-          <div className="text-center py-20 text-slate-400">
-            <Edit2 className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p className="font-medium">No courses yet</p>
-            <p className="text-sm mt-1">Create a course first, then add exams to it.</p>
-          </div>
+          <EmptyState
+            icon={Edit2}
+            title="No courses yet"
+            description="Create a course first, then add exams to it."
+            action={<Link to="/teacher/builder" className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors">Create a course</Link>}
+          />
         ) : (
           <div className="flex gap-5 items-start">
             {/* ── Left: vertical subject tabs ──────────────────────────────── */}

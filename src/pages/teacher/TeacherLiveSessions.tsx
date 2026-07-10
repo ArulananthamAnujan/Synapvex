@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Video, Trash2, ExternalLink, Calendar } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
+import EmptyState from '../../components/ui/EmptyState';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -67,11 +68,11 @@ export default function TeacherLiveSessions() {
         {loading ? (
           <div className="space-y-3">{[1,2].map(i => <div key={i} className="card p-5 animate-pulse"><div className="h-5 bg-gray-200 dark:bg-navy-700 rounded w-1/3 mb-2" /></div>)}</div>
         ) : sessions.length === 0 ? (
-          <div className="card text-center py-16">
-            <Video className="w-10 h-10 text-gray-400 mx-auto mb-3" />
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No sessions scheduled</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Schedule a live session to meet with your students.</p>
-          </div>
+          <EmptyState
+            icon={Video}
+            title="No sessions scheduled"
+            description="Schedule a live session to meet with your students."
+          />
         ) : (
           <>
             {upcoming.length > 0 && (

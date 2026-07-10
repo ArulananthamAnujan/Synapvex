@@ -183,11 +183,11 @@ export default function TeacherEarnings() {
 
         {/* Revenue split banner */}
         <div className="rounded-xl bg-gradient-to-r from-navy-900 to-navy-800 p-4 flex items-center gap-4 text-white">
-          <div className="w-10 h-10 rounded-xl bg-gold-500/20 border border-gold-500/30 flex items-center justify-center shrink-0">
-            <Info className="w-5 h-5 text-gold-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
+            <Info className="w-5 h-5 text-sky-400" />
           </div>
           <div>
-            <p className="font-semibold text-sm">Revenue Split: <span className="text-gold-400">70% You / 30% Platform</span></p>
+            <p className="font-semibold text-sm">Revenue Split: <span className="text-sky-400">70% You / 30% Platform</span></p>
             <p className="text-white/60 text-xs mt-0.5">Industry-leading split. You earn 70% of every course sale after Stripe payment processing (~2.9% + A$0.30).</p>
           </div>
         </div>
@@ -219,8 +219,8 @@ export default function TeacherEarnings() {
             </div>
             <div className="card p-5">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 rounded-xl bg-gold-50 dark:bg-gold-900/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-4 h-4 text-gold-600 dark:text-gold-400" />
+                <div className="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-900/20 flex items-center justify-center">
+                  <CheckCircle2 className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 </div>
                 <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Total Earned</span>
               </div>
@@ -404,8 +404,8 @@ export default function TeacherEarnings() {
             <div className="rounded-2xl bg-gradient-to-br from-navy-900 to-navy-800 p-6 text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.15),transparent_60%)]" />
               <div className="relative flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gold-500/20 border border-gold-500/30 flex items-center justify-center">
-                  <Sparkles className="w-7 h-7 text-gold-400" />
+                <div className="w-14 h-14 rounded-2xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
+                  <Sparkles className="w-7 h-7 text-sky-400" />
                 </div>
                 <div>
                   <p className="text-white/60 text-sm font-medium">Your AI Token Balance</p>
@@ -426,13 +426,13 @@ export default function TeacherEarnings() {
               <div className="grid sm:grid-cols-3 gap-5">
                 {aiPlans.map((plan, idx) => {
                   const PlanIcon = PLAN_ICONS[idx] ?? Sparkles;
-                  const iconColors = ['text-sky-500', 'text-gold-500', 'text-emerald-500'];
-                  const bgColors = ['bg-sky-50 dark:bg-sky-900/20', 'bg-gold-50 dark:bg-gold-900/20', 'bg-emerald-50 dark:bg-emerald-900/20'];
+                  const iconColors = ['text-sky-500', 'text-sky-500', 'text-emerald-500'];
+                  const bgColors = ['bg-sky-50 dark:bg-sky-900/20', 'bg-sky-50 dark:bg-sky-900/20', 'bg-emerald-50 dark:bg-emerald-900/20'];
                   return (
-                    <div key={plan.id} className={`card relative flex flex-col ${plan.is_popular ? 'ring-2 ring-gold-500 shadow-xl' : ''}`}>
+                    <div key={plan.id} className={`card relative flex flex-col ${plan.is_popular ? 'ring-2 ring-sky-500 shadow-xl' : ''}`}>
                       {plan.is_popular && (
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                          <span className="bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">Most Popular</span>
+                          <span className="bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">Most Popular</span>
                         </div>
                       )}
                       <div className="p-6 flex-1">
@@ -444,7 +444,7 @@ export default function TeacherEarnings() {
                         <div className="mb-5">
                           <span className="text-3xl font-bold text-gray-900 dark:text-white">A${(plan.price_cents / 100).toFixed(2)}</span>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xl font-bold text-gold-600 dark:text-gold-400">{plan.token_amount}</span>
+                            <span className="text-xl font-bold text-sky-600 dark:text-sky-400">{plan.token_amount}</span>
                             <span className="text-sm text-gray-400">tokens</span>
                             <span className="text-xs text-gray-400">· A${(plan.price_cents / plan.token_amount / 100).toFixed(3)}/token</span>
                           </div>
@@ -462,7 +462,7 @@ export default function TeacherEarnings() {
                         <button
                           onClick={() => handlePurchaseAI(plan)}
                           disabled={!!purchasingPlan}
-                          className={`w-full py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 ${plan.is_popular ? 'bg-gold-500 hover:bg-gold-600 text-white' : 'bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900'}`}
+                          className={`w-full py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 ${plan.is_popular ? 'bg-sky-500 hover:bg-sky-600 text-white' : 'bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900'}`}
                         >
                           {purchasingPlan === plan.id ? <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" /> : null}
                           Get {plan.token_amount} Tokens <ChevronRight className="w-4 h-4" />

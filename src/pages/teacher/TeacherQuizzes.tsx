@@ -4,6 +4,8 @@ import {
   GripVertical, UserPlus, AlertCircle, BookOpen, ChevronRight, Zap,
 } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
+import EmptyState from '../../components/ui/EmptyState';
+import { Link } from 'react-router-dom';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -453,11 +455,12 @@ export default function TeacherQuizzes() {
             </div>
           </div>
         ) : courses.length === 0 ? (
-          <div className="card text-center py-16">
-            <HelpCircle className="w-10 h-10 text-gray-400 mx-auto mb-3" />
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No courses yet</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Create a course first to add quizzes.</p>
-          </div>
+          <EmptyState
+            icon={HelpCircle}
+            title="No courses yet"
+            description="Create a course first, then add quizzes to it."
+            action={<Link to="/teacher/builder" className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-xl transition-colors">Create a course</Link>}
+          />
         ) : (
           <div className="flex gap-5 items-start">
             {/* ── Left: vertical subject tabs ──────────────────────────────── */}

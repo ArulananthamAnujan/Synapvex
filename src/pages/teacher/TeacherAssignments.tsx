@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, FileText, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
+import EmptyState from '../../components/ui/EmptyState';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -74,11 +75,11 @@ export default function TeacherAssignments() {
         {loading ? (
           <div className="space-y-4">{[1,2,3].map(i => <div key={i} className="card p-5 animate-pulse"><div className="h-5 bg-gray-200 dark:bg-navy-700 rounded w-1/3 mb-2" /></div>)}</div>
         ) : assignments.length === 0 ? (
-          <div className="card text-center py-16">
-            <FileText className="w-10 h-10 text-gray-400 mx-auto mb-3" />
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">No assignments yet</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Create your first assignment for students to complete.</p>
-          </div>
+          <EmptyState
+            icon={FileText}
+            title="No assignments yet"
+            description="Create your first assignment for students to complete."
+          />
         ) : (
           <div className="space-y-3">
             {assignments.map(a => {
@@ -121,7 +122,7 @@ export default function TeacherAssignments() {
                                   {sub.grade != null ? (
                                     <span className="text-sm font-bold text-green-600 dark:text-green-400">{sub.grade}/{a.max_marks}</span>
                                   ) : (
-                                    <button onClick={() => { setGradingTarget(sub); setGrade(''); setFeedback(''); }} className="flex items-center gap-1 px-3 py-1.5 bg-gold-500 text-white text-xs font-medium rounded-lg hover:bg-gold-600 transition-colors">
+                                    <button onClick={() => { setGradingTarget(sub); setGrade(''); setFeedback(''); }} className="flex items-center gap-1 px-3 py-1.5 bg-sky-500 text-white text-xs font-medium rounded-lg hover:bg-sky-600 transition-colors">
                                       <Check className="w-3.5 h-3.5" /> Grade
                                     </button>
                                   )}
