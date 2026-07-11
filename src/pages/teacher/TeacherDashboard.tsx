@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BookOpen, Users, FileText, Video, ChevronRight, AlertCircle, Clock, ArrowUpRight } from 'lucide-react';
+import { BookOpen, Users, FileText, Award, ChevronRight, AlertCircle, ArrowUpRight, Store } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { teacherNavItems } from './teacherNav';
@@ -7,7 +7,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { DashboardStatSkeleton } from '../../components/ui/LoadingSkeleton';
 import TeacherCreditBanner from '../../components/teacher/TeacherCreditBanner';
-import type { Course, Assignment, LiveSession } from '../../types';
+import type { Course, Assignment } from '../../types';
 
 interface RecentSubmission {
   id: string;
@@ -21,7 +21,6 @@ export default function TeacherDashboard() {
   const [totalStudents, setTotalStudents] = useState(0);
   const [pendingGrades, setPendingGrades] = useState(0);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
-  const [liveSessions, setLiveSessions] = useState<LiveSession[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<RecentSubmission[]>([]);
   const [loadingStats, setLoadingStats] = useState(true);
   const [loadingCourses, setLoadingCourses] = useState(true);
@@ -57,23 +56,14 @@ export default function TeacherDashboard() {
 
         const courseIds = list.map(c => c.id);
 
-        Promise.all([
-          supabase
-            .from('enrollments')
-            .select('id', { count: 'exact', head: true })
-            .in('course_id', courseIds),
-          supabase
-            .from('live_sessions')
-            .select('*')
-            .eq('teacher_id', teacherId)
-            .gte('scheduled_at', now)
-            .order('scheduled_at', { ascending: true })
-            .limit(3),
-        ]).then(([studRes, sessRes]) => {
-          setTotalStudents(studRes.count || 0);
-          if (sessRes.data) setLiveSessions(sessRes.data as LiveSession[]);
-          setLoadingStats(false);
-        });
+        supabase
+          .from('enrollments')
+          .select('id', { count: 'exact', head: true })
+          .in('course_id', courseIds)
+          .then(studRes => {
+            setTotalStudents(studRes.count || 0);
+            setLoadingStats(false);
+          });
 
         Promise.all([
           supabase
@@ -103,13 +93,13 @@ export default function TeacherDashboard() {
       });
   }, [profile]);
 
-  const loading = loadingStats && loadingCourses;
+  const publishedCount = courses.filter(c => c.is_published).length;
 
   const stats = [
     { title: 'My Courses', value: loadingCourses ? null : courses.length, icon: BookOpen, color: 'bg-sky-500', href: '/teacher/courses' },
     { title: 'Total Students', value: loadingStats ? null : totalStudents, icon: Users, color: 'bg-blue-500', href: '/teacher/students' },
     { title: 'Pending Grades', value: loadingActivity ? null : pendingGrades, icon: FileText, color: 'bg-orange-500', href: '/teacher/assignments' },
-    { title: 'Live Sessions', value: loadingStats ? null : liveSessions.length, icon: Video, color: 'bg-teal-500', href: '/teacher/live-sessions' },
+    { title: 'Published', value: loadingCourses ? null : publishedCount, icon: Award, color: 'bg-emerald-500', href: '/teacher/courses' },
   ];
 
   return (
@@ -242,53 +232,6 @@ export default function TeacherDashboard() {
 
           <div className="space-y-6">
             <div className="card">
-              <div className="p-4 border-b border-gray-100 dark:border-navy-700 flex items-center justify-between">
-                <h2 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Video className="w-4 h-4 text-teal-500" />
-                  Upcoming Sessions
-                </h2>
-                <Link to="/teacher/live-sessions" className="text-sm text-sky-600 hover:text-sky-700">
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
-              </div>
-              {loadingStats ? (
-                <div className="p-4 space-y-2">
-                  {[1,2].map(i => <div key={i} className="h-14 bg-gray-100 dark:bg-navy-700 rounded-lg animate-pulse" />)}
-                </div>
-              ) : liveSessions.length === 0 ? (
-                <div className="p-6 text-center">
-                  <Video className="w-8 h-8 text-gray-300 dark:text-navy-600 mx-auto mb-2" />
-                  <p className="text-gray-400 text-sm">No sessions scheduled</p>
-                  <Link to="/teacher/live-sessions" className="text-xs text-sky-600 hover:text-sky-700 mt-1 inline-block">
-                    Schedule one
-                  </Link>
-                </div>
-              ) : (
-                <div className="divide-y divide-gray-50 dark:divide-navy-700">
-                  {liveSessions.map(session => (
-                    <div key={session.id} className="p-4">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white mb-1 truncate">{session.title}</p>
-                      <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <Clock className="w-3 h-3" />
-                        {session.scheduled_at
-                          ? new Date(session.scheduled_at).toLocaleString('en-AU', { dateStyle: 'medium', timeStyle: 'short' })
-                          : 'TBD'}
-                      </div>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-gray-400">{session.duration_minutes}min</span>
-                        {session.meeting_link && (
-                          <a href={session.meeting_link} target="_blank" rel="noreferrer" className="text-xs text-teal-600 hover:text-teal-700 font-medium">
-                            Join link
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="card">
               <div className="p-4 border-b border-gray-100 dark:border-navy-700">
                 <h2 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-orange-500" />
@@ -326,10 +269,10 @@ export default function TeacherDashboard() {
               <h2 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm">Quick Actions</h2>
               <div className="space-y-2">
                 {[
-                  { label: 'Build a Course', href: '/teacher/builder', color: 'text-sky-600 bg-sky-50 dark:bg-sky-900/20' },
-                  { label: 'Create Quiz', href: '/teacher/quizzes', color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' },
-                  { label: 'Post Assignment', href: '/teacher/assignments', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20' },
-                  { label: 'Schedule Session', href: '/teacher/live-sessions', color: 'text-teal-600 bg-teal-50 dark:bg-teal-900/20' },
+                  { label: 'Build a Course', href: '/teacher/builder', color: 'text-sky-600 bg-sky-50 dark:bg-sky-900/20', icon: BookOpen },
+                  { label: 'Create Quiz', href: '/teacher/quizzes', color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20', icon: FileText },
+                  { label: 'Post Assignment', href: '/teacher/assignments', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20', icon: FileText },
+                  { label: 'My Course Page', href: '/teacher/course-page', color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20', icon: Store },
                 ].map(action => (
                   <Link
                     key={action.href}
