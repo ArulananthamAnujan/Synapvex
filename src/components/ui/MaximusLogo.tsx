@@ -8,7 +8,7 @@ interface MaximusLogoProps {
 export default function MaximusLogo({ height = 64, variant: _variant = 'dark' }: MaximusLogoProps) {
   const { logo_url, platform_name } = useSiteSettings();
 
-  const src = logo_url || '/image copy copy copy copy copy copy copy copy copy.png';
+  const src = logo_url || '/image copy copy copy copy copy copy copy copy copy copy.png';
 
   return (
     <img
