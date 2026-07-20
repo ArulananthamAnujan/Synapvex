@@ -161,24 +161,50 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: floating product-family mockup */}
+            {/* Right: floating product-family panel */}
             <div className="hidden lg:block animate-rise" style={{ animationDelay: '320ms' }}>
               <div className="relative animate-float-slow">
                 {/* soft glow behind the panel */}
                 <div className="absolute -inset-6 bg-gradient-to-tr from-sky-500/30 via-blue-500/20 to-indigo-500/20 blur-3xl rounded-[2.5rem]" />
 
                 <div className="relative rounded-[1.75rem] p-[1px] bg-gradient-to-b from-white/25 to-white/5 shadow-2xl">
-                  <div className="rounded-[1.7rem] bg-slate-900/80 backdrop-blur-xl p-6">
+                  <div className="rounded-[1.7rem] bg-slate-900/85 backdrop-blur-xl p-6">
                     {/* header */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-sky-500/30">S</div>
-                        <span className="text-white font-bold text-[15px]">Synapvex Product Family</span>
+                    <div className="flex items-center gap-3 mb-5">
+                      <svg viewBox="0 0 300 300" className="w-10 h-10 shrink-0" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="hp-orbit" x1="30" y1="250" x2="270" y2="70" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#38BDF8" /><stop offset="1" stopColor="#3B82F6" />
+                          </linearGradient>
+                          <radialGradient id="hp-core" cx="0.5" cy="0.5" r="0.5">
+                            <stop stopColor="#BAE6FD" /><stop offset="1" stopColor="#2563EB" />
+                          </radialGradient>
+                        </defs>
+                        <g transform="translate(6 18)">
+                          <ellipse cx="150" cy="160" rx="128" ry="56" transform="rotate(-24 150 160)" stroke="url(#hp-orbit)" strokeWidth="9" fill="none" strokeLinecap="round" strokeDasharray="330 140" strokeDashoffset="60" />
+                          <g stroke="#94A3B8" strokeWidth="4" opacity="0.55">
+                            <line x1="118" y1="70" x2="196" y2="96" /><line x1="118" y1="70" x2="78" y2="140" />
+                            <line x1="150" y1="150" x2="118" y2="70" /><line x1="196" y1="96" x2="222" y2="160" />
+                            <line x1="78" y1="140" x2="108" y2="196" /><line x1="150" y1="150" x2="222" y2="160" />
+                            <line x1="150" y1="150" x2="108" y2="196" /><line x1="150" y1="150" x2="166" y2="212" />
+                          </g>
+                          <circle cx="118" cy="70" r="13" fill="#E2E8F0" /><circle cx="196" cy="96" r="13" fill="#E2E8F0" />
+                          <circle cx="78" cy="140" r="15" fill="#38BDF8" /><circle cx="222" cy="160" r="12" fill="#E2E8F0" />
+                          <circle cx="108" cy="196" r="13" fill="#E2E8F0" /><circle cx="166" cy="212" r="13" fill="#E2E8F0" />
+                          <circle cx="150" cy="150" r="19" fill="url(#hp-core)" />
+                        </g>
+                      </svg>
+                      <div className="leading-tight">
+                        <p className="text-white font-bold text-[15px]">
+                          Synap<span className="text-sky-400">Vex</span>
+                        </p>
+                        <p className="text-slate-400 text-[11px]">The product family</p>
                       </div>
                     </div>
 
+                    {/* first two products — feature cards */}
                     <div className="grid grid-cols-2 gap-3">
-                      {PRODUCTS.slice(0, 4).map(p => {
+                      {PRODUCTS.slice(0, 2).map(p => {
                         const live = p.status === 'live';
                         return (
                           <div
@@ -189,7 +215,6 @@ export default function Home() {
                                 : 'border-white/10 bg-white/[0.03]'
                             }`}
                           >
-                            {/* status pill */}
                             <span className={`absolute top-3 right-3 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
                               live ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-slate-400'
                             }`}>
@@ -207,28 +232,58 @@ export default function Home() {
                       })}
                     </div>
 
-                    {/* free-trial strip inside the panel */}
-                    <div className="mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-sky-500/20 to-transparent border border-sky-400/25 px-4 py-3">
-                      <div className="flex items-center gap-2.5">
-                        <Sparkles className="w-4 h-4 text-sky-300 shrink-0" />
-                        <p className="text-[13px] text-white font-semibold">Synapvex Learn — free trial</p>
-                      </div>
-                      <span className="text-[11px] text-sky-300 font-bold whitespace-nowrap">No card →</span>
-                    </div>
+                    {/* remaining products — full-width rows (keeps the layout balanced) */}
+                    {PRODUCTS.slice(2).map(p => {
+                      const live = p.status === 'live';
+                      return (
+                        <div
+                          key={p.key}
+                          className={`mt-3 flex items-center gap-3 rounded-2xl p-3.5 border ${
+                            live ? 'border-sky-400/40 bg-gradient-to-br from-sky-500/10 to-indigo-500/5' : 'border-white/10 bg-white/[0.03]'
+                          }`}
+                        >
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                            live ? `bg-gradient-to-br ${p.gradient} shadow-lg` : 'bg-white/[0.06]'
+                          }`}>
+                            <p.icon className={`w-5 h-5 ${live ? 'text-white' : 'text-slate-400'}`} />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className={`text-[13px] font-bold leading-tight ${live ? 'text-white' : 'text-slate-300'}`}>{p.name}</p>
+                            <p className="text-slate-400 text-[10px] mt-0.5 leading-snug truncate">{p.tagline}</p>
+                          </div>
+                          <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full shrink-0 ${
+                            live ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-slate-400'
+                          }`}>
+                            {live ? 'Live' : 'Soon'}
+                          </span>
+                        </div>
+                      );
+                    })}
+
+                    {/* single, clean call to action */}
+                    <Link
+                      to="/teach/register?free=1"
+                      className="group mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 px-4 py-3.5 shadow-lg shadow-sky-500/25 transition-all"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Sparkles className="w-4 h-4 text-white shrink-0" />
+                        <span className="text-[13px] text-white font-bold">Start teaching free</span>
+                        <span className="text-[11px] text-sky-100/90 font-medium hidden xl:inline">· no card required</span>
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </div>
 
-                {/* floating accent chip */}
-                <div className="absolute -bottom-5 -left-5 rounded-2xl bg-white px-4 py-3 shadow-2xl animate-float" style={{ animationDelay: '1.5s' }}>
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center">
-                      <GraduationCap className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-slate-900 text-sm font-bold leading-none">Start teaching free</p>
-                      <p className="text-slate-400 text-[11px] mt-1">Free AI credits included</p>
-                    </div>
-                  </div>
+                {/* floating status badge — sits above the panel corner, clear of all text */}
+                <div className="absolute -top-4 -right-4 rounded-xl bg-white px-3.5 py-2.5 shadow-2xl animate-float" style={{ animationDelay: '1.2s' }}>
+                  <p className="flex items-center gap-2 text-[12px] font-bold text-slate-900 whitespace-nowrap">
+                    <span className="relative flex w-2.5 h-2.5">
+                      <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                      <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    </span>
+                    {PRODUCTS.filter(p => p.status === 'live').length} products live
+                  </p>
                 </div>
               </div>
             </div>
