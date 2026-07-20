@@ -279,7 +279,9 @@ export default function Home() {
               );
               return (
                 <Reveal key={product.key} delay={idx * 90} className="group h-full">
-                  {live && product.href
+                  {live && product.href && product.external
+                    ? <a href={product.href} target="_blank" rel="noopener noreferrer" className="block h-full">{card}</a>
+                    : live && product.href
                     ? <Link to={product.href} className="block h-full">{card}</Link>
                     : <div className="h-full">{card}</div>}
                 </Reveal>

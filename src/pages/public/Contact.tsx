@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Clock, Send, CheckCircle, ChevronDown, ChevronUp }
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { supabase } from '../../lib/supabase';
+import { LOCATIONS } from '../../lib/locations';
 
 interface FAQ {
   id: string;
@@ -13,11 +14,6 @@ interface FAQ {
 
 const CONTACT_INFO = [
   {
-    icon: MapPin,
-    title: 'Our Office',
-    lines: ['Building 33, Level 4, Suite 4A', 'Shah Makhdum Avenue, Sector-12', 'Uttara, Dhaka, Bangladesh, 1230'],
-  },
-  {
     icon: Phone,
     title: 'Phone',
     lines: ['+88 01321-203140'],
@@ -26,13 +22,13 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     title: 'Email',
-    lines: ['inquiries@maximusacademy.com.au'],
-    href: 'mailto:inquiries@maximusacademy.com.au',
+    lines: ['info@synapvex.com'],
+    href: 'mailto:info@synapvex.com',
   },
   {
     icon: Clock,
     title: 'Office Hours',
-    lines: ['Sun–Thu: 9:00am – 6:00pm BST', 'Fri–Sat: 10:00am – 2:00pm BST'],
+    lines: ['Mon–Fri: 9:00am – 6:00pm', 'Sat–Sun: By appointment'],
   },
 ];
 
@@ -124,6 +120,25 @@ export default function Contact() {
               {/* Info Sidebar */}
               <div className="lg:col-span-1 space-y-6">
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                  <h2 className="font-playfair text-xl font-bold text-slate-900 mb-6">Our Offices</h2>
+                  <div className="space-y-6">
+                    {LOCATIONS.map(loc => (
+                      <div key={loc.key} className="flex items-start gap-4">
+                        <div className="w-10 h-10 bg-sky-50 rounded-xl flex items-center justify-center shrink-0">
+                          <MapPin className="w-5 h-5 text-sky-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-900 text-sm mb-1">{loc.flag} {loc.city}, {loc.country}</p>
+                          {loc.lines.map((line, i) => (
+                            <p key={i} className="text-slate-500 text-sm leading-relaxed">{line}</p>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
                   <h2 className="font-playfair text-xl font-bold text-slate-900 mb-6">Contact Information</h2>
                   <div className="space-y-6">
                     {CONTACT_INFO.map(item => (
@@ -150,8 +165,8 @@ export default function Contact() {
 
                 <div className="rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
                   <iframe
-                    title="Synapvex location"
-                    src="https://maps.google.com/maps?q=Uttara+Dhaka+Bangladesh&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    title={`Synapvex ${LOCATIONS[0].city} office`}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(LOCATIONS[0].mapQuery)}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
                     className="w-full h-48 border-0"
                     allowFullScreen
                     loading="lazy"

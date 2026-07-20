@@ -1,12 +1,22 @@
-import { GraduationCap, Globe, Briefcase, ShieldCheck, type LucideIcon } from 'lucide-react';
+import { GraduationCap, Languages, Users, type LucideIcon } from 'lucide-react';
 
 /**
  * Central registry of Synapvex products.
- * Synapvex is a multi-product technology company — the LMS (Synapvex Learn)
- * is the first live product; upcoming products are listed as "coming soon"
- * and only need a status flip + href here to go live everywhere (home page,
- * products page, footer).
+ *
+ * Synapvex is a multi-product technology company. Synapvex Learn (the LMS)
+ * is built into this site, so its card links internally. Synapvex PTE and
+ * Synapvex CRM are separate applications deployed to their own Netlify URLs,
+ * so their cards link out (external, opens in a new tab).
+ *
+ * To point a product at its live app, set its `href` below. External products
+ * whose `href` is still empty automatically render as "Launching soon" so we
+ * never ship a dead link.
  */
+
+// --- Live app URLs (paste the Netlify links here) ---------------------------
+const PTE_URL = ''; // TODO: https://<your-pte-app>.netlify.app
+const CRM_URL = ''; // TODO: https://<your-crm-app>.netlify.app
+
 export interface SynapvexProduct {
   key: string;
   name: string;
@@ -14,8 +24,10 @@ export interface SynapvexProduct {
   description: string;
   icon: LucideIcon;
   status: 'live' | 'coming_soon';
-  /** Landing page for the product (only for live products). */
+  /** Landing/app URL. Internal path (starts with "/") or full external URL. */
   href?: string;
+  /** When true the href points to a separate app and opens in a new tab. */
+  external?: boolean;
   accent: string;       // tailwind text color
   accentBg: string;     // tailwind bg color for icon chip
   gradient: string;     // card header gradient
@@ -43,43 +55,44 @@ export const PRODUCTS: SynapvexProduct[] = [
     ],
   },
   {
-    key: 'sites',
-    name: 'Synapvex Sites',
-    tagline: 'Business websites, built & hosted',
+    key: 'pte',
+    name: 'Synapvex PTE',
+    tagline: 'Practise & master the PTE exam',
     description:
-      'Launch a professional business website in days — designed, developed and managed by Synapvex, with hosting, SEO and updates handled for you.',
-    icon: Globe,
-    status: 'coming_soon',
+      'A focused PTE preparation platform — realistic scored practice across speaking, writing, reading and listening, with instant AI feedback so learners know exactly what to improve before test day.',
+    icon: Languages,
+    status: PTE_URL ? 'live' : 'coming_soon',
+    href: PTE_URL || undefined,
+    external: true,
     accent: 'text-emerald-600',
     accentBg: 'bg-emerald-600',
     gradient: 'from-emerald-600 to-teal-700',
-    features: ['Custom design & development', 'Managed hosting & updates', 'SEO-ready from day one'],
+    features: [
+      'Full-length scored mock tests',
+      'AI feedback on speaking & writing',
+      'Question bank across all four skills',
+      'Track your score progress over time',
+    ],
   },
   {
-    key: 'desk',
-    name: 'Synapvex Desk',
-    tagline: 'Run your business in one place',
+    key: 'crm',
+    name: 'Synapvex CRM',
+    tagline: 'Manage clients, deals & pipeline',
     description:
-      'A lightweight business suite for small teams — client management, bookings, invoicing and support tickets under one roof.',
-    icon: Briefcase,
-    status: 'coming_soon',
+      'A lightweight CRM for growing teams — keep every contact, lead and deal in one place, track your pipeline, and never let a follow-up slip through the cracks.',
+    icon: Users,
+    status: CRM_URL ? 'live' : 'coming_soon',
+    href: CRM_URL || undefined,
+    external: true,
     accent: 'text-violet-600',
     accentBg: 'bg-violet-600',
     gradient: 'from-violet-600 to-purple-700',
-    features: ['CRM & client portal', 'Bookings & invoicing', 'Support ticketing'],
-  },
-  {
-    key: 'shield',
-    name: 'Synapvex Shield',
-    tagline: 'Security monitoring for SMEs',
-    description:
-      'Continuous security monitoring, vulnerability alerts and best-practice hardening for small and medium businesses.',
-    icon: ShieldCheck,
-    status: 'coming_soon',
-    accent: 'text-rose-600',
-    accentBg: 'bg-rose-600',
-    gradient: 'from-rose-600 to-red-700',
-    features: ['Vulnerability scanning', 'Security alerts', 'Compliance reports'],
+    features: [
+      'Contact & lead management',
+      'Visual deal pipeline',
+      'Tasks, notes & follow-up reminders',
+      'Team-wide activity in one workspace',
+    ],
   },
 ];
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Clock, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Sparkles, ExternalLink } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
@@ -76,18 +76,31 @@ export default function Products() {
                     </ul>
                     {live && product.href ? (
                       <div className="flex flex-wrap gap-3">
-                        <Link
-                          to={product.href}
-                          className={`px-6 py-2.5 ${product.accentBg} text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2`}
-                        >
-                          Explore {product.name} <ArrowRight className="w-4 h-4" />
-                        </Link>
-                        <Link
-                          to="/teach/register"
-                          className="px-6 py-2.5 border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors"
-                        >
-                          View Pricing
-                        </Link>
+                        {product.external ? (
+                          <a
+                            href={product.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`px-6 py-2.5 ${product.accentBg} text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2`}
+                          >
+                            Open {product.name} <ExternalLink className="w-4 h-4" />
+                          </a>
+                        ) : (
+                          <>
+                            <Link
+                              to={product.href}
+                              className={`px-6 py-2.5 ${product.accentBg} text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2`}
+                            >
+                              Explore {product.name} <ArrowRight className="w-4 h-4" />
+                            </Link>
+                            <Link
+                              to="/teach/register"
+                              className="px-6 py-2.5 border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors"
+                            >
+                              View Pricing
+                            </Link>
+                          </>
+                        )}
                       </div>
                     ) : (
                       <Link

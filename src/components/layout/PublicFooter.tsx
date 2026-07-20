@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
 import MaximusLogo from '../ui/MaximusLogo';
+import { PRODUCTS } from '../../lib/products';
+import { LOCATIONS } from '../../lib/locations';
 
 export default function PublicFooter() {
   const currentYear = new Date().getFullYear();
@@ -16,11 +18,21 @@ export default function PublicFooter() {
             <p className="text-sm text-slate-500 leading-relaxed mb-5">
               Innovative, reliable, and cost-effective technology solutions that empower businesses to thrive in the digital age. Your full-spectrum IT partner.
             </p>
+            <div className="mb-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Our Offices</p>
+              <ul className="space-y-3">
+                {LOCATIONS.map(loc => (
+                  <li key={loc.key} className="flex items-start gap-3">
+                    <MapPin className="w-4 h-4 text-sky-600 mt-0.5 shrink-0" />
+                    <span className="text-sm text-slate-500">
+                      <span className="font-semibold text-slate-700">{loc.flag} {loc.city}, {loc.country}</span>
+                      <br />{loc.lines[0]}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <ul className="space-y-3 mb-6">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-sky-600 mt-0.5 shrink-0" />
-                <span className="text-sm text-slate-500">Building 33, Level 4, Suite 4A, Shah Makhdum Avenue,<br />Sector-12, Uttara, Dhaka, Bangladesh, 1230</span>
-              </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-sky-600 shrink-0" />
                 <a href="tel:+8801321203140" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">+88 01321-203140</a>
@@ -56,18 +68,39 @@ export default function PublicFooter() {
           <div>
             <h4 className="text-slate-900 font-bold mb-5 text-sm uppercase tracking-wider">Products</h4>
             <ul className="space-y-3">
-              <li>
-                <Link to="/products/learn" className="text-sm text-slate-500 hover:text-sky-600 transition-colors font-semibold">Synapvex Learn</Link>
-              </li>
+              {PRODUCTS.map(p => {
+                const live = p.status === 'live';
+                if (live && p.external && p.href) {
+                  return (
+                    <li key={p.key}>
+                      <a
+                        href={p.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-slate-500 hover:text-sky-600 transition-colors font-semibold inline-flex items-center gap-1"
+                      >
+                        {p.name} <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </li>
+                  );
+                }
+                if (live && p.href) {
+                  return (
+                    <li key={p.key}>
+                      <Link to={p.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors font-semibold">{p.name}</Link>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={p.key} className="flex items-center gap-2">
+                    <span className="text-sm text-slate-400">{p.name}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Soon</span>
+                  </li>
+                );
+              })}
               <li>
                 <Link to="/products" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">All Products</Link>
               </li>
-              {['Synapvex Sites', 'Synapvex Desk', 'Synapvex Shield'].map(p => (
-                <li key={p} className="flex items-center gap-2">
-                  <span className="text-sm text-slate-400">{p}</span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Soon</span>
-                </li>
-              ))}
             </ul>
           </div>
 
