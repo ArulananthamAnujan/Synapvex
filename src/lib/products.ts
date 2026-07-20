@@ -14,7 +14,7 @@ import { GraduationCap, Languages, Users, type LucideIcon } from 'lucide-react';
  */
 
 // --- Live app URLs (paste the Netlify links here) ---------------------------
-const PTE_URL = ''; // TODO: https://<your-pte-app>.netlify.app
+const PTE_URL = 'https://synapvexpte.netlify.app'; // Synapvex PTE
 const CRM_URL = ''; // TODO: https://<your-crm-app>.netlify.app
 
 export interface SynapvexProduct {
