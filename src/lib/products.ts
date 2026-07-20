@@ -1,11 +1,11 @@
 import { GraduationCap, Languages, Users, type LucideIcon } from 'lucide-react';
 
 /**
- * Central registry of Synapvex products.
+ * Central registry of SynapVex products.
  *
- * Synapvex is a multi-product technology company. Synapvex Learn (the LMS)
- * is built into this site, so its card links internally. Synapvex PTE and
- * Synapvex CRM are separate applications deployed to their own Netlify URLs,
+ * SynapVex is a multi-product technology company. SynapVex Learn (the LMS)
+ * is built into this site, so its card links internally. SynapVex PTE and
+ * SynapVex CRM are separate applications deployed to their own Netlify URLs,
  * so their cards link out (external, opens in a new tab).
  *
  * To point a product at its live app, set its `href` below. External products
@@ -14,10 +14,10 @@ import { GraduationCap, Languages, Users, type LucideIcon } from 'lucide-react';
  */
 
 // --- Live app URLs (paste the Netlify links here) ---------------------------
-const PTE_URL = 'https://synapvexpte.netlify.app'; // Synapvex PTE
+const PTE_URL = 'https://synapvexpte.netlify.app'; // SynapVex PTE
 const CRM_URL = ''; // TODO: https://<your-crm-app>.netlify.app
 
-export interface SynapvexProduct {
+export interface SynapVexProduct {
   key: string;
   name: string;
   tagline: string;
@@ -34,10 +34,10 @@ export interface SynapvexProduct {
   features: string[];
 }
 
-export const PRODUCTS: SynapvexProduct[] = [
+export const PRODUCTS: SynapVexProduct[] = [
   {
     key: 'learn',
-    name: 'Synapvex Learn',
+    name: 'SynapVex Learn',
     tagline: 'Create, brand & sell your courses',
     description:
       'A complete Learning Management System for independent teachers, academies and organisations. Build courses with AI, get your own branded course page, share one link from your website — your students land on your page and learn here.',
@@ -56,7 +56,7 @@ export const PRODUCTS: SynapvexProduct[] = [
   },
   {
     key: 'pte',
-    name: 'Synapvex PTE',
+    name: 'SynapVex PTE',
     tagline: 'Practise & master the PTE exam',
     description:
       'A focused PTE preparation platform — realistic scored practice across speaking, writing, reading and listening, with instant AI feedback so learners know exactly what to improve before test day.',
@@ -76,7 +76,7 @@ export const PRODUCTS: SynapvexProduct[] = [
   },
   {
     key: 'crm',
-    name: 'Synapvex CRM',
+    name: 'SynapVex CRM',
     tagline: 'Manage clients, deals & pipeline',
     description:
       'A lightweight CRM for growing teams — keep every contact, lead and deal in one place, track your pipeline, and never let a follow-up slip through the cracks.',

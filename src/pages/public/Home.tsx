@@ -148,7 +148,7 @@ export default function Home() {
                 <span className="text-gradient-sky">Digital Future</span>
               </h1>
               <p className="text-lg text-slate-300 leading-relaxed mb-9 max-w-xl animate-rise" style={{ animationDelay: '160ms' }}>
-                We build software products businesses run on — led by Synapvex Learn — and deliver
+                We build software products businesses run on — led by SynapVex Learn — and deliver
                 the technology services to match.
               </p>
               <div className="flex flex-wrap gap-4 animate-rise" style={{ animationDelay: '240ms' }}>
@@ -298,38 +298,65 @@ export default function Home() {
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Our Products</p>
             <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">One company, a growing family of products</h2>
             <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
-              Like the tools you already rely on every day, Synapvex products share one account and one
-              standard of quality — starting with Synapvex Learn, live today.
+              Like the tools you already rely on every day, SynapVex products share one account and one
+              standard of quality — starting with SynapVex Learn, live today.
             </p>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {PRODUCTS.map((product, idx) => {
               const live = product.status === 'live';
+              const bannerGradient = live ? product.gradient : 'from-slate-500 to-slate-600';
               const card = (
                 <div
-                  className={`h-full rounded-2xl border p-6 transition-all duration-300 ${
+                  className={`h-full rounded-3xl border overflow-hidden bg-white flex flex-col transition-all duration-300 ${
                     live
-                      ? 'border-sky-200 bg-gradient-to-b from-sky-50 to-white shadow-md hover:shadow-2xl hover:-translate-y-1.5 ring-1 ring-sky-100'
-                      : 'border-slate-100 bg-slate-50/60 hover:shadow-lg hover:-translate-y-0.5'
+                      ? 'border-slate-200 shadow-md hover:shadow-2xl hover:-translate-y-1.5'
+                      : 'border-slate-200 hover:shadow-lg hover:-translate-y-0.5'
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${live ? product.accentBg : 'bg-slate-200'}`}>
-                      <product.icon className={`w-6 h-6 ${live ? 'text-white' : 'text-slate-500'}`} />
+                  {/* illustrated banner */}
+                  <div className={`relative h-32 bg-gradient-to-br ${bannerGradient} overflow-hidden`}>
+                    {/* network texture */}
+                    <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
+                      <defs>
+                        <pattern id={`net-${product.key}`} width="26" height="26" patternUnits="userSpaceOnUse">
+                          <circle cx="2" cy="2" r="1.4" fill="white" opacity="0.4" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill={`url(#net-${product.key})`} />
+                    </svg>
+                    <div className="absolute -top-10 -right-8 w-32 h-32 bg-white/15 rounded-full blur-2xl" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl" />
+
+                    {/* status pill */}
+                    <span className={`absolute top-4 right-4 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                      live ? 'bg-white/90 text-emerald-700' : 'bg-black/25 text-white/90 backdrop-blur'
+                    }`}>
+                      {live ? 'Live' : 'Coming Soon'}
+                    </span>
+
+                    {/* prominent product icon */}
+                    <div className="absolute -bottom-7 left-6 w-16 h-16 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 flex items-center justify-center">
+                      <div className={`w-full h-full rounded-2xl bg-gradient-to-br ${bannerGradient} flex items-center justify-center`}>
+                        <product.icon className="w-8 h-8 text-white" />
+                      </div>
                     </div>
+                  </div>
+
+                  {/* content */}
+                  <div className="p-6 pt-11 flex flex-col flex-1">
+                    <h3 className={`font-bold text-lg mb-1.5 ${live ? 'text-slate-900' : 'text-slate-700'}`}>{product.name}</h3>
+                    <p className={`text-sm leading-relaxed flex-1 ${live ? 'text-slate-500' : 'text-slate-400'}`}>{product.tagline}</p>
                     {live ? (
-                      <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Live</span>
+                      <span className="inline-flex items-center gap-1.5 mt-5 text-sm font-bold text-sky-600 group-hover:gap-2.5 transition-all">
+                        {product.external ? 'Open' : 'Explore'} <ArrowRight className="w-4 h-4" />
+                      </span>
                     ) : (
-                      <span className="bg-slate-200 text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Coming Soon</span>
+                      <span className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-slate-400">
+                        Launching soon
+                      </span>
                     )}
                   </div>
-                  <h3 className={`font-bold text-base mb-1 ${live ? 'text-slate-900' : 'text-slate-600'}`}>{product.name}</h3>
-                  <p className={`text-sm leading-relaxed ${live ? 'text-slate-500' : 'text-slate-400'}`}>{product.tagline}</p>
-                  {live && (
-                    <span className="inline-flex items-center gap-1 mt-4 text-xs font-bold text-sky-600">
-                      Explore <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  )}
                 </div>
               );
               return (
@@ -395,14 +422,14 @@ export default function Home() {
                 <span className="text-sky-700 text-sm font-semibold">Flagship Product · Live Now</span>
               </div>
               <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-5 leading-tight">
-                Synapvex Learn —<br />
+                SynapVex Learn —<br />
                 <span className="text-sky-600">Sell courses from your own website</span>
               </h2>
               <p className="text-slate-500 leading-relaxed mb-6">
                 Built for independent teachers, academies and corporate trainers. Create your courses
                 here, get your own branded course page with your logo and colors, and share one link
                 from your website — your students land on <em>your</em> page, enrol, pay and learn,
-                while Synapvex runs everything behind the scenes.
+                while SynapVex runs everything behind the scenes.
               </p>
               <div className="grid sm:grid-cols-2 gap-3 mb-8">
                 {[
@@ -423,7 +450,7 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap gap-4">
                 <Link to="/products/learn" className="group px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-600/25 flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn
+                  <GraduationCap className="w-4 h-4" /> Discover SynapVex Learn
                 </Link>
                 <Link to="/products" className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-sky-400 hover:text-sky-600 transition-colors flex items-center gap-2">
                   <Users className="w-4 h-4" /> View All Products
