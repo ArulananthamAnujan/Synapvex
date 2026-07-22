@@ -226,6 +226,50 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.14);
   }
+
+  /* Animated connector dot traveling along a path. */
+  .connector-dot {
+    offset-path: path("M0,40 C150,40 150,0 300,0 C450,0 450,40 600,40 C750,40 750,0 900,0 C1050,0 1050,40 1200,40");
+    offset-rotate: auto;
+    animation: dot-travel 4s linear infinite;
+  }
+
+  @keyframes dot-travel {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+  }
+
+  /* Gradient line draw-in animation. */
+  @keyframes line-draw {
+    from { stroke-dashoffset: 1200; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  .animate-line-draw {
+    stroke-dasharray: 1200;
+    animation: line-draw 2.5s ease-out forwards;
+  }
+
+  /* Marquee for trust logos. */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Pulse ring for timeline nodes. */
+  @keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 0.3; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2.5s ease-in-out infinite;
+  }
 }
 
 /* Honor users who prefer reduced motion — stop the ambient loops. */

@@ -3,10 +3,12 @@ import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
   Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight,
   CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap, Sparkles,
+  Rocket, Layers, Server, LineChart,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
+import Connector from '../../components/ui/Connector';
 import { PRODUCTS } from '../../lib/products';
 
 const SERVICES = [
@@ -291,6 +293,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats band */}
+      <section className="relative -mt-2 py-12 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Rocket, value: '10+', label: 'Products & Services' },
+              { icon: Users, value: '500+', label: 'Students & Clients' },
+              { icon: Award, value: '100%', label: 'Satisfaction Focus' },
+              { icon: Globe, value: '24/7', label: 'Support & Monitoring' },
+            ].map((stat, i) => (
+              <Reveal key={i} delay={i * 80} className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-sky-500/20">
+                  <stat.icon className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="font-playfair text-2xl font-bold text-slate-900 leading-none">{stat.value}</p>
+                  <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Connector from="light" to="light" />
+
       {/* Our Products */}
       <section id="products" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -378,6 +406,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Connector from="light" to="light" />
+
       {/* Services Overview */}
       <section id="services" className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -411,6 +441,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <Connector from="light" to="light" />
 
       {/* Featured Product: LMS */}
       <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
@@ -507,6 +539,52 @@ export default function Home() {
         </div>
       </section>
 
+      <Connector from="light" to="dark" />
+
+      {/* Process Timeline */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-16">
+            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How We Work</p>
+            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">From idea to launch in four steps</h2>
+            <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+              A proven process that keeps you informed and in control at every stage.
+            </p>
+          </Reveal>
+
+          <div className="relative">
+            {/* connecting line for desktop */}
+            <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-sky-200 via-blue-300 to-sky-200" />
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
+              {[
+                { icon: Lightbulb, step: '01', title: 'Discover', desc: 'We dive deep into your goals, challenges and vision to map the right solution.' },
+                { icon: Layers, step: '02', title: 'Design', desc: 'Architecture, UX and visual design come together in a blueprint you approve.' },
+                { icon: Server, step: '03', title: 'Build', desc: 'Our engineers develop, test and iterate with continuous feedback loops.' },
+                { icon: LineChart, step: '04', title: 'Launch & Grow', desc: 'We deploy, monitor and optimise — scaling as your business grows.' },
+              ].map((phase, i) => (
+                <Reveal key={phase.step} delay={i * 120} className="relative text-center">
+                  <div className="relative inline-flex">
+                    {/* pulse ring */}
+                    <div className="absolute inset-0 rounded-2xl bg-sky-400/30 animate-pulse-ring" />
+                    <div className="relative w-20 h-20 rounded-2xl bg-white border-2 border-sky-200 shadow-lg flex items-center justify-center mb-5 mx-auto transition-transform group-hover:scale-110">
+                      <phase.icon className="w-9 h-9 text-sky-600" />
+                      <span className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-sky-600 text-white text-xs font-bold flex items-center justify-center shadow-md">
+                        {phase.step}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">{phase.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">{phase.desc}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Connector from="light" to="dark" />
+
       {/* Why Choose SynapVex */}
       <section className="py-24 relative overflow-hidden bg-mesh">
         <div className="absolute inset-0 bg-grid" />
@@ -531,6 +609,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Connector from="dark" to="dark" />
 
       {/* CTA Banner */}
       <section className="py-20 bg-mesh relative overflow-hidden">
