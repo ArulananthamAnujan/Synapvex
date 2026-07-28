@@ -7,20 +7,11 @@ import { safeInternalPath } from '../../lib/utils';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
 import MaximusLogo from '../../components/ui/MaximusLogo';
 
-const DEMO_ACCOUNTS = [
-  { label: 'Admin', email: 'admin@synapvex.com', password: 'Admin1234!' },
-  { label: 'Client (Teacher)', email: 'teacher@synapvex.com', password: 'Teacher1234!' },
-  { label: 'Student', email: 'student@synapvex.com', password: 'Student1234!' },
-  { label: 'Co-Admin', email: 'co.admin@synapvex.com', password: 'CoAdmin1234!' },
-  { label: 'Organisation', email: 'org@synapvex.com', password: 'OrgAdmin1234!' },
-];
-
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState('');
   const [error, setError] = useState('');
   const { signIn, signInWithGoogle } = useAuth();
   const { toast } = useToast();
@@ -48,19 +39,6 @@ export default function Login() {
     setError('');
     const { error } = await signInWithGoogle(next ?? undefined);
     if (error) setError(`Could not start Google sign-in: ${error.message}`);
-  };
-
-  const handleDemo = async (demoEmail: string, demoPassword: string) => {
-    setError('');
-    setDemoLoading(demoEmail);
-    const { error } = await signIn(demoEmail, demoPassword);
-    if (error) {
-      setError('That demo account is not seeded on this database yet (apply migration 058).');
-      setDemoLoading('');
-    } else {
-      toast.success('Signed in to demo account');
-      navigate(next ?? '/dashboard');
-    }
   };
 
   return (
@@ -178,26 +156,6 @@ export default function Login() {
               Don't have an account?{' '}
               <Link to={next ? `/register?next=${encodeURIComponent(next)}` : '/register'} className="text-sky-600 hover:text-sky-700 font-medium">Create account</Link>
             </p>
-
-            <div className="mt-6 pt-5 border-t border-gray-100 dark:border-navy-700">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2.5">Demo accounts</p>
-              <div className="grid grid-cols-2 gap-2">
-                {DEMO_ACCOUNTS.map(acc => (
-                  <button
-                    key={acc.email}
-                    onClick={() => handleDemo(acc.email, acc.password)}
-                    disabled={!!demoLoading}
-                    className="text-left px-3 py-2 rounded-lg border border-gray-200 dark:border-navy-600 hover:border-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors disabled:opacity-50"
-                  >
-                    <span className="block text-xs font-semibold text-gray-700 dark:text-gray-200">{acc.label}</span>
-                    <span className="block text-[10px] text-gray-400 truncate">
-                      {demoLoading === acc.email ? 'Signing in…' : acc.email}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 text-[10px] text-gray-400">One-click sign-in for testing. Remove this panel before public launch.</p>
-            </div>
           </div>
         </div>
       </div>
