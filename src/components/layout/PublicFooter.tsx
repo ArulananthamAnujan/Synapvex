@@ -35,7 +35,11 @@ export default function PublicFooter() {
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-sky-600 shrink-0" />
-                <a href="tel:+8801321203140" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">+88 01321-203140</a>
+                <span className="text-sm text-slate-500">
+                  <a href="tel:+61481782313" className="hover:text-sky-600 transition-colors">+61 481 782 313</a>
+                  <span className="text-slate-300 mx-1.5">·</span>
+                  <a href="tel:+61433198567" className="hover:text-sky-600 transition-colors">+61 433 198 567</a>
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-sky-600 shrink-0" />
