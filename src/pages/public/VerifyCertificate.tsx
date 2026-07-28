@@ -143,7 +143,7 @@ export default function VerifyCertificate() {
 
         <p className="text-center text-xs text-gray-400 mt-8">
           Synapvex Learn &mdash; Certificates issued on this platform are digitally signed and tamper-proof.<br />
-          For support, contact <a href="mailto:info@synapvex.com" className="text-sky-600 hover:underline">info@synapvex.com</a>
+          For support, contact <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>
         </p>
       </main>
     </div>

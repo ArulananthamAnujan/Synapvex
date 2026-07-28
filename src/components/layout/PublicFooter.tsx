@@ -43,7 +43,7 @@ export default function PublicFooter() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-sky-600 shrink-0" />
-                <a href="mailto:info@synapvex.com" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">info@synapvex.com</a>
+                <a href="mailto:info@synapvex.com.au" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">info@synapvex.com.au</a>
               </li>
             </ul>
             {/* Social icons removed until real profile URLs exist — dead

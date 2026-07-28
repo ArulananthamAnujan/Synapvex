@@ -21,8 +21,8 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     title: 'Email',
-    lines: ['info@synapvex.com'],
-    href: 'mailto:info@synapvex.com',
+    lines: ['info@synapvex.com.au'],
+    href: 'mailto:info@synapvex.com.au',
   },
   {
     icon: Clock,
@@ -304,7 +304,7 @@ export default function Contact() {
               </div>
               <p className="text-center text-slate-500 text-sm mt-8">
                 Still have questions?{' '}
-                <a href="mailto:info@synapvex.com" className="text-sky-600 font-semibold hover:text-sky-700 transition-colors">
+                <a href="mailto:info@synapvex.com.au" className="text-sky-600 font-semibold hover:text-sky-700 transition-colors">
                   Email us directly
                 </a>
               </p>
