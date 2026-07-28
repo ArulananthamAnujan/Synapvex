@@ -7,22 +7,13 @@ import { safeInternalPath } from '../../lib/utils';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
 import MaximusLogo from '../../components/ui/MaximusLogo';
 
-const DEMO_ACCOUNTS = [
-  { label: 'Admin', email: 'admin@synapvex.com', password: 'Admin1234!' },
-  { label: 'Client (Teacher)', email: 'teacher@synapvex.com', password: 'Teacher1234!' },
-  { label: 'Student', email: 'student@synapvex.com', password: 'Student1234!' },
-  { label: 'Co-Admin', email: 'co.admin@synapvex.com', password: 'CoAdmin1234!' },
-  { label: 'Organisation', email: 'org@synapvex.com', password: 'OrgAdmin1234!' },
-];
-
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState('');
   const [error, setError] = useState('');
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn, signInWithGoogle, signInWithMicrosoft } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -44,22 +35,13 @@ export default function Login() {
     }
   };
 
-  const handleGoogle = async () => {
+  const handleOAuth = async (provider: 'google' | 'microsoft') => {
     setError('');
-    const { error } = await signInWithGoogle(next ?? undefined);
-    if (error) setError(`Could not start Google sign-in: ${error.message}`);
-  };
-
-  const handleDemo = async (demoEmail: string, demoPassword: string) => {
-    setError('');
-    setDemoLoading(demoEmail);
-    const { error } = await signIn(demoEmail, demoPassword);
+    const { error } = provider === 'google'
+      ? await signInWithGoogle(next ?? undefined)
+      : await signInWithMicrosoft(next ?? undefined);
     if (error) {
-      setError('That demo account is not seeded on this database yet (apply migration 058).');
-      setDemoLoading('');
-    } else {
-      toast.success('Signed in to demo account');
-      navigate(next ?? '/dashboard');
+      setError(`Could not start ${provider === 'google' ? 'Google' : 'Microsoft'} sign-in: ${error.message}`);
     }
   };
 
@@ -73,7 +55,7 @@ export default function Login() {
             <MaximusLogo height={64} variant="dark" />
           </Link>
           <h2 className="font-playfair text-4xl font-bold text-white mb-6 leading-tight">
-            Welcome back to SynapVex Learn
+            Welcome back to Synapvex Learn
           </h2>
           <p className="text-sky-100 text-lg leading-relaxed mb-10">
             Sign in to keep learning, teaching, or managing your courses — everything is right where you left it.
@@ -109,15 +91,24 @@ export default function Login() {
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <h1 className="text-3xl font-bold text-navy-900 dark:text-white mb-2">Welcome back</h1>
-            <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to your SynapVex Learn account</p>
+            <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to your Synapvex Learn account</p>
 
-            <button
-              onClick={handleGoogle}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 mb-6 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors"
-            >
-              <Google className="w-4 h-4" />
-              Continue with Google
-            </button>
+            <div className="flex gap-3 mb-6">
+              <button
+                onClick={() => handleOAuth('google')}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors"
+              >
+                <Google className="w-4 h-4" />
+                Google
+              </button>
+              <button
+                onClick={() => handleOAuth('microsoft')}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>
+                Microsoft
+              </button>
+            </div>
 
             <div className="flex items-center gap-3 mb-6">
               <div className="flex-1 h-px bg-gray-200 dark:bg-navy-600" />
@@ -148,7 +139,7 @@ export default function Login() {
               <div>
                 <div className="flex justify-between items-center mb-1.5">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                  <Link to="/forgot-password" className="text-xs text-sky-600 hover:text-sky-700">Forgot password?</Link>
+                  <Link to="/forgot-password" className="text-xs text-gold-600 hover:text-gold-700">Forgot password?</Link>
                 </div>
                 <div className="relative">
                   <input
@@ -176,28 +167,8 @@ export default function Login() {
 
             <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
               Don't have an account?{' '}
-              <Link to={next ? `/register?next=${encodeURIComponent(next)}` : '/register'} className="text-sky-600 hover:text-sky-700 font-medium">Create account</Link>
+              <Link to={next ? `/register?next=${encodeURIComponent(next)}` : '/register'} className="text-gold-600 hover:text-gold-700 font-medium">Create account</Link>
             </p>
-
-            <div className="mt-6 pt-5 border-t border-gray-100 dark:border-navy-700">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2.5">Demo accounts</p>
-              <div className="grid grid-cols-2 gap-2">
-                {DEMO_ACCOUNTS.map(acc => (
-                  <button
-                    key={acc.email}
-                    onClick={() => handleDemo(acc.email, acc.password)}
-                    disabled={!!demoLoading}
-                    className="text-left px-3 py-2 rounded-lg border border-gray-200 dark:border-navy-600 hover:border-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors disabled:opacity-50"
-                  >
-                    <span className="block text-xs font-semibold text-gray-700 dark:text-gray-200">{acc.label}</span>
-                    <span className="block text-[10px] text-gray-400 truncate">
-                      {demoLoading === acc.email ? 'Signing in…' : acc.email}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 text-[10px] text-gray-400">One-click sign-in for testing. Remove this panel before public launch.</p>
-            </div>
           </div>
         </div>
       </div>
