@@ -49,7 +49,7 @@ export default function PrivacyPolicy() {
         <p>
           We keep your data while your account is active. You may request a copy of your data, correction
           of inaccurate data, or deletion of your account and associated personal data at any time by
-          contacting us at <a href="mailto:info@synapvex.com" className="text-sky-600 hover:underline">info@synapvex.com</a>.
+          contacting us at <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>.
           Some records (e.g. tax and payment records) may be retained where the law requires it.
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function PrivacyPolicy() {
         <h2>Contact</h2>
         <p>
           Questions about this policy? Reach us at{' '}
-          <a href="mailto:info@synapvex.com" className="text-sky-600 hover:underline">info@synapvex.com</a>{' '}
+          <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>{' '}
           or through our <Link to="/contact" className="text-sky-600 hover:underline">contact page</Link>.
         </p>
       </div>

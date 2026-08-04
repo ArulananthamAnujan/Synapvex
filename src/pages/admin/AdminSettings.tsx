@@ -21,7 +21,7 @@ interface SiteSettings {
 const DEFAULT_SETTINGS: SiteSettings = {
   platform_name: 'Synapvex Learn',
   tagline: 'Learn. Upskill. Achieve.',
-  support_email: 'hello@maximus.edu.au',
+  support_email: 'info@synapvex.com.au',
   support_phone: '+61 2 9123 4567',
   logo_url: '',
   welcome_email_subject: 'Welcome to Synapvex Learn!',

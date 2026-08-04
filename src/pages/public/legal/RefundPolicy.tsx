@@ -28,7 +28,7 @@ export default function RefundPolicy() {
       <div>
         <h2>How to Request a Refund</h2>
         <p>
-          Email <a href="mailto:info@synapvex.com" className="text-sky-600 hover:underline">info@synapvex.com</a>{' '}
+          Email <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>{' '}
           from your account email with your order details, or use our{' '}
           <Link to="/contact" className="text-sky-600 hover:underline">contact form</Link> with the subject
           "Refund request". We aim to respond within 2 business days.

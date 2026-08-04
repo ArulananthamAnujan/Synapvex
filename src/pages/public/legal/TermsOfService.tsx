@@ -60,7 +60,7 @@ export default function TermsOfService() {
         <h2>Changes & Contact</h2>
         <p>
           We may update these terms from time to time; material changes will be notified on this page.
-          Questions? Contact <a href="mailto:info@synapvex.com" className="text-sky-600 hover:underline">info@synapvex.com</a>.
+          Questions? Contact <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>.
         </p>
       </div>
     </LegalLayout>

@@ -48,7 +48,7 @@ export default function VerifyCertificate() {
       <main className="max-w-2xl mx-auto px-4 py-16">
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-gold-100 dark:bg-gold-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-gold-600" />
+            <Shield className="w-8 h-8 text-sky-600" />
           </div>
           <h1 className="font-playfair text-3xl font-bold text-navy-900 dark:text-white mb-3">Certificate Verification</h1>
           <p className="text-gray-500 dark:text-gray-400">Enter a certificate ID to verify its authenticity.</p>
@@ -90,7 +90,7 @@ export default function VerifyCertificate() {
             <div className="bg-gray-50 dark:bg-navy-700 rounded-xl p-6 space-y-4">
               <div className="flex justify-center mb-4">
                 <div className="w-20 h-20 bg-gold-100 dark:bg-gold-900/30 rounded-2xl flex items-center justify-center">
-                  <GraduationCap className="w-10 h-10 text-gold-600" />
+                  <GraduationCap className="w-10 h-10 text-sky-600" />
                 </div>
               </div>
               <div className="text-center mb-6">
@@ -143,7 +143,7 @@ export default function VerifyCertificate() {
 
         <p className="text-center text-xs text-gray-400 mt-8">
           Synapvex Learn &mdash; Certificates issued on this platform are digitally signed and tamper-proof.<br />
-          For support, contact <a href="mailto:certificates@maximus.edu.au" className="text-gold-600 hover:underline">certificates@maximus.edu.au</a>
+          For support, contact <a href="mailto:info@synapvex.com.au" className="text-sky-600 hover:underline">info@synapvex.com.au</a>
         </p>
       </main>
     </div>

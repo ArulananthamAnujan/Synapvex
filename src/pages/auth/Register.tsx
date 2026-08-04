@@ -12,7 +12,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signUp, signInWithGoogle, signInWithMicrosoft } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -29,14 +29,10 @@ export default function Register() {
     setError('');
   };
 
-  const handleOAuth = async (provider: 'google' | 'microsoft') => {
+  const handleGoogle = async () => {
     setError('');
-    const { error } = provider === 'google'
-      ? await signInWithGoogle(next ?? undefined)
-      : await signInWithMicrosoft(next ?? undefined);
-    if (error) {
-      setError(`Could not start ${provider === 'google' ? 'Google' : 'Microsoft'} sign-up: ${error.message}`);
-    }
+    const { error } = await signInWithGoogle(next ?? undefined);
+    if (error) setError(`Could not start Google sign-up: ${error.message}`);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +52,7 @@ export default function Register() {
       setError(error.message || 'Registration failed. Please try again.');
       setLoading(false);
     } else {
-      toast.success('Account created! Welcome to Synapvex Learn.');
+      toast.success('Account created! Welcome to SynapVex Learn.');
       navigate(next ?? '/student');
     }
   };
@@ -132,14 +128,14 @@ export default function Register() {
           <div className="w-full max-w-md">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-navy-900 dark:text-white mb-2">Create your account</h1>
-              <p className="text-gray-500 dark:text-gray-400">Start learning on Synapvex Learn in minutes</p>
+              <p className="text-gray-500 dark:text-gray-400">Start learning on SynapVex Learn in minutes</p>
             </div>
 
             {/* Social sign-up */}
-            <div className="flex gap-3 mb-6">
+            <div className="mb-6">
               <button
-                onClick={() => handleOAuth('google')}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 bg-white dark:bg-navy-800 transition-colors"
+                onClick={handleGoogle}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 bg-white dark:bg-navy-800 transition-colors"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -147,19 +143,7 @@ export default function Register() {
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                 </svg>
-                Google
-              </button>
-              <button
-                onClick={() => handleOAuth('microsoft')}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-navy-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-navy-700 bg-white dark:bg-navy-800 transition-colors"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24">
-                  <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
-                  <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
-                  <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
-                  <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
-                </svg>
-                Microsoft
+                Continue with Google
               </button>
             </div>
 
@@ -242,7 +226,7 @@ export default function Register() {
               <div className="flex items-start gap-2">
                 <Info className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
                 <p className="text-xs text-sky-700 dark:text-sky-300">
-                  Want to teach on Synapvex Learn?{' '}
+                  Want to teach on SynapVex Learn?{' '}
                   <Link to="/teach" className="underline font-semibold">View client plans →</Link>
                 </p>
               </div>
@@ -250,13 +234,13 @@ export default function Register() {
 
             <p className="mt-4 text-center text-xs text-gray-400 dark:text-gray-500">
               By creating an account, you agree to our{' '}
-              <a href="#" className="text-gold-600 hover:underline">Terms of Service</a> and{' '}
-              <a href="#" className="text-gold-600 hover:underline">Privacy Policy</a>.
+              <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and{' '}
+              <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
             </p>
 
             <p className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
               Already have an account?{' '}
-              <Link to={next ? `/login?next=${encodeURIComponent(next)}` : '/login'} className="text-gold-600 hover:text-gold-700 dark:hover:text-gold-400 font-medium">Sign in</Link>
+              <Link to={next ? `/login?next=${encodeURIComponent(next)}` : '/login'} className="text-sky-600 hover:text-sky-700 dark:hover:text-sky-400 font-medium">Sign in</Link>
             </p>
           </div>
         </div>
