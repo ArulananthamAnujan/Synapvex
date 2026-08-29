@@ -747,9 +747,9 @@
     radial-gradient(circle at 91% 12%,rgba(56,189,248,.28),transparent 34%),
     linear-gradient(145deg,#fffdf8,#e9f7fb 58%,#f4fafb);
 }
-.public-glass-page article[class*="bg-white"],
-.public-glass-page aside[class*="bg-white"],
-.public-glass-page div[class*="bg-white"][class*="border"] {
+.public-glass-page article[class~="bg-white"],
+.public-glass-page aside[class~="bg-white"],
+.public-glass-page div[class~="bg-white"][class*="border"] {
   border-color:rgba(186,230,253,.64);
   background:
     radial-gradient(circle at 94% 8%,rgba(56,189,248,.1),transparent 30%),
@@ -809,4 +809,105 @@
   }
   .public-glass-page article:hover { transform:none; }
   .public-glass-page h1 { text-wrap:balance; }
+}
+
+
+/* Readability correction: premium type must remain comfortably legible */
+.compact-home {
+  font-family:Inter,system-ui,sans-serif;
+}
+.compact-home h1,
+.compact-home h2 {
+  font-family:Fraunces,Georgia,serif;
+}
+.compact-kicker {
+  font-size:.68rem;
+  line-height:1.25;
+  letter-spacing:.11em;
+}
+.compact-primary-action,
+.compact-secondary-action {
+  min-height:2.8rem;
+  padding:.72rem .9rem;
+  font-size:.75rem;
+}
+.compact-product-card {
+  min-height:4rem;
+  gap:.65rem;
+  padding:.65rem;
+}
+.compact-product-icon {
+  width:2.7rem;
+  height:2.7rem;
+  border-radius:.8rem;
+}
+.compact-product-card h3 {
+  font-size:.8rem !important;
+  line-height:1.25;
+}
+.compact-product-card p {
+  display:block !important;
+  font-size:.68rem !important;
+  line-height:1.35;
+}
+.compact-capability-band {
+  padding:1.25rem;
+}
+.compact-eyebrow {
+  font-size:.65rem;
+}
+.compact-section-title {
+  font-size:1.45rem;
+  line-height:1.06;
+}
+.compact-text-link {
+  font-size:.75rem;
+}
+.compact-capability-card {
+  gap:.65rem;
+  padding:.8rem;
+}
+.compact-capability-card h3,
+.compact-step h3,
+.compact-proof h3 {
+  font-size:.78rem;
+  line-height:1.3;
+}
+.compact-capability-card p,
+.compact-step p,
+.compact-proof p {
+  display:block;
+  margin-top:.22rem;
+  color:#526477;
+  font-size:.69rem;
+  line-height:1.45;
+}
+.compact-lower-panel {
+  padding:1.1rem;
+}
+.compact-step,
+.compact-proof {
+  gap:.65rem;
+  padding:.72rem;
+}
+.compact-step > span {
+  width:1.7rem;
+  height:1.7rem;
+  font-size:.58rem;
+}
+@media (min-width:640px) {
+  .compact-kicker { font-size:.72rem; }
+  .compact-product-card { min-height:4.35rem; padding:.72rem; }
+  .compact-product-card h3 { font-size:.95rem !important; }
+  .compact-product-card p { font-size:.74rem !important; }
+  .compact-capability-band { padding:1.75rem; }
+  .compact-section-title { font-size:1.95rem; }
+  .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:.88rem; }
+  .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.75rem; }
+}
+@media (min-width:1024px) {
+  .compact-product-card h3 { font-size:1rem !important; }
+  .compact-product-card p { font-size:.78rem !important; }
+  .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:.94rem; }
+  .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.78rem; }
 }
