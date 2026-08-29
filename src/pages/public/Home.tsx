@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Briefcase, Cloud, Code2, Globe2, GraduationCap,
@@ -8,8 +7,6 @@ import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
-
-const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const CAPABILITIES = [
   { icon: Code2, title: 'Custom software', description: 'Purpose-built business applications, SaaS products, APIs and system integrations.' },
@@ -138,23 +135,6 @@ export default function Home() {
                 <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">{detail}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        <section className="bg-white py-24 sm:py-32">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-            <Reveal>
-              <p className="corporate-eyebrow">One connected technology partner</p>
-              <h2 className="corporate-heading mt-4">Products, platforms and delivery—designed to work together.</h2>
-              <p className="mt-6 max-w-xl text-base leading-8 text-slate-600">Our product experience sharpens our client delivery, while real operational challenges continuously improve the platforms we build. The result is technology with both imagination and commercial discipline.</p>
-              <Link to="/about" className="mt-9 inline-flex items-center gap-2 text-sm font-bold text-sky-800 transition-colors hover:text-amber-600">See how we deliver <ArrowRight className="h-4 w-4" /></Link>
-            </Reveal>
-            <Reveal delay={100} className="relative">
-              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 via-transparent to-sky-300/40 blur-3xl" />
-              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-gradient-to-br from-white to-sky-50" />}>
-                <InteractiveOrbitalScene className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70" />
-              </Suspense>
-            </Reveal>
           </div>
         </section>
 
