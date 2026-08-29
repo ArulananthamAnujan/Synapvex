@@ -126,7 +126,7 @@ Deno.serve(async (req: Request) => {
           type: "teacher_subscription",
         },
         success_url: `${siteUrl}/teacher/billing?subscription=success&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${siteUrl}/teach/register?plan=${plan.slug}&cancelled=1`,
+        cancel_url: `${siteUrl}/teacher/billing?checkout=cancelled`,
       });
 
       return new Response(JSON.stringify({ url: session.url }), {
