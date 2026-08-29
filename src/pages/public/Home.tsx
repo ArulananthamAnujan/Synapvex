@@ -64,36 +64,36 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl">
+            <div className="luxury-surface glass-panel relative min-w-0 overflow-hidden rounded-[24px] border border-white/80 bg-white/72 backdrop-blur-2xl">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
-              <div className="relative flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/90 px-5 py-3">
+              <div className="relative hidden items-center gap-2 border-b border-white/70 bg-white/45 px-5 py-3 sm:flex">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-300" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
                 <div className="mx-auto rounded-lg border border-slate-200 bg-white px-6 py-1.5 text-[10px] font-semibold tracking-wide text-slate-400">synapvex.com.au / product portfolio</div>
               </div>
-              <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
+              <div className="flex min-w-0 items-start justify-between gap-4 border-b border-white/70 px-4 py-5 sm:items-center sm:px-6">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
                   <p className="mt-1 text-sm text-slate-500">Products and delivery capabilities</p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
+                <div className="glass-status flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-[10px] font-bold uppercase tracking-wide text-emerald-700 sm:text-xs sm:normal-case sm:tracking-normal">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   {liveProducts.length} live platforms
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
-                    <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
+                    <div key={product.key} className="glass-product-row glass-touch grid min-w-0 grid-cols-[44px_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-2xl px-3 py-3.5 sm:grid-cols-[44px_minmax(0,1fr)_auto] sm:px-4 sm:py-4">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
-                        <p className="truncate text-xs text-slate-500">{product.tagline}</p>
+                        <p className="text-sm font-bold leading-tight text-[#102d48]">{product.name}</p>
+                        <p className="mt-0.5 line-clamp-2 text-xs leading-5 text-slate-500">{product.tagline}</p>
                       </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
+                      <span className={`col-start-2 w-fit rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider sm:col-start-auto ${product.status === 'live' ? 'border-emerald-200/70 bg-emerald-50/70 text-emerald-700' : 'border-slate-200/80 bg-white/55 text-slate-500'}`}>
                         {product.status === 'live' ? 'Live' : 'In development'}
                       </span>
                     </div>
@@ -157,7 +157,7 @@ export default function Home() {
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
-                  <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                  <article className="glass-product-card glass-touch flex h-full flex-col rounded-[24px] p-6 sm:p-7">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
                         <product.icon className="h-6 w-6 text-white" />
