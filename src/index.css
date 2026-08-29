@@ -711,3 +711,23 @@
   .compact-site-footer h2 { font-size:.65rem; }
   .compact-site-footer li,.compact-site-footer li a { font-size:.72rem; }
 }
+
+
+/* Desktop glass navigation interactions */
+.glass-nav-link {
+  touch-action:manipulation;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+}
+.glass-nav-link:hover {
+  transform:translateY(-1px);
+  background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(232,247,252,.72));
+  box-shadow:inset 0 1px 0 #fff,0 10px 22px -17px rgba(2,132,199,.6);
+}
+.glass-nav-link:active {
+  transform:translateY(1px) scale(.97);
+  transition-duration:70ms;
+}
+@media (min-width:768px) and (max-width:1023px) {
+  .glass-logo-shell { padding:.25rem .4rem; }
+  header .luxury-button-primary { padding-left:1rem; padding-right:1rem; }
+}
