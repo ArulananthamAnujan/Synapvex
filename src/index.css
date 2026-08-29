@@ -677,3 +677,37 @@
   .compact-hero h1 { font-size:1.8rem; }
   .compact-kicker { font-size:.5rem; letter-spacing:.09em; }
 }
+
+
+/* Compact utility footer — deliberately limited to a small page footprint */
+.compact-site-footer h2 {
+  color:#fff;
+  font-family:inherit;
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.compact-site-footer ul {
+  margin-top:.65rem;
+  display:grid;
+  gap:.38rem;
+}
+.compact-site-footer li,
+.compact-site-footer li a {
+  min-width:0;
+  color:#94a3b8;
+  font-size:.62rem;
+  line-height:1.35;
+}
+.compact-site-footer li a {
+  display:inline-flex;
+  align-items:center;
+  gap:.2rem;
+  transition:color .2s ease;
+}
+.compact-site-footer li a:hover { color:#fff; }
+@media (min-width:640px) {
+  .compact-site-footer h2 { font-size:.65rem; }
+  .compact-site-footer li,.compact-site-footer li a { font-size:.72rem; }
+}
