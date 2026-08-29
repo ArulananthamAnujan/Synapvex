@@ -161,14 +161,14 @@ export default function About() {
       <div className="pt-20 lg:pt-24">
 
         {/* Hero */}
-        <section className="relative py-28 bg-mesh overflow-hidden">
+        <section className="relative py-32 bg-[#020617] overflow-hidden">
           <div className="absolute inset-0 bg-grid" />
           <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
           <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">SynapVex Technologies</p>
-            <h1 className="font-sans text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-              Our Services
+            <h1 className="font-sans text-5xl sm:text-7xl font-bold text-white mb-6 leading-[1.02] tracking-[-0.05em]">
+              Expertise with <span className="bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent">executive-level polish.</span>
             </h1>
             <p className="text-slate-300 text-xl leading-relaxed max-w-3xl mx-auto">
               Full-spectrum technology solutions for businesses of every size — from custom software and cybersecurity to cloud infrastructure, digital marketing, and our own LMS platform.
@@ -185,12 +185,12 @@ export default function About() {
         </section>
 
         {/* All Services Grid */}
-        <section className="py-20 bg-slate-50">
+        <section className="py-24 bg-gradient-to-b from-slate-950 via-[#071327] to-slate-950 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Offer</p>
-              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Our Services — In Detail</h2>
-              <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sky-300 font-semibold text-sm uppercase tracking-[0.22em] mb-3">What We Offer</p>
+              <h2 className="font-sans text-4xl sm:text-5xl font-bold text-white mb-4 tracking-[-0.04em]">One partner. Serious technical depth.</h2>
+              <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
                 Every service is delivered by specialists with deep domain expertise, focused on solving your real business challenges.
               </p>
             </div>
@@ -198,18 +198,19 @@ export default function About() {
               {SERVICES.map((svc, idx) => (
                 <div
                   key={svc.title}
-                  className={`rounded-2xl border p-6 ${svc.bg} ${svc.border} hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-7 shadow-2xl shadow-black/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-400/40 hover:bg-white/[0.09]"
                 >
+                  <div className="absolute -right-16 -top-16 h-36 w-36 rounded-full bg-sky-500/10 blur-3xl transition-colors group-hover:bg-cyan-400/20" />
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
+                    <div className="w-12 h-12 bg-white/10 border border-white/10 rounded-2xl flex items-center justify-center shadow-sm shrink-0">
                       <svc.icon className={`w-5 h-5 ${svc.color}`} />
                     </div>
                     <span className={`text-xs font-bold uppercase tracking-wider ${svc.color}`}>0{idx + 1}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-3">{svc.title}</h3>
+                  <h3 className="font-bold text-white text-lg mb-4">{svc.title}</h3>
                   <ul className="space-y-2">
                     {svc.items.map(item => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                      <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
                         <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${svc.color}`} />
                         {item}
                       </li>
