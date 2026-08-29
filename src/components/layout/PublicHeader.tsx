@@ -53,7 +53,7 @@ export default function PublicHeader() {
         <div className="flex h-[62px] items-center justify-between sm:h-[70px]">
           <Link to="/" className="glass-touch group relative flex shrink-0 items-center rounded-xl px-1.5 py-1 sm:px-2">
             <span className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-sky-100/0 via-sky-100/70 to-amber-100/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
-            <MaximusLogo height={38} variant="dark" brand="corporate" />
+            <MaximusLogo height={44} variant="dark" brand="corporate" />
           </Link>
 
           <nav className="hidden items-center gap-1 rounded-2xl border border-slate-200/70 bg-white/60 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-20px_rgba(15,64,94,0.5)] lg:flex" aria-label="Primary navigation">

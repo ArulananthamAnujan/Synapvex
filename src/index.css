@@ -470,3 +470,28 @@
 @media (min-width:640px) { .premium-product-card { padding:2rem; } .premium-proof-panel { padding:3rem; } .premium-cta { padding:4rem; } }
 @media (min-width:1024px) { .premium-cta { flex-direction:row; align-items:center; justify-content:space-between; } }
 @media (max-width:639px) { .premium-kicker { font-size:.6rem; letter-spacing:.1em; } .premium-product-card:hover { transform:none; } }
+
+
+/* Mobile proportion correction after real-device review */
+@media (max-width: 639px) {
+  .premium-home-hero {
+    min-height: auto !important;
+    align-items: flex-start !important;
+    padding-top: 8.75rem !important;
+    padding-bottom: 6.5rem !important;
+  }
+
+  .premium-home-hero h1 {
+    max-width: 22rem;
+  }
+
+  .premium-home-hero .premium-orb-right {
+    right: -17rem;
+    top: -4rem;
+  }
+
+  .premium-home-hero .premium-orb-left {
+    left: -18rem;
+    bottom: -14rem;
+  }
+}
