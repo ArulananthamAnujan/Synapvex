@@ -154,12 +154,12 @@ export default function Teach() {
               <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
               <span className="text-sky-300 text-sm font-semibold">SynapVex Learn — For Educators</span>
             </div>
-            <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-5">
+            <h1 className="font-sans text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-5">
               Teach the World.<br />
               <span className="text-sky-400">On Your Terms.</span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
-              Create online courses, share your unique course link, and let students enrol directly. Build your teaching business on Synapvex Learn.
+              Create online courses, share your unique course link, and let students enrol directly. Build your teaching business on SynapVex Learn.
             </p>
             {/* Free-trial highlight */}
             <div className="inline-flex items-center gap-2.5 rounded-xl bg-sky-500/15 border border-sky-400/30 px-4 py-2.5 mb-8">
@@ -181,7 +181,7 @@ export default function Teach() {
                 { value: '70%', label: 'You Keep Per Sale' },
               ].map(stat => (
                 <div key={stat.label}>
-                  <p className="text-3xl font-bold text-white font-playfair">{stat.value}</p>
+                  <p className="text-3xl font-bold text-white font-sans">{stat.value}</p>
                   <p className="text-slate-400 text-sm mt-0.5">{stat.label}</p>
                 </div>
               ))}
@@ -195,7 +195,7 @@ export default function Teach() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Process</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
             <p className="text-slate-500 max-w-xl mx-auto">From sign-up to your first enrolled student in under an hour.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -226,9 +226,9 @@ export default function Teach() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What You Get</p>
-              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-5">Everything You Need to Teach Online</h2>
+              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-5">Everything You Need to Teach Online</h2>
               <p className="text-slate-500 mb-8 leading-relaxed">
-                Synapvex Learn gives you a complete teaching toolkit — from course creation and student management to payments and certificates — all in one place.
+                SynapVex Learn gives you a complete teaching toolkit — from course creation and student management to payments and certificates — all in one place.
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 {PLATFORM_FEATURES.map(f => (
@@ -278,7 +278,7 @@ export default function Teach() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Choose Your Plan</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Choose Your Plan</h2>
             <p className="text-slate-500 max-w-xl mx-auto">Simple per-period pricing — monthly or annual. No hidden fees. Cancel anytime.</p>
           </div>
 
@@ -306,7 +306,7 @@ export default function Teach() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-3">Frequently Asked Questions</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-3">Frequently Asked Questions</h2>
           </div>
           <div className="space-y-4">
             {[
@@ -332,7 +332,7 @@ export default function Teach() {
       <section className="py-20 bg-sky-600">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Users className="w-12 h-12 text-white/70 mx-auto mb-5" />
-          <h2 className="font-playfair text-4xl font-bold text-white mb-4">Ready to Start Teaching?</h2>
+          <h2 className="font-sans text-4xl font-bold text-white mb-4">Ready to Start Teaching?</h2>
           <p className="text-sky-100 text-lg mb-8 leading-relaxed">
             Create your account, pick a plan, and publish your first course under your own brand. Cancel anytime.
           </p>

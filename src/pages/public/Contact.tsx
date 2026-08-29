@@ -105,7 +105,7 @@ export default function Contact() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(14,165,233,0.1),transparent_60%)]" />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-2">We're Here to Help</p>
-            <h1 className="font-playfair text-5xl font-bold text-white mb-6">Get in Touch</h1>
+            <h1 className="font-sans text-5xl font-bold text-white mb-6">Get in Touch</h1>
             <p className="text-slate-300 text-xl leading-relaxed">
               Have a question? We'd love to hear from you. We'll respond within 24–48 hours.
             </p>
@@ -120,7 +120,7 @@ export default function Contact() {
               {/* Info Sidebar */}
               <div className="lg:col-span-1 space-y-6">
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-                  <h2 className="font-playfair text-xl font-bold text-slate-900 mb-6">Our Offices</h2>
+                  <h2 className="font-sans text-xl font-bold text-slate-900 mb-6">Our Offices</h2>
                   <div className="space-y-6">
                     {LOCATIONS.map(loc => (
                       <div key={loc.key} className="flex items-start gap-4">
@@ -139,7 +139,7 @@ export default function Contact() {
                 </div>
 
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-                  <h2 className="font-playfair text-xl font-bold text-slate-900 mb-6">Contact Information</h2>
+                  <h2 className="font-sans text-xl font-bold text-slate-900 mb-6">Contact Information</h2>
                   <div className="space-y-6">
                     {CONTACT_INFO.map(item => (
                       <div key={item.title} className="flex items-start gap-4">
@@ -165,7 +165,7 @@ export default function Contact() {
 
                 <div className="rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
                   <iframe
-                    title={`Synapvex ${LOCATIONS[0].city} office`}
+                    title={`SynapVex ${LOCATIONS[0].city} office`}
                     src={`https://maps.google.com/maps?q=${encodeURIComponent(LOCATIONS[0].mapQuery)}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
                     className="w-full h-48 border-0"
                     allowFullScreen
@@ -181,7 +181,7 @@ export default function Contact() {
                     <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-emerald-600" />
                     </div>
-                    <h2 className="font-playfair text-2xl font-bold text-slate-900 mb-3">Message Sent!</h2>
+                    <h2 className="font-sans text-2xl font-bold text-slate-900 mb-3">Message Sent!</h2>
                     <p className="text-slate-500 mb-6 max-w-md mx-auto">
                       Thank you for reaching out. Our team will get back to you within 24–48 hours at{' '}
                       <span className="font-medium text-slate-700">{form.email}</span>.
@@ -195,7 +195,7 @@ export default function Contact() {
                   </div>
                 ) : (
                   <>
-                    <h2 className="font-playfair text-2xl font-bold text-slate-900 mb-2">Send Us a Message</h2>
+                    <h2 className="font-sans text-2xl font-bold text-slate-900 mb-2">Send Us a Message</h2>
                     <p className="text-slate-500 text-sm mb-6">We typically respond within 24–48 hours on business days.</p>
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid md:grid-cols-2 gap-5">
@@ -276,7 +276,7 @@ export default function Contact() {
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">
                 <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Common Questions</p>
-                <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+                <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
                 <p className="text-slate-500">Common questions about our products and services.</p>
               </div>
               <div className="space-y-3">

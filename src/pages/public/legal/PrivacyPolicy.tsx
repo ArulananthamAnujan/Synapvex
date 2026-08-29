@@ -6,9 +6,9 @@ export default function PrivacyPolicy() {
     <LegalLayout title="Privacy Policy" lastUpdated="8 July 2026">
       <div>
         <p>
-          SynapVex Technologies ("Synapvex", "we", "us") is committed to protecting your privacy.
+          SynapVex Technologies ("SynapVex", "we", "us") is committed to protecting your privacy.
           This policy explains what information we collect, how we use it, and the choices you have.
-          It applies to our website, our services, and our products including Synapvex Learn.
+          It applies to our website, our services, and our products including SynapVex Learn.
         </p>
       </div>
 

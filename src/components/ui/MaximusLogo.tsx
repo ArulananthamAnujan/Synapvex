@@ -22,7 +22,7 @@ export default function MaximusLogo({ height = 64, variant = 'dark', compact = f
   const alt = platform_name || 'SynapVex';
   const style = { height, width: 'auto', maxWidth: '100%', objectFit: 'contain' as const };
 
-  if (compact && !logo_url) {
+  if ((compact || brand === 'learn') && !logo_url) {
     return (
       <span className="inline-flex min-w-0 items-center gap-2.5" aria-label={alt}>
         <img src="/favicon.svg" alt="" aria-hidden="true" style={{ width: height, height }} className="shrink-0 rounded-xl" />
@@ -41,7 +41,7 @@ export default function MaximusLogo({ height = 64, variant = 'dark', compact = f
   // The corporate site uses the original SynapVex network wordmark. Keep the
   // product-specific text treatment above for the Learn workspace only.
   if (brand === 'corporate' && !logo_url) {
-    return <img src={variant === 'light' ? LIGHT_LOGO : DARK_LOGO} alt="SynapVex — AI Consulting, Websites and Apps" style={style} />;
+    return <img src={variant === 'light' ? LIGHT_LOGO : DARK_LOGO} alt="SynapVex — AI Consulting, Websites and Apps" style={style} className={variant === 'light' ? 'brightness-0 invert opacity-95' : undefined} />;
   }
 
   // Admin override wins — show exactly what they configured.

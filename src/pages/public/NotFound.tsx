@@ -12,7 +12,7 @@ export default function NotFound() {
           <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <Compass className="w-8 h-8 text-slate-400" />
           </div>
-          <p className="font-playfair text-6xl font-bold text-slate-200 mb-2">404</p>
+          <p className="font-sans text-6xl font-bold text-slate-200 mb-2">404</p>
           <h1 className="text-2xl font-bold text-slate-900 mb-3">Page not found</h1>
           <p className="text-slate-500 mb-8">
             The page you're looking for doesn't exist or has moved. Check the address, or head back to the homepage.

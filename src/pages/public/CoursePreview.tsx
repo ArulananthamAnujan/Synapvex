@@ -229,7 +229,7 @@ export default function CoursePreview() {
     if (isFree) {
       return (
         <div>
-          <div className="text-3xl font-bold text-slate-900 font-playfair mb-4">Free</div>
+          <div className="text-3xl font-bold text-slate-900 font-sans mb-4">Free</div>
           <button
             onClick={handleEnrollFree}
             disabled={enrollMutation.isPending}
@@ -247,7 +247,7 @@ export default function CoursePreview() {
         {/* Price display */}
         <div className="mb-5">
           <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-bold text-slate-900 font-playfair tracking-tight">
+            <span className="text-4xl font-bold text-slate-900 font-sans tracking-tight">
               A${finalPrice.toFixed(2)}
             </span>
             {discount > 0 && (
@@ -304,7 +304,7 @@ export default function CoursePreview() {
                   className={`inline-block text-white text-xs font-bold px-3 py-1 rounded-full mb-4 ${accentColor ? '' : 'bg-sky-600'}`}
                   style={accentColor ? { backgroundColor: accentColor } : undefined}
                 >{course.category}</span>
-                <h1 className="font-playfair text-3xl lg:text-4xl font-bold text-white mb-4">{course.title}</h1>
+                <h1 className="font-sans text-3xl lg:text-4xl font-bold text-white mb-4">{course.title}</h1>
                 <p className="text-slate-300 text-lg mb-6">{course.short_description}</p>
                 <div className="flex flex-wrap items-center gap-5 text-sm text-slate-300">
                   <div className="flex items-center gap-1">
@@ -369,7 +369,7 @@ export default function CoursePreview() {
           <div className="lg:max-w-2xl">
             {(course.what_you_learn as string[]).length > 0 && (
               <section className="mb-10">
-                <h2 className="font-playfair text-2xl font-bold text-slate-900 mb-5">What You'll Learn</h2>
+                <h2 className="font-sans text-2xl font-bold text-slate-900 mb-5">What You'll Learn</h2>
                 <div className="grid md:grid-cols-2 gap-3">
                   {(course.what_you_learn as string[]).map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
@@ -382,7 +382,7 @@ export default function CoursePreview() {
             )}
 
             <section className="mb-10">
-              <h2 className="font-playfair text-2xl font-bold text-slate-900 mb-5">Course Content</h2>
+              <h2 className="font-sans text-2xl font-bold text-slate-900 mb-5">Course Content</h2>
               <p className="text-slate-500 text-sm mb-4">{sections.length} sections • {course.total_lessons} lessons • {course.duration_hours} hours total</p>
               {!hasAccess && (
                 <div className="flex items-center gap-2 text-sm text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 mb-4">
@@ -434,7 +434,7 @@ export default function CoursePreview() {
 
             {course.description && (
               <section className="mb-10">
-                <h2 className="font-playfair text-2xl font-bold text-slate-900 mb-4">About This Course</h2>
+                <h2 className="font-sans text-2xl font-bold text-slate-900 mb-4">About This Course</h2>
                 <p className="text-slate-600 leading-relaxed">{course.description}</p>
               </section>
             )}
@@ -453,13 +453,13 @@ export default function CoursePreview() {
             <div className="w-12 h-12 bg-sky-100 rounded-2xl flex items-center justify-center mb-4">
               <CreditCard className="w-6 h-6 text-sky-600" />
             </div>
-            <h3 className="font-playfair text-xl font-bold text-slate-900 mb-2">Payment Coming Soon</h3>
+            <h3 className="font-sans text-xl font-bold text-slate-900 mb-2">Payment Coming Soon</h3>
             <p className="text-slate-500 text-sm mb-4 leading-relaxed">
               Secure online payment for <strong>{course.title}</strong> is being set up. Please contact us to complete your enrolment.
             </p>
             <div className="bg-slate-50 rounded-xl p-4 mb-4 text-sm text-slate-600">
               <p className="font-semibold mb-1">Course Price</p>
-              <p className="text-2xl font-bold text-slate-900 font-playfair">A${finalPrice.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-slate-900 font-sans">A${finalPrice.toFixed(2)}</p>
             </div>
             <Link
               to="/contact"

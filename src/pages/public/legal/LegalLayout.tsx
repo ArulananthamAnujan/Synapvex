@@ -15,7 +15,7 @@ export default function LegalLayout({ title, lastUpdated, children }: Props) {
       <div className="pt-20 lg:pt-24">
         <section className="bg-slate-900 py-14">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="font-playfair text-4xl font-bold text-white mb-2">{title}</h1>
+            <h1 className="font-sans text-4xl font-bold text-white mb-2">{title}</h1>
             <p className="text-slate-400 text-sm">Last updated: {lastUpdated}</p>
           </div>
         </section>

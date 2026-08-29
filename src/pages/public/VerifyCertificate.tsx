@@ -39,7 +39,7 @@ export default function VerifyCertificate() {
             <div className="w-8 h-8 bg-gold-500 rounded-lg flex items-center justify-center">
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
-            <span className="font-playfair font-bold text-white">Synapvex Learn</span>
+            <span className="font-sans font-bold text-white">SynapVex Learn</span>
           </Link>
           <DarkModeToggle className="text-gray-400 hover:text-white" />
         </div>
@@ -50,7 +50,7 @@ export default function VerifyCertificate() {
           <div className="w-16 h-16 bg-gold-100 dark:bg-gold-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Shield className="w-8 h-8 text-gold-600" />
           </div>
-          <h1 className="font-playfair text-3xl font-bold text-navy-900 dark:text-white mb-3">Certificate Verification</h1>
+          <h1 className="font-sans text-3xl font-bold text-navy-900 dark:text-white mb-3">Certificate Verification</h1>
           <p className="text-gray-500 dark:text-gray-400">Enter a certificate ID to verify its authenticity.</p>
         </div>
 
@@ -95,7 +95,7 @@ export default function VerifyCertificate() {
               </div>
               <div className="text-center mb-6">
                 <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">Certificate of Completion</p>
-                <p className="font-playfair text-2xl font-bold text-navy-900 dark:text-white">
+                <p className="font-sans text-2xl font-bold text-navy-900 dark:text-white">
                   {(certificate.student as { full_name: string })?.full_name}
                 </p>
               </div>
@@ -114,7 +114,7 @@ export default function VerifyCertificate() {
                 </div>
                 <div>
                   <p className="text-gray-400 mb-1">Issued By</p>
-                  <p className="font-semibold text-gray-900 dark:text-white">Synapvex Learn</p>
+                  <p className="font-semibold text-gray-900 dark:text-white">SynapVex Learn</p>
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function VerifyCertificate() {
         )}
 
         <p className="text-center text-xs text-gray-400 mt-8">
-          Synapvex Learn &mdash; Certificates issued on this platform are digitally signed and tamper-proof.<br />
+          SynapVex Learn &mdash; Certificates issued on this platform are digitally signed and tamper-proof.<br />
           For support, contact <a href="mailto:certificates@maximus.edu.au" className="text-gold-600 hover:underline">certificates@maximus.edu.au</a>
         </p>
       </main>

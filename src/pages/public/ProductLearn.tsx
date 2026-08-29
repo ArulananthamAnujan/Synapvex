@@ -72,9 +72,9 @@ export default function ProductLearn() {
             <div>
               <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
                 <GraduationCap className="w-4 h-4 text-sky-300" />
-                <span className="text-sky-300 text-sm font-semibold">Synapvex Learn · Live Product</span>
+                <span className="text-sky-300 text-sm font-semibold">SynapVex Learn · Live Product</span>
               </div>
-              <h1 className="font-playfair text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              <h1 className="font-sans text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Sell courses from<br /><span className="text-sky-400">your own website</span>
               </h1>
               <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
@@ -140,13 +140,13 @@ export default function ProductLearn() {
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How It Works</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-3">From your website to their certificate</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-3">From your website to their certificate</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">Four steps between you and a course business under your own brand.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {STEPS.map((step, i) => (
               <Reveal as="div" key={step.title} delay={i * 90} className="relative p-6 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all group">
-                <span className="absolute top-4 right-5 text-4xl font-black text-slate-200/80 font-playfair">{i + 1}</span>
+                <span className="absolute top-4 right-5 text-4xl font-black text-slate-200/80 font-sans">{i + 1}</span>
                 <div className="w-11 h-11 bg-sky-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <step.icon className="w-5 h-5 text-white" />
                 </div>
@@ -162,7 +162,7 @@ export default function ProductLearn() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(124,58,237,0.15),transparent_60%)]" />
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Store className="w-10 h-10 text-sky-400 mx-auto mb-5" />
-            <h2 className="font-playfair text-3xl lg:text-4xl font-bold text-white mb-5">
+            <h2 className="font-sans text-3xl lg:text-4xl font-bold text-white mb-5">
               Your students never feel like they left your website
             </h2>
             <p className="text-slate-300 text-lg max-w-3xl mx-auto mb-8">
@@ -185,7 +185,7 @@ export default function ProductLearn() {
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Everything Included</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900">Everything you need to teach online</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900">Everything you need to teach online</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {TEACHER_FEATURES.map((f, i) => (
@@ -208,7 +208,7 @@ export default function ProductLearn() {
                 <Building2 className="w-4 h-4 text-slate-600" />
                 <span className="text-slate-700 text-sm font-semibold">For Academies & Organisations</span>
               </div>
-              <h2 className="font-playfair text-3xl font-bold text-slate-900 mb-4">Run a whole academy, not just a course</h2>
+              <h2 className="font-sans text-3xl font-bold text-slate-900 mb-4">Run a whole academy, not just a course</h2>
               <p className="text-slate-500 leading-relaxed mb-6">
                 Organisations get a team of teachers, shared AI token pools, student roster management
                 and an organisation-level branded course page — ideal for training companies, schools
@@ -238,7 +238,7 @@ export default function ProductLearn() {
         <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-3">Start small, scale to an academy</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-3">Start small, scale to an academy</h2>
             <p className="text-slate-500">Pay monthly, or pay annually upfront and get two months free. Students always join free. Cancel anytime.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -256,7 +256,7 @@ export default function ProductLearn() {
                 )}
                 <h3 className="font-bold text-slate-900 text-lg mb-1">{plan.name}</h3>
                 <p className="mb-5">
-                  <span className="text-4xl font-bold text-slate-900 font-playfair">${plan.price}</span>
+                  <span className="text-4xl font-bold text-slate-900 font-sans">${plan.price}</span>
                   <span className="text-slate-400 text-sm">/month</span>
                 </p>
                 <ul className="space-y-2.5 mb-7">
@@ -284,8 +284,8 @@ export default function ProductLearn() {
         {/* Final CTA */}
         <section className="bg-sky-600 py-16">
           <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="font-playfair text-3xl lg:text-4xl font-bold text-white mb-4">Your courses. Your brand. Our engine.</h2>
-            <p className="text-sky-100 mb-8">Join Synapvex Learn today and launch your branded course page this week.</p>
+            <h2 className="font-sans text-3xl lg:text-4xl font-bold text-white mb-4">Your courses. Your brand. Our engine.</h2>
+            <p className="text-sky-100 mb-8">Join SynapVex Learn today and launch your branded course page this week.</p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/teach/register" className="px-8 py-3.5 bg-white text-sky-700 font-bold rounded-xl hover:bg-sky-50 transition-colors flex items-center gap-2">
                 Start Teaching <ArrowRight className="w-5 h-5" />

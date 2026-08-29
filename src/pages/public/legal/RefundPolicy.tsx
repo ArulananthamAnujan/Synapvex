@@ -7,7 +7,7 @@ export default function RefundPolicy() {
       <div>
         <h2>Course Purchases</h2>
         <p>
-          Paid courses on Synapvex Learn come with a <strong>30-day money-back guarantee</strong>. If a
+          Paid courses on SynapVex Learn come with a <strong>30-day money-back guarantee</strong>. If a
           course isn't what you expected, request a refund within 30 days of purchase and we'll return
           your payment in full to the original payment method.
         </p>

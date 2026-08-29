@@ -411,7 +411,7 @@ export default function TeachRegister() {
         <div className="max-w-5xl mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Step 1 of 2</p>
-            <h1 className="font-playfair text-4xl font-bold text-slate-900 mb-3">Choose Your Teaching Plan</h1>
+            <h1 className="font-sans text-4xl font-bold text-slate-900 mb-3">Choose Your Teaching Plan</h1>
             <p className="text-slate-500 max-w-lg mx-auto">Pay monthly, or pay for the year upfront and save two months. Cancel anytime.</p>
             <div className="inline-flex items-center bg-white border border-slate-200 rounded-xl p-1 mt-6">
               {(['monthly', 'yearly'] as const).map(i => (
@@ -573,12 +573,12 @@ export default function TeachRegister() {
           <Link to="/" className="inline-flex mb-10 bg-white rounded-xl px-4 py-3">
             <MaximusLogo height={52} variant="dark" />
           </Link>
-          <h2 className="font-playfair text-3xl font-bold text-white mb-4">
+          <h2 className="font-sans text-3xl font-bold text-white mb-4">
             You're signing up as a<br />
             <span className="text-sky-400">{selectedPlan?.name} Teacher</span>
           </h2>
           <p className="text-slate-400 mb-8 leading-relaxed">
-            Create courses, share your link, and build your course business on Synapvex Learn.
+            Create courses, share your link, and build your course business on SynapVex Learn.
           </p>
           {selectedPlan && (
             <div className="bg-white/10 border border-white/20 rounded-2xl p-5 mb-6">

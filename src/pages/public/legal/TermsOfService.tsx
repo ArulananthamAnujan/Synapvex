@@ -7,7 +7,7 @@ export default function TermsOfService() {
       <div>
         <p>
           These terms govern your use of the SynapVex Technologies website, services and products,
-          including Synapvex Learn. By creating an account or using our services you agree to these terms.
+          including SynapVex Learn. By creating an account or using our services you agree to these terms.
         </p>
       </div>
 
@@ -50,7 +50,7 @@ export default function TermsOfService() {
       <div>
         <h2>Disclaimer & Liability</h2>
         <p>
-          Services are provided "as is". To the maximum extent permitted by law, Synapvex is not liable
+          Services are provided "as is". To the maximum extent permitted by law, SynapVex is not liable
           for indirect or consequential losses arising from use of the platform. Nothing in these terms
           excludes liability that cannot be excluded by law.
         </p>

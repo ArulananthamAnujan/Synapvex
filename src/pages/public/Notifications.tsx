@@ -19,7 +19,7 @@ const NOTIFICATIONS: Notification[] = [
   {
     id: 1,
     type: 'announcement',
-    title: 'Welcome to Synapvex Learn!',
+    title: 'Welcome to SynapVex Learn!',
     message: 'We are excited to launch our new learning platform. Explore our 8 expert-led courses and start your journey today. Use promo code WELCOME20 for 20% off!',
     date: '2026-04-09',
     isNew: true,
@@ -117,8 +117,8 @@ export default function Notifications() {
           <div className="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
             <Bell className="w-8 h-8 text-gold-400" />
           </div>
-          <h1 className="font-playfair text-4xl sm:text-5xl font-bold text-white mb-3">Notifications</h1>
-          <p className="text-gray-400">Stay up to date with the latest news, course launches, and events from Synapvex Learn.</p>
+          <h1 className="font-sans text-4xl sm:text-5xl font-bold text-white mb-3">Notifications</h1>
+          <p className="text-gray-400">Stay up to date with the latest news, course launches, and events from SynapVex Learn.</p>
           {newCount > 0 && (
             <div className="inline-flex items-center gap-2 mt-4 bg-gold-500/20 border border-gold-500/30 rounded-full px-4 py-1.5">
               <span className="w-2 h-2 bg-gold-400 rounded-full animate-pulse" />
@@ -198,7 +198,7 @@ export default function Notifications() {
         {/* CTA */}
         <div className="mt-12 bg-navy-900 rounded-2xl p-8 text-center">
           <GraduationCap className="w-10 h-10 text-gold-400 mx-auto mb-4" />
-          <h3 className="font-playfair text-2xl font-bold text-white mb-3">Ready to Start Learning?</h3>
+          <h3 className="font-sans text-2xl font-bold text-white mb-3">Ready to Start Learning?</h3>
           <p className="text-gray-400 mb-6">Browse our full course catalogue and find the program that matches your goals.</p>
           <Link to="/courses" className="btn-primary px-8 py-3">View All Courses</Link>
         </div>
