@@ -65,7 +65,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl">
+            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl" aria-label="SynapVex product portfolio">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
               <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
                 <div>
