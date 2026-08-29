@@ -91,12 +91,7 @@ export default function Home() {
                         </div>
                         <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{product.tagline}</p>
                       </div>
-                      <div className="split-product-action">
-                        <span className="hidden text-[9px] font-bold uppercase tracking-[.12em] text-sky-800 sm:block">
-                          {live ? 'Open' : 'Preview'}
-                        </span>
-                        <ArrowRight className="h-4 w-4 text-sky-700 transition-transform group-hover:translate-x-0.5" />
-                      </div>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-sky-700/75 transition-all duration-200 group-hover:translate-x-1 group-hover:text-sky-800" />
                     </div>
                   );
 
@@ -128,7 +123,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-20 sm:py-28">
+        <section className="premium-capabilities-section relative py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Core capabilities</p>
