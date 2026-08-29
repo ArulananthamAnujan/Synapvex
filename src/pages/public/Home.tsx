@@ -56,16 +56,16 @@ export default function Home() {
                 SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
               <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-800 to-sky-500 px-7 py-4 text-sm font-bold text-white shadow-[0_16px_34px_-14px_rgba(18,91,137,0.6)] transition-all hover:-translate-y-1 hover:shadow-sky-500/30 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2">
+                <Link to="/contact" className="luxury-button-primary gap-2">
                   Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200 bg-white/80 px-7 py-4 text-sm font-bold text-sky-900 shadow-[0_12px_30px_-20px_rgba(24,72,112,0.45)] backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300">
+                <Link to="/products" className="luxury-button-light gap-2">
                   Explore our platforms
                 </Link>
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 shadow-[0_30px_80px_rgba(26,78,115,0.16)] backdrop-blur-xl">
+            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
               <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
                 <div>
@@ -252,7 +252,7 @@ export default function Home() {
               </div>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-6xl">Let’s turn your next technology priority into a clear plan.</h2>
             </div>
-            <Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
+            <Link to="/contact" className="luxury-button-light shrink-0 gap-2 !px-7 !py-4">
               Start a conversation <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
