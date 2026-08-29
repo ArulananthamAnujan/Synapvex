@@ -615,3 +615,24 @@
     -webkit-line-clamp:2;
   }
 }
+
+
+/* Shorter real-device homepage rhythm */
+@media (max-width:639px) {
+  .premium-capabilities-section .corporate-heading,
+  .premium-delivery-section .corporate-heading {
+    font-size:1.85rem;
+    line-height:1.08;
+  }
+  .premium-capability-icon {
+    height:2.25rem;
+    width:2.25rem;
+    border-radius:.75rem;
+  }
+  .premium-difference-card {
+    display:block;
+  }
+  .premium-difference-card > div:first-child {
+    margin-bottom:.75rem;
+  }
+}

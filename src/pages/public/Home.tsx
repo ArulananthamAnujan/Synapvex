@@ -123,7 +123,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="premium-capabilities-section relative py-16 sm:py-24">
+        <section className="premium-capabilities-section relative py-12 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16 lg:px-8">
             <Reveal className="max-w-3xl lg:sticky lg:top-32">
               <p className="corporate-eyebrow">Core capabilities</p>
@@ -136,12 +136,12 @@ export default function Home() {
               </Link>
             </Reveal>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {CAPABILITIES.map((capability, index) => (
-                <Reveal key={capability.title} delay={(index % 3) * 60} className="premium-capability-card rounded-[22px] p-6 sm:p-7">
+                <Reveal key={capability.title} delay={(index % 3) * 60} className="premium-capability-card rounded-[18px] p-4 sm:rounded-[22px] sm:p-7">
                   <div className="premium-capability-icon"><capability.icon className="h-5 w-5" /></div>
-                  <h3 className="mt-5 text-lg font-bold text-slate-900">{capability.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{capability.description}</p>
+                  <h3 className="mt-3 text-sm font-bold leading-tight text-slate-900 sm:mt-5 sm:text-lg">{capability.title}</h3>
+                  <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-600 sm:mt-3 sm:text-sm sm:leading-6">{capability.description}</p>
                 </Reveal>
               ))}
             </div>
@@ -149,7 +149,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="premium-delivery-section border-y border-sky-100/70 py-16 sm:py-24">
+        <section className="premium-delivery-section border-y border-sky-100/70 py-12 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
@@ -160,11 +160,11 @@ export default function Home() {
                 </p>
               </Reveal>
 
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-3">
                 {DELIVERY_STEPS.map((step, index) => (
-                  <Reveal key={step.number} delay={index * 60} className="premium-delivery-step rounded-[20px] p-5 sm:p-6">
+                  <Reveal key={step.number} delay={index * 60} className="premium-delivery-step rounded-[18px] p-4 sm:rounded-[20px] sm:p-6">
                     <div className="flex items-center gap-3"><span className="premium-step-number">{step.number}</span><h3 className="text-base font-bold text-slate-900">{step.title}</h3></div>
-                    <p className="mt-4 text-sm leading-6 text-slate-600">{step.description}</p>
+                    <p className="mt-3 line-clamp-3 text-xs leading-5 text-slate-600 sm:mt-4 sm:text-sm sm:leading-6">{step.description}</p>
                   </Reveal>
                 ))}
               </div>
@@ -172,16 +172,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-16 sm:py-24">
+        <section className="bg-white py-12 sm:py-20">
           <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Why SynapVex</p>
               <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
             </Reveal>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {DIFFERENTIATORS.map((item, index) => (
-                <Reveal key={item.title} delay={(index % 2) * 70} className="premium-difference-card rounded-[22px] p-5 sm:p-6">
+                <Reveal key={item.title} delay={(index % 2) * 70} className="premium-difference-card rounded-[18px] p-4 sm:rounded-[22px] sm:p-6">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
                     <item.icon className="h-5 w-5" />
                   </div>
