@@ -7,6 +7,7 @@ interface ConfirmDialogProps {
   confirmText?: string;
   cancelText?: string;
   variant?: 'danger' | 'warning' | 'info';
+  loading?: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -14,6 +15,7 @@ interface ConfirmDialogProps {
 export default function ConfirmDialog({
   isOpen, title, message, confirmText = 'Confirm', cancelText = 'Cancel',
   variant = 'danger', onConfirm, onCancel,
+  loading = false,
 }: ConfirmDialogProps) {
   if (!isOpen) return null;
 
@@ -25,7 +27,7 @@ export default function ConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onCancel} />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => !loading && onCancel()} />
       <div className="relative bg-white dark:bg-navy-800 rounded-2xl shadow-2xl w-full max-w-md animate-slide-up">
         <div className="p-6">
           <div className="flex items-start gap-4">
@@ -36,7 +38,7 @@ export default function ConfirmDialog({
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
             </div>
-            <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+            <button disabled={loading} onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors disabled:opacity-40">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -44,15 +46,17 @@ export default function ConfirmDialog({
         <div className="px-6 pb-6 flex gap-3 justify-end">
           <button
             onClick={onCancel}
+            disabled={loading}
             className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-navy-700 hover:bg-gray-200 dark:hover:bg-navy-600 rounded-lg transition-colors"
           >
             {cancelText}
           </button>
           <button
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${colors[variant]}`}
+            disabled={loading}
+            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors disabled:cursor-wait disabled:opacity-60 ${colors[variant]}`}
           >
-            {confirmText}
+            {loading ? 'Deleting…' : confirmText}
           </button>
         </div>
       </div>
