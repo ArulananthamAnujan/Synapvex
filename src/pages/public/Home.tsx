@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Briefcase, Cloud, Code2, Globe2, GraduationCap,
@@ -7,6 +8,8 @@ import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
+
+const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const CAPABILITIES = [
   { icon: Code2, title: 'Custom software', description: 'Purpose-built business applications, SaaS products, APIs and system integrations.' },
@@ -148,7 +151,9 @@ export default function Home() {
             </Reveal>
             <Reveal delay={100} className="relative">
               <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 via-transparent to-sky-300/40 blur-3xl" />
-              <img src="/images/luxury/product-ecosystem.webp" alt="Sculptural connected digital product ecosystem" width="1536" height="1024" loading="lazy" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-gradient-to-br from-white to-sky-50" />}>
+                <InteractiveOrbitalScene className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70" />
+              </Suspense>
             </Reveal>
           </div>
         </section>
