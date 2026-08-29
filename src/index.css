@@ -1033,3 +1033,100 @@
   .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:1rem; }
   .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.88rem; }
 }
+
+
+/* Large-screen homepage legibility — scale information with the canvas */
+@media (min-width:1024px) {
+  .compact-home .max-w-7xl,
+  .compact-site-footer .max-w-7xl,
+  header .max-w-7xl {
+    max-width:88rem;
+  }
+  .glass-nav-link {
+    font-size:.95rem !important;
+    padding:.7rem 1rem !important;
+  }
+  header button,
+  header a {
+    font-size:.9rem;
+  }
+  .compact-kicker {
+    font-size:.78rem;
+    padding:.58rem .9rem;
+  }
+  .compact-hero-copy > p {
+    max-width:38rem;
+    font-size:1.12rem !important;
+    line-height:1.7 !important;
+  }
+  .compact-primary-action,
+  .compact-secondary-action {
+    min-height:3.15rem;
+    padding:.82rem 1.08rem;
+    font-size:.92rem;
+  }
+  .compact-product-card {
+    min-height:5rem;
+    gap:.85rem;
+    padding:.85rem 1rem;
+    border-radius:1rem;
+  }
+  .compact-product-icon {
+    width:3rem;
+    height:3rem;
+  }
+  .compact-product-card h3 {
+    font-size:1.12rem !important;
+  }
+  .compact-product-card p {
+    font-size:.94rem !important;
+    line-height:1.5;
+  }
+  .compact-capability-band {
+    gap:1.5rem;
+    padding:2rem;
+  }
+  .compact-eyebrow {
+    font-size:.78rem;
+  }
+  .compact-section-title {
+    font-size:2.25rem;
+  }
+  .compact-text-link {
+    font-size:.92rem;
+  }
+  .compact-capability-card {
+    gap:.8rem;
+    min-height:7.2rem;
+    padding:1rem;
+  }
+  .compact-capability-card h3,
+  .compact-step h3,
+  .compact-proof h3 {
+    font-size:1.06rem;
+  }
+  .compact-capability-card p,
+  .compact-step p,
+  .compact-proof p {
+    font-size:.92rem;
+    line-height:1.55;
+  }
+  .compact-lower-panel {
+    padding:1.5rem;
+  }
+  .compact-step,
+  .compact-proof {
+    padding:.9rem;
+  }
+}
+@media (min-width:1536px) {
+  .compact-home .max-w-7xl,
+  .compact-site-footer .max-w-7xl,
+  header .max-w-7xl {
+    max-width:96rem;
+  }
+  .compact-product-card h3 { font-size:1.18rem !important; }
+  .compact-product-card p { font-size:1rem !important; }
+  .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:1.1rem; }
+  .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.96rem; }
+}
