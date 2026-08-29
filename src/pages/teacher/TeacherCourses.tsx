@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BookOpen, Pencil, Users, Star, Clock, Globe, EyeOff, Share2, Plus, SlidersHorizontal } from 'lucide-react';
+import { BookOpen, Pencil, Users, Star, Clock, Globe, EyeOff, Share2, Plus, SlidersHorizontal, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { teacherNavItems } from './teacherNav';
@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import { useOwnCoursePage, coursePageCourseUrl } from '../../hooks/useCoursePage';
 import type { Course } from '../../types';
+import ConfirmDialog from '../../components/ui/ConfirmDialog';
 
 export default function TeacherCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -15,6 +16,8 @@ export default function TeacherCourses() {
   const [editCourse, setEditCourse] = useState<Course | null>(null);
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState<string | null>(null);
+  const [deleteCourse, setDeleteCourse] = useState<Course | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const { profile } = useAuth();
   const { toast } = useToast();
   // Branded course page (if configured) so share links carry the teacher's brand
@@ -32,7 +35,7 @@ export default function TeacherCourses() {
 
   const fetchCourses = async () => {
     if (!profile) return;
-    const { data } = await supabase.from('courses').select('*').eq('teacher_id', profile.id).order('created_at', { ascending: false });
+    const { data } = await supabase.from('courses').select('*').eq('teacher_id', profile.id).eq('is_archived', false).order('created_at', { ascending: false });
     if (data) setCourses(data as Course[]);
     setLoading(false);
   };
@@ -66,6 +69,28 @@ export default function TeacherCourses() {
     if (!error) { toast.success('Course updated'); setEditCourse(null); fetchCourses(); }
     else toast.error('Failed to update course');
     setSaving(false);
+  };
+
+  const handleDelete = async () => {
+    if (!deleteCourse || !profile) return;
+    setDeleting(true);
+    // Archive instead of hard-deleting so enrolments, payments and student
+    // progress retain referential integrity. The course disappears everywhere
+    // teachers and students browse active content.
+    const { error } = await supabase
+      .from('courses')
+      .update({ is_archived: true, is_published: false })
+      .eq('id', deleteCourse.id)
+      .eq('teacher_id', profile.id);
+
+    if (error) {
+      toast.error('Could not delete the course. Please try again.');
+    } else {
+      setCourses(previous => previous.filter(course => course.id !== deleteCourse.id));
+      toast.success(`“${deleteCourse.title}” was deleted.`);
+      setDeleteCourse(null);
+    }
+    setDeleting(false);
   };
 
   return (
@@ -150,6 +175,14 @@ export default function TeacherCourses() {
                     <button onClick={() => setEditCourse(course)} title="Quick edit details" className="p-2 border border-slate-200 dark:border-navy-600 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors">
                       <SlidersHorizontal className="w-3.5 h-3.5" />
                     </button>
+                    <button
+                      onClick={() => setDeleteCourse(course)}
+                      title="Delete course"
+                      aria-label={`Delete ${course.title}`}
+                      className="p-2 border border-red-200 dark:border-red-800 rounded-lg text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -188,6 +221,17 @@ export default function TeacherCourses() {
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        isOpen={Boolean(deleteCourse)}
+        title="Delete this course?"
+        message={`“${deleteCourse?.title ?? 'This course'}” will be removed from your workspace and hidden from students. Existing payment and progress records will be preserved.`}
+        confirmText="Delete course"
+        variant="danger"
+        loading={deleting}
+        onConfirm={handleDelete}
+        onCancel={() => !deleting && setDeleteCourse(null)}
+      />
     </DashboardLayout>
   );
 }
