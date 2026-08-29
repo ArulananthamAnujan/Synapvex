@@ -73,7 +73,7 @@ export default function PublicHeader() {
             <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-sky-900">
               {user && profile && <LayoutDashboard className="h-4 w-4" />}{user && profile ? 'Workspace' : 'Client portal'}
             </button>
-            <Link to="/book-online" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-800 to-sky-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_12px_28px_-12px_rgba(18,91,137,0.65)] transition-all hover:-translate-y-0.5 hover:shadow-sky-500/30">
+            <Link to="/book-online" className="luxury-button-primary gap-2 !rounded-xl !px-5 !py-2.5">
               Start a project <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -106,7 +106,7 @@ export default function PublicHeader() {
             ))}
             <div className="pt-3 border-t border-sky-100 flex flex-col gap-2">
               <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="block w-full rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition-colors hover:bg-sky-50">{user && profile ? 'Open workspace' : 'Client portal'}</button>
-              <Link to="/book-online" className="block rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 px-4 py-2.5 text-center text-sm font-bold text-white">Start a project</Link>
+              <Link to="/book-online" className="luxury-button-primary block !rounded-xl !px-4 !py-2.5 text-center">Start a project</Link>
             </div>
           </div>
         )}
