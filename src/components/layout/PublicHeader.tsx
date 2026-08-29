@@ -25,8 +25,8 @@ export default function PublicHeader() {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Products', href: '/products' },
-    { label: 'Capabilities', href: '/about' },
-    { label: 'Company', href: '/our-mission' },
+    { label: 'About', href: '/about' },
+    { label: 'Mission', href: '/our-mission' },
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -51,18 +51,17 @@ export default function PublicHeader() {
         <div className="pointer-events-none absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
         <div className="pointer-events-none absolute -right-12 -top-20 h-36 w-36 rounded-full bg-sky-300/20 blur-3xl" />
         <div className="flex h-[74px] items-center justify-between">
-          <Link to="/" className="group relative flex shrink-0 items-center rounded-2xl border border-slate-200/70 bg-white/80 px-3 py-1.5 shadow-[0_10px_28px_-20px_rgba(8,65,101,.6)]">
+          <Link to="/" className="glass-logo-shell group relative flex shrink-0 items-center rounded-2xl px-2.5 py-1.5">
             <span className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-sky-100/0 via-sky-100/70 to-amber-100/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="absolute bottom-2 left-1 top-2 w-0.5 rounded-full bg-gradient-to-b from-sky-500 to-amber-400" />
-            <MaximusLogo height={46} variant="dark" brand="corporate" />
+            <MaximusLogo height={52} variant="dark" brand="corporate" />
           </Link>
 
-          <nav className="hidden items-center gap-1 rounded-2xl border border-slate-200/70 bg-white/60 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-20px_rgba(15,64,94,0.5)] lg:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-1 rounded-2xl border border-white/75 bg-white/55 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,.95),0_10px_26px_-22px_rgba(8,65,101,.55)] backdrop-blur-xl md:flex lg:p-1.5" aria-label="Primary navigation">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative whitespace-nowrap rounded-xl px-3.5 py-2 text-[13px] font-bold tracking-[0.01em] transition-all duration-300 ${
+                className={`glass-nav-link relative whitespace-nowrap rounded-xl px-2.5 py-2 text-[11px] font-bold tracking-[0.01em] transition-all duration-300 lg:px-3.5 lg:text-[13px] ${
                   isActive(link.href)
                     ? 'bg-gradient-to-b from-white to-sky-50 text-sky-900 shadow-[0_7px_18px_-12px_rgba(2,82,126,0.65),inset_0_0_0_1px_rgba(125,211,252,0.3)] after:absolute after:bottom-1 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-amber-400'
                     : 'text-slate-600 hover:bg-white/75 hover:text-sky-900'
@@ -84,7 +83,7 @@ export default function PublicHeader() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-xl border border-slate-200/80 bg-white/70 p-2.5 text-slate-600 shadow-sm transition-colors hover:bg-sky-50 hover:text-sky-900 lg:hidden"
+            className="rounded-xl border border-slate-200/80 bg-white/70 p-2.5 text-slate-600 shadow-sm transition-colors hover:bg-sky-50 hover:text-sky-900 md:hidden"
             aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
@@ -94,7 +93,7 @@ export default function PublicHeader() {
         </div>
 
         {isOpen && (
-          <div id="mobile-navigation" className="space-y-1 border-t border-sky-100/80 py-4 lg:hidden animate-slide-down">
+          <div id="mobile-navigation" className="space-y-1 border-t border-sky-100/80 py-4 md:hidden animate-slide-down">
             {navLinks.map(link => (
               <Link
                 key={link.href}

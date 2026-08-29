@@ -69,6 +69,11 @@ const PLANS = [
 export default function ProductLearn() {
   return (
     <div className="learn-product-page bg-white min-h-screen">
+      <style>{`
+        .learn-product-page .text-xs { font-size: 0.875rem; line-height: 1.55rem; }
+        .learn-product-page .text-sm { font-size: 1rem; line-height: 1.7rem; }
+        .learn-product-page .text-lg { font-size: 1.25rem; line-height: 1.85rem; }
+      `}</style>
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
         {/* Hero */}

@@ -43,7 +43,6 @@ interface TeacherAIPlan {
   description: string;
   token_amount: number;
   price_cents: number;
-  list_price_cents: number | null;
   is_popular: boolean;
   features: string[];
 }
@@ -454,9 +453,6 @@ export default function TeacherEarnings() {
                         <h4 className="text-lg font-bold text-gray-900 dark:text-white">{plan.name}</h4>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-4 leading-relaxed">{plan.description}</p>
                         <div className="mb-5">
-                          {plan.list_price_cents && (
-                            <span className="block text-sm text-gray-400 line-through">A${(plan.list_price_cents / 100).toFixed(2)}</span>
-                          )}
                           <span className="text-3xl font-bold text-gray-900 dark:text-white">A${(plan.price_cents / 100).toFixed(2)}</span>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-xl font-bold text-sky-600 dark:text-sky-400">{plan.token_amount}</span>

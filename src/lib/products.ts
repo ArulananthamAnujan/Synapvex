@@ -14,7 +14,7 @@ import { GraduationCap, Languages, Users, type LucideIcon } from 'lucide-react';
  */
 
 // --- Live app URLs (paste the Netlify links here) ---------------------------
-const PTE_URL = 'https://synapvexpte.netlify.app'; // SynapVex PTE
+const PTE_URL = 'https://synapvexpte.netlify.app/pte/'; // SynapVex PTE
 const CRM_URL = ''; // TODO: https://<your-crm-app>.netlify.app
 
 export interface SynapVexProduct {
@@ -62,8 +62,8 @@ export const PRODUCTS: SynapVexProduct[] = [
       'A focused PTE preparation platform — realistic scored practice across speaking, writing, reading and listening, with instant AI feedback so learners know exactly what to improve before test day.',
     icon: Languages,
     status: PTE_URL ? 'live' : 'coming_soon',
-    href: PTE_URL ? '/products/pte' : undefined,
-    external: false,
+    href: PTE_URL || undefined,
+    external: true,
     accent: 'text-emerald-600',
     accentBg: 'bg-emerald-600',
     gradient: 'from-emerald-600 to-teal-700',
