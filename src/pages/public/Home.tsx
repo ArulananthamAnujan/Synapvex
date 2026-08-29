@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Briefcase, CheckCircle2, Cloud, Code2, ExternalLink, Globe2, GraduationCap,
-  Layers3, LockKeyhole, ShieldCheck, Smartphone, Target, Workflow,
+  LockKeyhole, ShieldCheck, Smartphone,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
@@ -26,13 +26,6 @@ const DELIVERY_STEPS = [
   { number: '04', title: 'Improve', description: 'We support the launch, measure performance and strengthen the solution over time.' },
 ];
 
-const DIFFERENTIATORS = [
-  { icon: Layers3, title: 'Product-led thinking', description: 'We apply the same product discipline used to build our own platforms to every client engagement.' },
-  { icon: Workflow, title: 'End-to-end delivery', description: 'Strategy, design, engineering, infrastructure and support work as one connected programme.' },
-  { icon: LockKeyhole, title: 'Built for resilience', description: 'Security, maintainability and operational continuity are considered from the beginning.' },
-  { icon: Target, title: 'Commercially focused', description: 'Every recommendation is tied to a clear operational need or business outcome.' },
-];
-
 const BUYER_EVIDENCE = [
   {
     label: 'Live product',
@@ -47,8 +40,8 @@ const BUYER_EVIDENCE = [
     title: 'SynapVex PTE',
     description: 'Open the deployed exam-preparation platform and evaluate the learner experience directly.',
     facts: ['Speaking, writing, reading and listening practice', 'AI feedback for productive skills', 'Mock tests and progress tracking'],
-    href: 'https://synapvexpte.netlify.app',
-    external: true,
+    href: '/products/pte',
+    external: false,
   },
   {
     label: 'Delivery evidence',
@@ -91,8 +84,8 @@ export default function Home() {
                 Bring us the process that wastes time, the customer journey that underperforms or the product idea that needs to become real. We design, build and keep it working.
               </p>
               <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <Link to="/contact" className="luxury-button-primary gap-2">
-                  Discuss your project <ArrowRight className="h-4 w-4" />
+                <Link to="/book-online" className="luxury-button-primary gap-2">
+                  Start a project <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link to="/products" className="luxury-button-light gap-2">
                   Explore our platforms
@@ -149,34 +142,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-b border-white/10 bg-slate-950" aria-label="Delivery presence">
-          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
+        <section className="border-b border-sky-100 bg-white py-8" aria-label="What happens after you start a project">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-800">After you start a project</p>
+              <p className="text-xs font-semibold text-slate-500">A real person responds within one business day.</p>
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-2xl bg-sky-100 sm:grid-cols-3">
             {[
-              ['Australia', 'Client relationships and regional growth'],
-              ['Sri Lanka', 'Product and delivery capability'],
-              ['Bangladesh', 'Engineering and operational support'],
-            ].map(([region, detail]) => (
-              <div key={region} className="px-0 py-9 sm:px-8 first:sm:pl-0 last:sm:pr-0">
-                <p className="text-sm font-bold tracking-wide text-white">{region}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{detail}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-sky-100 bg-white" aria-label="Company proof points">
-          <div className="mx-auto grid max-w-7xl gap-px bg-sky-100 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
-            {[
-              ['Build', 'From unclear idea to working product', 'We shape the problem, design the experience and engineer the solution.'],
-              ['Operate', 'One team stays accountable after launch', 'Cloud, security, support and improvement continue around the product.'],
-              ['Improve', 'Your technology evolves with the business', 'Real usage and customer feedback guide what should happen next.'],
+              ['01', 'Tell us the problem', 'Share the workflow, customer issue or product idea—no technical brief required.'],
+              ['02', 'We prepare the conversation', 'We review your enquiry and bring the right product or technical lead.'],
+              ['03', 'Leave with a useful next step', 'Receive a recommendation, scope direction or focused discovery plan.'],
             ].map(([value, label, detail]) => (
-              <div key={label} className="bg-white px-7 py-12 sm:py-14">
-                <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[#102d48]">{value}</p>
-                <p className="mt-3 text-sm font-bold uppercase tracking-[0.13em] text-sky-800">{label}</p>
+              <div key={label} className="bg-white px-6 py-7">
+                <p className="font-mono text-xs font-bold text-sky-700">{value}</p>
+                <p className="mt-3 text-sm font-bold text-[#102d48]">{label}</p>
                 <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">{detail}</p>
               </div>
             ))}
+            </div>
           </div>
         </section>
 
@@ -323,29 +307,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-28 sm:py-40">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="max-w-3xl">
-              <p className="corporate-eyebrow">Why SynapVex</p>
-              <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
-            </Reveal>
-
-            <div className="mt-20 grid gap-12 md:grid-cols-2">
-              {DIFFERENTIATORS.map((item, index) => (
-                <Reveal key={item.title} delay={(index % 2) * 70} className="flex gap-5 border-t border-slate-200 pt-6">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="bg-slate-950 py-24 sm:py-32">
           <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div className="max-w-3xl">
@@ -354,8 +315,8 @@ export default function Home() {
               </div>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-6xl">Let’s turn your next technology priority into a clear plan.</h2>
             </div>
-            <Link to="/contact" className="luxury-button-light shrink-0 gap-2 !px-7 !py-4">
-              Start a conversation <ArrowRight className="h-4 w-4" />
+            <Link to="/book-online" className="luxury-button-light shrink-0 gap-2 !px-7 !py-4">
+              Start a project <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </section>
