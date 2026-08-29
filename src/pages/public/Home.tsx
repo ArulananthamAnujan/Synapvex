@@ -76,31 +76,31 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="grid gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {PRODUCTS.map(product => {
                   const live = product.status === 'live';
                   const card = (
-                    <div className="split-product-card glass-touch group grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3 rounded-[20px] p-3.5 sm:p-4">
+                    <div className={`split-product-card glass-touch group flex h-full min-h-[150px] flex-col items-start gap-3 rounded-[20px] p-3.5 sm:grid sm:min-h-0 sm:grid-cols-[48px_minmax(0,1fr)_auto] sm:items-center sm:p-4 ${product.key === 'crm' ? 'max-sm:grid max-sm:min-h-0 max-sm:grid-cols-[48px_minmax(0,1fr)_auto] max-sm:items-center' : ''}`}>
                       <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${product.gradient} shadow-[inset_0_1px_0_rgba(255,255,255,.3),0_12px_24px_-16px_rgba(8,65,101,.65)]`}>
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h3 className="truncate text-sm font-bold text-[#102d48] sm:text-base">{product.name}</h3>
+                          <h3 className="text-sm font-bold leading-tight text-[#102d48] sm:truncate sm:text-base">{product.name}</h3>
                           <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${live ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                         </div>
                         <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{product.tagline}</p>
                       </div>
-                      <ArrowRight className="h-4 w-4 shrink-0 text-sky-700/75 transition-all duration-200 group-hover:translate-x-1 group-hover:text-sky-800" />
+                      <ArrowRight className="mt-auto h-4 w-4 shrink-0 self-end text-sky-700/75 transition-all duration-200 group-hover:translate-x-1 group-hover:text-sky-800 sm:mt-0 sm:self-auto" />
                     </div>
                   );
 
                   return product.href && product.external ? (
-                    <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
+                    <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className={`block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400 ${product.key === 'crm' ? 'col-span-2' : ''}`}>
                       {card}
                     </a>
                   ) : (
-                    <Link key={product.key} to={product.href || `/products#${product.key}`} className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
+                    <Link key={product.key} to={product.href || `/products#${product.key}`} className={`block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400 ${product.key === 'crm' ? 'col-span-2' : ''}`}>
                       {card}
                     </Link>
                   );

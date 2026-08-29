@@ -603,3 +603,15 @@
 .split-product-card > svg:last-child {
   filter:drop-shadow(0 4px 6px rgba(2,132,199,.18));
 }
+
+
+/* Compact two-column product composition */
+@media (max-width:639px) {
+  .split-product-card:not(.max-sm\\:grid) > div:nth-child(2) { width:100%; }
+  .split-product-card:not(.max-sm\\:grid) p {
+    display:-webkit-box;
+    overflow:hidden;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+  }
+}
