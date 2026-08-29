@@ -911,3 +911,55 @@
   .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:.94rem; }
   .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.78rem; }
 }
+
+
+/* Medium public-page typography scale */
+.public-glass-page main p,
+.public-glass-page main li {
+  font-size:.9375rem;
+  line-height:1.65;
+}
+.public-glass-page main label,
+.public-glass-page main input,
+.public-glass-page main textarea,
+.public-glass-page main select {
+  font-size:.9375rem;
+  line-height:1.5;
+}
+.public-glass-page main a,
+.public-glass-page main button {
+  font-size:.875rem;
+}
+.public-glass-page main h3 {
+  font-size:1.125rem;
+  line-height:1.35;
+}
+.public-glass-page main h4 {
+  font-size:1rem;
+  line-height:1.4;
+}
+.public-glass-page main [class*="uppercase"][class*="tracking"] {
+  font-size:.75rem;
+  line-height:1.4;
+}
+.public-glass-page main [class*="text-slate-500"],
+.public-glass-page main [class*="text-slate-600"] {
+  line-height:1.65;
+}
+@media (max-width:639px) {
+  .public-glass-page main p,
+  .public-glass-page main li,
+  .public-glass-page main label,
+  .public-glass-page main input,
+  .public-glass-page main textarea,
+  .public-glass-page main select {
+    font-size:.9rem;
+  }
+  .public-glass-page main a,
+  .public-glass-page main button {
+    font-size:.85rem;
+  }
+  .public-glass-page main h3 {
+    font-size:1.05rem;
+  }
+}
