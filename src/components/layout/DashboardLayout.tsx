@@ -134,9 +134,9 @@ export default function DashboardLayout({ navItems, children, title, subtitle }:
   const mobileNavItems = isStudent ? navItems.slice(0, 5) : [];
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-navy-950 overflow-hidden">
+    <div className="dashboard-premium flex h-screen bg-slate-50 dark:bg-navy-950 overflow-hidden">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-60 bg-white dark:bg-navy-900 shrink-0 shadow-md border-r border-slate-200 dark:border-navy-700">
+      <aside className="dashboard-sidebar hidden lg:flex flex-col w-64 bg-white/80 dark:bg-navy-900/90 shrink-0 border-r border-white/70 dark:border-navy-700 backdrop-blur-xl">
         <SidebarContent />
       </aside>
 
@@ -152,16 +152,16 @@ export default function DashboardLayout({ navItems, children, title, subtitle }:
 
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Top header */}
-        <header className="h-14 bg-white dark:bg-navy-800 border-b border-slate-200 dark:border-navy-700 flex items-center gap-3 px-4 shrink-0 shadow-sm">
+        <header className="dashboard-header h-[68px] bg-white/75 dark:bg-navy-800/85 border-b border-white/80 dark:border-navy-700 flex items-center gap-3 px-5 sm:px-6 shrink-0 backdrop-blur-xl">
           <button onClick={() => setSidebarOpen(true)}
             className="lg:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-navy-700 rounded-lg transition-colors">
             <Menu className="w-5 h-5" />
           </button>
 
           <div className="flex-1 min-w-0">
-            <h1 className="text-sm font-bold text-slate-900 dark:text-white truncate leading-tight">{title}</h1>
+            <h1 className="text-lg font-bold text-slate-900 dark:text-white truncate leading-tight">{title}</h1>
             {subtitle && (
-              <p className="text-xs text-slate-400 dark:text-slate-500 hidden sm:block truncate leading-tight">{subtitle}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 hidden sm:block truncate leading-tight mt-1">{subtitle}</p>
             )}
           </div>
 
@@ -210,8 +210,8 @@ export default function DashboardLayout({ navItems, children, title, subtitle }:
           </div>
         </header>
 
-        <main className={`flex-1 overflow-y-auto bg-slate-50 dark:bg-navy-950 ${isStudent ? 'pb-16 lg:pb-0' : ''}`}>
-          <div className="p-4 sm:p-6 max-w-screen-2xl mx-auto w-full">
+        <main className={`dashboard-canvas flex-1 overflow-y-auto bg-slate-50 dark:bg-navy-950 ${isStudent ? 'pb-16 lg:pb-0' : ''}`}>
+          <div className="p-5 sm:p-7 lg:p-8 max-w-screen-2xl mx-auto w-full">
             {children}
           </div>
         </main>

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
   Headphones, BarChart2, Lightbulb, GraduationCap, CheckCircle, ArrowRight,
@@ -6,6 +7,8 @@ import {
 import { Link } from 'react-router-dom';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+
+const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const SERVICES = [
   {
@@ -156,7 +159,7 @@ const WHY_US = [
 
 export default function About() {
   return (
-    <div className="public-glass-page min-h-screen bg-white">
+    <div className="bg-white min-h-screen">
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
 
@@ -180,6 +183,22 @@ export default function About() {
               <Link to="/products" className="luxury-button-light gap-2">
                 <GraduationCap className="w-4 h-4" /> Explore Our Products
               </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-24 sm:py-32">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:px-8">
+            <div className="relative">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sky-300/35 to-amber-200/30 blur-3xl" />
+              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-sky-50" />}>
+                <InteractiveOrbitalScene ariaLabel="Interactive software, cloud and security capability system" className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-white via-sky-50 to-blue-50" />
+              </Suspense>
+            </div>
+            <div>
+              <p className="corporate-eyebrow">Connected by design</p>
+              <h2 className="corporate-heading mt-4">Serious technical depth without fragmented delivery.</h2>
+              <p className="mt-6 text-base leading-8 text-slate-600">Software, infrastructure, security and support are treated as one connected operating system. That reduces handoffs, makes ownership clearer and produces technology built to last.</p>
             </div>
           </div>
         </section>

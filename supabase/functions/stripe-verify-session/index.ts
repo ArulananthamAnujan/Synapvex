@@ -13,6 +13,8 @@ async function safeUpsert(supabase: ReturnType<typeof createClient>, table: stri
   if (error) throw new Error(`${table} upsert failed: ${error.message}`);
 }
 
+const totalWithProcessingCost = (base: number) => base + Math.max(0, Math.ceil((base + 30) / 0.983) - base);
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
@@ -68,6 +70,10 @@ Deno.serve(async (req: Request) => {
 
     const metadata = session.metadata || {};
     const amountCents = session.amount_total || 0;
+    const baseAmountCents = Number(metadata.base_amount_cents || amountCents);
+    if (metadata.base_amount_cents && amountCents !== totalWithProcessingCost(baseAmountCents)) {
+      throw new Error("Checkout total does not match the signed base amount and processing cost");
+    }
     const stripeSessionId = session.id;
     const stripePaymentId = typeof session.payment_intent === "string" ? session.payment_intent : "";
 
@@ -92,7 +98,7 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const interval = metadata.billing_interval === "yearly" ? "yearly" : "monthly";
+      const interval = metadata.billing_interval === "yearly" ? "yearly" : metadata.billing_interval === "quarterly" ? "quarterly" : "monthly";
       const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
         "fulfill_teacher_subscription",
         {
@@ -101,7 +107,7 @@ Deno.serve(async (req: Request) => {
           p_billing_interval: interval,
           p_stripe_session_id: stripeSessionId,
           p_stripe_payment_id: stripePaymentId,
-          p_amount_cents: amountCents,
+          p_amount_cents: baseAmountCents,
         },
       );
       if (fulfillmentError) {
@@ -139,7 +145,7 @@ Deno.serve(async (req: Request) => {
           p_plan_id: metadata.plan_id || null,
           p_stripe_session_id: stripeSessionId,
           p_stripe_payment_id: stripePaymentId,
-          p_amount_cents: amountCents,
+          p_amount_cents: baseAmountCents,
         },
       );
       if (fulfillmentError) {
@@ -183,7 +189,7 @@ Deno.serve(async (req: Request) => {
           p_plan_id: plan_id,
           p_stripe_session_id: stripeSessionId,
           p_stripe_payment_id: stripePaymentId,
-          p_amount_cents: amountCents,
+          p_amount_cents: baseAmountCents,
         },
       );
       if (fulfillmentError) {
@@ -230,7 +236,7 @@ Deno.serve(async (req: Request) => {
         enrollment_type: "paid",
         payment_status: "completed",
         payment_id: stripePaymentId,
-        amount_paid: amountCents / 100,
+        amount_paid: baseAmountCents / 100,
         currency: "AUD",
         enrolled_at: new Date().toISOString(),
       }, { onConflict: "user_id,course_id" });
@@ -254,7 +260,7 @@ Deno.serve(async (req: Request) => {
           p_teacher_id: teacher_id,
           p_course_id: course_id,
           p_student_id: user.id,
-          p_gross_cents: amountCents,
+          p_gross_cents: baseAmountCents,
           p_stripe_payment_intent: stripePaymentId,
         });
       } catch (e) {

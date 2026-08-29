@@ -29,6 +29,32 @@ function getSiteUrl(req: Request): string {
   return "https://synapvex.com.au";
 }
 
+// Gross up the charge so a standard Australian domestic-card Stripe fee
+// (1.7% + A$0.30) is economically carried by the customer. The complete
+// payable amount is visible in Checkout before payment.
+function processingCostCents(baseAmountCents: number): number {
+  const total = Math.ceil((baseAmountCents + 30) / 0.983);
+  return Math.max(0, total - baseAmountCents);
+}
+
+function withProcessingCost(
+  items: Stripe.Checkout.SessionCreateParams.LineItem[],
+  baseAmountCents: number,
+): Stripe.Checkout.SessionCreateParams.LineItem[] {
+  const fee = processingCostCents(baseAmountCents);
+  return [...items, {
+    price_data: {
+      currency: "aud",
+      product_data: {
+        name: "Payment processing cost",
+        description: "Included in the total payable at checkout",
+      },
+      unit_amount: fee,
+    },
+    quantity: 1,
+  }];
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
@@ -82,7 +108,7 @@ Deno.serve(async (req: Request) => {
 
       const { data: plan } = await supabase
         .from("teacher_subscription_plans")
-        .select("id, name, slug, price_monthly_cents, price_yearly_cents")
+        .select("id, name, slug, price_monthly_cents, price_yearly_cents, price_quarterly_cents")
         .eq("id", plan_id)
         .maybeSingle();
 
@@ -93,17 +119,17 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const interval = billing_interval === "yearly" ? "yearly" : "monthly";
+      const interval = billing_interval === "yearly" ? "yearly" : billing_interval === "monthly" ? "monthly" : "quarterly";
       const unitAmount = interval === "yearly"
         ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
-        : plan.price_monthly_cents;
-      const periodLabel = interval === "yearly" ? "12 Months" : "1 Month";
+        : interval === "monthly" ? plan.price_monthly_cents : plan.price_quarterly_cents;
+      const periodLabel = interval === "yearly" ? "12 Months" : interval === "quarterly" ? "3 Months" : "1 Month";
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
         customer_email: user.email,
-        line_items: [
+        line_items: withProcessingCost([
           {
             price_data: {
               currency: "aud",
@@ -111,18 +137,19 @@ Deno.serve(async (req: Request) => {
                 name: `Synapvex Learn — ${plan.name} Teacher Plan (${periodLabel})`,
                 description: interval === "yearly"
                   ? "Annual teacher plan for Synapvex Learn, paid upfront"
-                  : "Monthly teacher plan for Synapvex Learn",
+                  : interval === "quarterly" ? "Three-month teacher plan for Synapvex Learn, paid upfront" : "Monthly teacher plan for Synapvex Learn",
               },
               unit_amount: unitAmount,
             },
             quantity: 1,
           },
-        ],
+        ], unitAmount),
         metadata: {
           teacher_id: user.id,
           plan_id: plan.id,
           plan_slug: plan.slug,
           billing_interval: interval,
+          base_amount_cents: String(unitAmount),
           type: "teacher_subscription",
         },
         success_url: `${siteUrl}/teacher/billing?subscription=success&session_id={CHECKOUT_SESSION_ID}`,
@@ -157,6 +184,7 @@ Deno.serve(async (req: Request) => {
       }
 
       const price = Number(course.price_amount ?? course.price ?? 0);
+      const courseAmountCents = Math.round(price * 100);
       if (course.is_free || price === 0) {
         return new Response(JSON.stringify({ error: "This course is free" }), {
           status: 400,
@@ -177,7 +205,7 @@ Deno.serve(async (req: Request) => {
         payment_method_types: ["card"],
         mode: "payment",
         customer_email: user.email,
-        line_items: [
+        line_items: withProcessingCost([
           {
             price_data: {
               currency: "aud",
@@ -185,15 +213,16 @@ Deno.serve(async (req: Request) => {
                 name: course.title,
                 ...(images.length > 0 ? { images } : {}),
               },
-              unit_amount: Math.round(price * 100),
+              unit_amount: courseAmountCents,
             },
             quantity: 1,
           },
-        ],
+        ], courseAmountCents),
         metadata: {
           student_id: user.id,
           course_id: course.id,
           teacher_id: course.teacher_id || "",
+          base_amount_cents: String(courseAmountCents),
           type: "course",
         },
         success_url: `${siteUrl}/student/courses?payment=success&course_id=${course_id}&session_id={CHECKOUT_SESSION_ID}`,
@@ -231,7 +260,7 @@ Deno.serve(async (req: Request) => {
         payment_method_types: ["card"],
         mode: "payment",
         customer_email: user.email,
-        line_items: [
+        line_items: withProcessingCost([
           {
             price_data: {
               currency: "aud",
@@ -242,11 +271,12 @@ Deno.serve(async (req: Request) => {
             },
             quantity: 1,
           },
-        ],
+        ], plan.price_cents),
         metadata: {
           student_id: user.id,
           plan_id: plan.id,
           token_amount: String(plan.token_amount),
+          base_amount_cents: String(plan.price_cents),
           type: "ai_plan",
         },
         success_url: `${siteUrl}/student/ai-plans?payment=success&session_id={CHECKOUT_SESSION_ID}`,
@@ -284,7 +314,7 @@ Deno.serve(async (req: Request) => {
         payment_method_types: ["card"],
         mode: "payment",
         customer_email: user.email,
-        line_items: [
+        line_items: withProcessingCost([
           {
             price_data: {
               currency: "aud",
@@ -296,11 +326,12 @@ Deno.serve(async (req: Request) => {
             },
             quantity: 1,
           },
-        ],
+        ], plan.price_cents),
         metadata: {
           teacher_id: user.id,
           plan_id: plan.id,
           token_amount: String(plan.token_amount),
+          base_amount_cents: String(plan.price_cents),
           type: "teacher_ai_plan",
         },
         success_url: `${siteUrl}/teacher/billing?tokens=success&session_id={CHECKOUT_SESSION_ID}`,
@@ -329,7 +360,7 @@ Deno.serve(async (req: Request) => {
         payment_method_types: ["card"],
         mode: "payment",
         customer_email: user.email,
-        line_items: [
+        line_items: withProcessingCost([
           {
             price_data: {
               currency: "aud",
@@ -341,10 +372,11 @@ Deno.serve(async (req: Request) => {
             },
             quantity: 1,
           },
-        ],
+        ], cents),
         metadata: {
           teacher_id: user.id,
           token_amount: String(credits),
+          base_amount_cents: String(cents),
           type: "teacher_topup_custom",
         },
         success_url: `${siteUrl}/teacher/billing?tokens=success&session_id={CHECKOUT_SESSION_ID}`,

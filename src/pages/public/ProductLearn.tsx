@@ -3,10 +3,12 @@ import {
   GraduationCap, ArrowRight, CheckCircle, Store, Share2, Sparkles,
   CreditCard, BarChart2, Users, Palette, Link2,
   Building2, Video, ClipboardList, Bot,
+  MessageSquare, Megaphone, Award, ShieldCheck, WalletCards, Library,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
+import { processingCostCents, processingTotalCents } from '../../lib/pricing';
 
 const STEPS = [
   {
@@ -38,68 +40,74 @@ const TEACHER_FEATURES = [
   { icon: ClipboardList, title: 'Quizzes, Exams & Assignments', desc: 'Auto-graded quizzes and exams with attempt limits, plus assignment submissions and grading.' },
   { icon: Video, title: 'Live Sessions & F2F', desc: 'Schedule live classes and manage face-to-face session requests from students.' },
   { icon: BarChart2, title: 'Student Analytics', desc: 'See enrolments, lesson-level progress and completion for every student.' },
+  { icon: Library, title: 'Complete Course Studio', desc: 'Structure sections and lessons, upload documents and video, preview content and publish from one guided workspace.' },
+  { icon: Award, title: 'Branded Certificates', desc: 'Issue verifiable completion certificates carrying your academy identity and let learners share their achievement.' },
+  { icon: MessageSquare, title: 'Course Discussions', desc: 'Keep questions and teaching conversations connected to the course instead of scattered across external messaging apps.' },
+  { icon: Megaphone, title: 'Announcements & Communication', desc: 'Send important course updates to enrolled students and keep your learning community informed.' },
+  { icon: WalletCards, title: 'Earnings & Payout Management', desc: 'Track sales, available earnings, payout requests and transaction history from the same client dashboard.' },
+  { icon: ShieldCheck, title: 'Secure Access & Verification', desc: 'Role-based access, protected course delivery and certificate verification help safeguard your content and learners.' },
 ];
 
 const PLANS = [
   {
-    name: 'Starter', price: 29,
-    features: ['3 courses', '50 students', '500 AI tokens/month', 'Branded course page', 'Quizzes & assignments', 'Email support'],
+    name: 'Starter', listPrice: 74.99, price: 49.99,
+    features: ['3 courses', '50 students', '500 AI credits for 3 months', 'Branded course page', 'Quizzes & assignments', 'Email support'],
     popular: false,
   },
   {
-    name: 'Professional', price: 49,
-    features: ['15 courses', '500 students', '2,000 AI tokens/month', 'AI course builder', 'Certificates & exams', 'Earnings dashboard', 'Priority support'],
+    name: 'Professional', listPrice: 100, price: 89,
+    features: ['15 courses', '500 students', '900 AI credits for 3 months', 'AI course builder', 'Certificates & exams', 'Earnings dashboard', 'Priority support'],
     popular: true,
   },
   {
-    name: 'Business', price: 99,
-    features: ['Unlimited courses & students', '10,000 AI tokens/month', 'Organisation & team of teachers', 'Full AI curriculum builder', 'Advanced analytics', 'Dedicated account manager'],
+    name: 'Business', listPrice: 200, price: 175,
+    features: ['Unlimited courses & students', '1,800 AI credits for 3 months', 'Organisation & team of teachers', 'Full AI curriculum builder', 'Advanced analytics', 'Dedicated account manager'],
     popular: false,
   },
 ];
 
 export default function ProductLearn() {
   return (
-    <div className="public-glass-page min-h-screen bg-white">
+    <div className="learn-product-page bg-white min-h-screen">
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
         {/* Hero */}
-        <section className="bg-mesh relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid" />
-          <div className="absolute top-[-6rem] right-[-4rem] w-[32rem] h-[32rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
+        <section className="premium-page-hero">
+          <div className="absolute inset-0 corporate-grid opacity-25" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[32rem] h-[32rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
-                <GraduationCap className="w-4 h-4 text-sky-300" />
-                <span className="text-sky-300 text-sm font-semibold">SynapVex Learn · Live Product</span>
+              <div className="inline-flex items-center gap-2 bg-white/75 border border-sky-200 rounded-full px-4 py-2 mb-7 shadow-sm backdrop-blur-sm">
+                <GraduationCap className="w-4 h-4 text-sky-700" />
+                <span className="text-sky-800 text-xs font-bold uppercase tracking-[0.14em]">SynapVex Learn · Live Product</span>
               </div>
-              <h1 className="font-sans text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Sell courses from<br /><span className="text-sky-400">your own website</span>
+              <h1 className="font-display text-5xl lg:text-7xl font-semibold text-[#102d48] leading-[1.02] tracking-[-0.045em] mb-7">
+                Sell courses from<br /><span className="bg-gradient-to-r from-sky-700 to-amber-500 bg-clip-text text-transparent">your own website</span>
               </h1>
-              <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
+              <p className="text-slate-600 text-lg leading-relaxed mb-9 max-w-xl">
                 Create courses here, get your own branded course page, and drop one link on your
                 website. Your students see <em>your</em> brand — we quietly handle the video hosting,
                 payments, quizzes, progress and certificates behind the scenes.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/teach/register?free=1" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-sky-500/30 hover:-translate-y-0.5">
+                <Link to="/teach/register?free=1" className="luxury-button-primary gap-2 !px-8 !py-3.5">
                   Start Free <ArrowRight className="w-5 h-5" />
                 </Link>
-                <Link to="/teach" className="px-8 py-3.5 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors">
+                <Link to="/teach" className="luxury-button-light !px-8 !py-3.5">
                   View Pricing
                 </Link>
               </div>
-              <p className="text-slate-200 text-sm mt-5 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 px-3 py-1">
-                  <Sparkles className="w-3.5 h-3.5 text-sky-300" />
-                  <strong className="text-white">Free AI credits</strong>
+              <p className="text-slate-600 text-sm mt-6 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/75 border border-sky-200 px-3 py-1 shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-sky-700" />
+                  <strong className="text-sky-900">Free AI credits</strong>
                 </span>
-                <span className="text-slate-400">No credit card required.</span>
+                <span className="text-slate-500">No credit card required.</span>
               </p>
-              <p className="text-slate-500 text-sm mt-2">
-                Plans from $29/month · Students join free ·{' '}
-                <Link to="/login" className="text-sky-400 hover:text-sky-300 font-semibold">Already teaching? Sign in</Link>
+              <p className="text-slate-600 text-sm mt-3">
+                Three-month plans from $49.99 · Students join free ·{' '}
+                <Link to="/login" className="text-sky-700 hover:text-sky-900 font-semibold">Already teaching? Sign in</Link>
               </p>
             </div>
 
@@ -239,7 +247,7 @@ export default function ProductLearn() {
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
             <h2 className="font-sans text-4xl font-bold text-slate-900 mb-3">Start small, scale to an academy</h2>
-            <p className="text-slate-500">Pay monthly, or pay annually upfront and get two months free. Students always join free. Cancel anytime.</p>
+            <p className="text-slate-500">One payment covers three months. Students always join free. Cancel before your next renewal.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {PLANS.map(plan => (
@@ -256,8 +264,12 @@ export default function ProductLearn() {
                 )}
                 <h3 className="font-bold text-slate-900 text-lg mb-1">{plan.name}</h3>
                 <p className="mb-5">
-                  <span className="text-4xl font-bold text-slate-900 font-sans">${plan.price}</span>
-                  <span className="text-slate-400 text-sm">/month</span>
+                  <span className="block text-sm text-slate-400 line-through mb-1">${plan.listPrice.toFixed(2)}</span>
+                  <span className="text-4xl font-bold text-slate-900 font-sans">${plan.price.toFixed(2)}</span>
+                  <span className="text-slate-400 text-sm"> / 3 months</span>
+                </p>
+                <p className="-mt-3 mb-5 text-xs text-slate-500">
+                  Total ${(processingTotalCents(Math.round(plan.price * 100)) / 100).toFixed(2)}, including ${(processingCostCents(Math.round(plan.price * 100)) / 100).toFixed(2)} processing cost
                 </p>
                 <ul className="space-y-2.5 mb-7">
                   {plan.features.map(f => (

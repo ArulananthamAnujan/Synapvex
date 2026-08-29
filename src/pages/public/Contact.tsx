@@ -96,7 +96,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="public-glass-page min-h-screen bg-white">
+    <div className="bg-white min-h-screen">
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
 
