@@ -963,3 +963,73 @@
     font-size:1.05rem;
   }
 }
+
+
+/* Final comfortable information scale */
+.public-glass-page main p,
+.public-glass-page main li,
+.public-glass-page main label,
+.public-glass-page main input,
+.public-glass-page main textarea,
+.public-glass-page main select {
+  font-size:1rem;
+  line-height:1.7;
+}
+.public-glass-page main a,
+.public-glass-page main button {
+  font-size:.9375rem;
+  line-height:1.45;
+}
+.public-glass-page main h3 {
+  font-size:1.2rem;
+}
+.public-glass-page main h4 {
+  font-size:1.075rem;
+}
+.public-glass-page main [class*="uppercase"][class*="tracking"] {
+  font-size:.8rem;
+}
+.compact-product-card h3 {
+  font-size:.94rem !important;
+}
+.compact-product-card p {
+  font-size:.8rem !important;
+  line-height:1.5;
+}
+.compact-capability-card h3,
+.compact-step h3,
+.compact-proof h3 {
+  font-size:.9rem;
+}
+.compact-capability-card p,
+.compact-step p,
+.compact-proof p {
+  font-size:.8rem;
+  line-height:1.55;
+}
+.compact-eyebrow {
+  font-size:.72rem;
+}
+.compact-text-link,
+.compact-primary-action,
+.compact-secondary-action {
+  font-size:.82rem;
+}
+@media (min-width:640px) {
+  .public-glass-page main p,
+  .public-glass-page main li,
+  .public-glass-page main label,
+  .public-glass-page main input,
+  .public-glass-page main textarea,
+  .public-glass-page main select {
+    font-size:1.0625rem;
+  }
+  .public-glass-page main a,
+  .public-glass-page main button {
+    font-size:1rem;
+  }
+  .compact-product-card h3 { font-size:1.05rem !important; }
+  .compact-product-card p { font-size:.88rem !important; }
+  .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:1rem; }
+  .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.88rem; }
+}
