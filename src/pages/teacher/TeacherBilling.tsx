@@ -124,13 +124,15 @@ export default function TeacherBilling() {
         } else {
           toast.success(`${formatCredits(credits)} AI credits added to your account.`);
         }
-        window.history.replaceState({}, '', window.location.pathname);
         await load();
       } catch (error) {
         if (active) {
           toast.error(error instanceof Error ? error.message : 'Could not verify the payment. Please contact support.');
         }
       } finally {
+        // A failed or abandoned verification must not remain in the URL and
+        // replay the same error toast on every later visit to Billing.
+        window.history.replaceState({}, '', window.location.pathname);
         if (active) setWorking(null);
       }
     })();
