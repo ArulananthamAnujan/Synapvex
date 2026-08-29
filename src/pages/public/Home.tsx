@@ -50,13 +50,13 @@ export default function Home() {
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-200 shadow-inner shadow-white/5">
                 Technology products and delivery services
               </div>
-              <h1 className="max-w-3xl text-4xl font-bold leading-[1.04] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">
-                Technology that moves your <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">organisation forward.</span>
+              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-8xl">
+                Technology, <span className="bg-gradient-to-r from-sky-300 to-blue-400 bg-clip-text text-transparent">engineered forward.</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              <p className="mt-10 max-w-xl text-lg leading-8 text-slate-300">
                 SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-12 flex flex-col gap-4 sm:flex-row">
                 <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200/30 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 px-7 py-4 text-sm font-bold text-white shadow-xl shadow-sky-950/40 transition-all hover:-translate-y-0.5 hover:shadow-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
                   Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -107,22 +107,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-b border-slate-200 bg-white" aria-label="Delivery presence">
-          <div className="mx-auto grid max-w-7xl divide-y divide-slate-200 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
+        <section className="border-b border-white/10 bg-slate-950" aria-label="Delivery presence">
+          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
             {[
               ['Australia', 'Client relationships and regional growth'],
               ['Sri Lanka', 'Product and delivery capability'],
               ['Bangladesh', 'Engineering and operational support'],
             ].map(([region, detail]) => (
-              <div key={region} className="px-0 py-6 sm:px-6 first:sm:pl-0 last:sm:pr-0">
-                <p className="text-sm font-bold text-slate-900">{region}</p>
-                <p className="mt-1 text-sm text-slate-500">{detail}</p>
+              <div key={region} className="px-0 py-9 sm:px-8 first:sm:pl-0 last:sm:pr-0">
+                <p className="text-sm font-bold tracking-wide text-white">{region}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-400">{detail}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-20 sm:py-28">
+        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
@@ -134,7 +134,7 @@ export default function Home() {
               </p>
             </Reveal>
 
-            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            <div className="mt-20 grid gap-8 lg:grid-cols-3">
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
@@ -169,7 +169,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-20 sm:py-24">
+        <section className="bg-white py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Core capabilities</p>
@@ -179,9 +179,9 @@ export default function Home() {
               </p>
             </Reveal>
 
-            <div className="mt-12 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-20 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
               {CAPABILITIES.map((capability, index) => (
-                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-7 lg:p-8">
+                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-9 lg:p-12">
                   <capability.icon className="h-6 w-6 text-sky-700" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{capability.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{capability.description}</p>
@@ -197,9 +197,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-slate-50 py-20 sm:py-24">
+        <section className="border-y border-slate-200 bg-slate-50 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
                 <p className="corporate-eyebrow">How we deliver</p>
                 <h2 className="corporate-heading mt-3">Structured delivery. Clear decisions.</h2>
@@ -221,14 +221,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-20 sm:py-24">
+        <section className="bg-white py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Why SynapVex</p>
               <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
             </Reveal>
 
-            <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <div className="mt-20 grid gap-12 md:grid-cols-2">
               {DIFFERENTIATORS.map((item, index) => (
                 <Reveal key={item.title} delay={(index % 2) * 70} className="flex gap-5 border-t border-slate-200 pt-6">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
@@ -244,13 +244,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-sky-700 py-16 sm:py-20">
+        <section className="bg-slate-950 py-24 sm:py-32">
           <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 text-sm font-semibold text-sky-100">
                 <GraduationCap className="h-5 w-5" /> Product engineering and technology delivery
               </div>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Let’s turn your next technology priority into a clear plan.</h2>
+              <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-6xl">Let’s turn your next technology priority into a clear plan.</h2>
             </div>
             <Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
               Start a conversation <ArrowRight className="h-4 w-4" />
