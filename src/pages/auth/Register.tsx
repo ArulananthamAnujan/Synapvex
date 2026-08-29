@@ -56,7 +56,7 @@ export default function Register() {
       setError(error.message || 'Registration failed. Please try again.');
       setLoading(false);
     } else {
-      toast.success('Account created! Welcome to Synapvex Learn.');
+      toast.success('Account created! Welcome to SynapVex Learn.');
       navigate(next ?? '/student');
     }
   };
@@ -68,10 +68,10 @@ export default function Register() {
         <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)', backgroundSize: '40px 40px'}} />
         <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-sky-800/60 to-transparent" />
         <div className="relative z-10 flex flex-col justify-center p-16">
-          <Link to="/" className="flex items-center gap-3 mb-16 bg-white rounded-xl px-4 py-3 self-start">
-            <MaximusLogo height={64} variant="dark" />
+          <Link to="/" className="mb-16 self-start rounded-xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm">
+            <MaximusLogo height={48} variant="light" brand="learn" />
           </Link>
-          <h2 className="font-playfair text-4xl font-bold text-white mb-6">
+          <h2 className="font-sans text-4xl font-bold text-white mb-6">
             Start Your Learning Journey Today
           </h2>
           <p className="text-sky-100 text-lg leading-relaxed mb-8">
@@ -99,10 +99,10 @@ export default function Register() {
             <div className="flex items-start gap-3">
               <Info className="w-4 h-4 text-sky-100 shrink-0 mt-0.5" />
               <div>
-                <p className="text-white font-semibold text-sm">Are you a client?</p>
+                <p className="text-white font-semibold text-sm">Are you an educator?</p>
                 <p className="text-sky-100 text-xs mt-1 leading-relaxed">
                   Teachers get their own course builder, student management, and earnings dashboard.{' '}
-                  <a href="/teach" className="text-white underline hover:text-sky-200 font-semibold">View client plans →</a>
+                  <Link to="/teach" className="text-white underline hover:text-sky-200 font-semibold">View teacher plans →</Link>
                 </p>
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function Register() {
               <span className="hidden sm:inline">Back to home</span>
             </Link>
             <Link to="/" className="lg:hidden flex items-center gap-2 ml-2">
-              <MaximusLogo height={44} variant="dark" />
+              <MaximusLogo height={38} variant="dark" brand="learn" />
             </Link>
           </div>
           <DarkModeToggle />
@@ -132,7 +132,7 @@ export default function Register() {
           <div className="w-full max-w-md">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-navy-900 dark:text-white mb-2">Create your account</h1>
-              <p className="text-gray-500 dark:text-gray-400">Start learning on Synapvex Learn in minutes</p>
+              <p className="text-gray-500 dark:text-gray-400">Start learning on SynapVex Learn in minutes</p>
             </div>
 
             {/* Social sign-up */}
@@ -242,16 +242,16 @@ export default function Register() {
               <div className="flex items-start gap-2">
                 <Info className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0 mt-0.5" />
                 <p className="text-xs text-sky-700 dark:text-sky-300">
-                  Want to teach on Synapvex Learn?{' '}
-                  <Link to="/teach" className="underline font-semibold">View client plans →</Link>
+                  Want to teach on SynapVex Learn?{' '}
+                  <Link to="/teach" className="underline font-semibold">View teacher plans →</Link>
                 </p>
               </div>
             </div>
 
             <p className="mt-4 text-center text-xs text-gray-400 dark:text-gray-500">
               By creating an account, you agree to our{' '}
-              <a href="#" className="text-gold-600 hover:underline">Terms of Service</a> and{' '}
-              <a href="#" className="text-gold-600 hover:underline">Privacy Policy</a>.
+              <Link to="/terms" className="text-sky-700 hover:underline">Terms of Service</Link> and{' '}
+              <Link to="/privacy" className="text-sky-700 hover:underline">Privacy Policy</Link>.
             </p>
 
             <p className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">

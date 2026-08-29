@@ -47,24 +47,25 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-950 flex">
-      <div className="hidden lg:flex lg:w-1/2 bg-sky-600 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)', backgroundSize: '40px 40px'}} />
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-sky-800/60 to-transparent" />
+      <div className="premium-page-hero hidden lg:flex lg:w-1/2">
+        <div className="absolute inset-0 corporate-grid opacity-30" />
+        <div className="absolute -left-24 top-0 h-80 w-80 rounded-full bg-amber-300/25 blur-[100px]" />
+        <div className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-sky-400/25 blur-[110px]" />
         <div className="relative z-10 flex flex-col justify-center p-16">
-          <Link to="/" className="flex items-center gap-3 mb-16 bg-white rounded-xl px-4 py-3 self-start">
-            <MaximusLogo height={64} variant="dark" />
+          <Link to="/" className="luxury-surface mb-16 self-start rounded-2xl border border-white bg-white/85 px-4 py-3 backdrop-blur-sm">
+            <MaximusLogo height={48} variant="dark" brand="learn" />
           </Link>
-          <h2 className="font-playfair text-4xl font-bold text-white mb-6 leading-tight">
-            Welcome back to Synapvex Learn
+          <h2 className="font-display text-5xl font-semibold tracking-[-0.04em] text-[#102d48] mb-6 leading-tight">
+            Welcome back to SynapVex Learn
           </h2>
-          <p className="text-sky-100 text-lg leading-relaxed mb-10">
+          <p className="text-slate-600 text-lg leading-relaxed mb-10">
             Sign in to keep learning, teaching, or managing your courses — everything is right where you left it.
           </p>
           <div className="grid grid-cols-3 gap-6">
             {[['AI', 'Course Builder'], ['Verified', 'Certificates'], ['Anywhere', 'Any Device']].map(([val, label]) => (
-              <div key={label} className="text-center bg-white/10 rounded-xl py-4 px-2 backdrop-blur-sm">
-                <p className="text-2xl font-bold text-white font-playfair">{val}</p>
-                <p className="text-sky-100 text-sm mt-1">{label}</p>
+              <div key={label} className="luxury-surface rounded-2xl border border-white bg-white/70 px-2 py-5 text-center backdrop-blur-sm">
+                <p className="font-display text-2xl font-semibold text-[#102d48]">{val}</p>
+                <p className="text-slate-500 text-sm mt-1">{label}</p>
               </div>
             ))}
           </div>
@@ -82,7 +83,7 @@ export default function Login() {
               <span className="hidden sm:inline">Back to home</span>
             </Link>
             <Link to="/" className="lg:hidden flex items-center gap-2 ml-2">
-              <MaximusLogo height={44} variant="dark" />
+            <MaximusLogo height={38} variant="dark" brand="learn" />
             </Link>
           </div>
           <DarkModeToggle />
@@ -91,7 +92,7 @@ export default function Login() {
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <h1 className="text-3xl font-bold text-navy-900 dark:text-white mb-2">Welcome back</h1>
-            <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to your Synapvex Learn account</p>
+            <p className="text-gray-500 dark:text-gray-400 mb-8">Sign in to your SynapVex Learn account</p>
 
             <div className="flex gap-3 mb-6">
               <button

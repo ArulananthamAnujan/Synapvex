@@ -45,19 +45,19 @@ export default function OurMission() {
       <PublicHeader />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 bg-mesh overflow-hidden">
-        <div className="absolute inset-0 bg-grid" />
-        <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
+      <section className="premium-page-hero pt-40 pb-28 sm:pt-44 sm:pb-36">
+        <div className="absolute inset-0 corporate-grid opacity-30" />
+        <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
-            <Target className="w-4 h-4 text-sky-400" />
-            <span className="text-sky-300 text-sm font-semibold">Our Mission & Values</span>
+          <div className="inline-flex items-center gap-2 bg-white/75 border border-sky-200 rounded-full px-4 py-2 mb-7 shadow-sm backdrop-blur-sm">
+            <Target className="w-4 h-4 text-sky-700" />
+            <span className="text-sky-800 text-xs font-bold uppercase tracking-[0.16em]">Our Mission & Values</span>
           </div>
-          <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="font-display text-5xl sm:text-7xl font-semibold text-[#102d48] mb-7 leading-tight tracking-[-0.045em]">
             Build. Empower. Grow.
           </h1>
-          <p className="text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
             SynapVex Technologies exists to put powerful, reliable software in the hands of every
             business — through the products we build and the services we deliver.
           </p>
@@ -70,16 +70,16 @@ export default function OurMission() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-3">Why We Exist</p>
-              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-6">Our Mission</h2>
+              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-6">Our Mission</h2>
               <div className="space-y-5 text-slate-600 leading-relaxed">
                 <p>
-                  Great technology shouldn't be reserved for big enterprises. We started Synapvex to
+                  Great technology shouldn't be reserved for big enterprises. We started SynapVex to
                   give growing businesses the same calibre of software, security and strategy — without
                   the enterprise price tag or complexity.
                 </p>
                 <p>
                   We do it two ways: hands-on services — custom software, websites, apps, cloud and
-                  cybersecurity — and a growing family of our own products, led by Synapvex Learn,
+                  cybersecurity — and a growing family of our own products, led by SynapVex Learn,
                   that let businesses and creators launch under their own brand in days, not months.
                 </p>
                 <p>
@@ -88,7 +88,7 @@ export default function OurMission() {
                 </p>
               </div>
               <div className="mt-8 flex gap-4 flex-wrap">
-                <Link to="/products" className="px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
+                <Link to="/products" className="luxury-button-primary gap-2 !px-6 !py-3">
                   Explore Our Products <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/about" className="px-6 py-3 border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors">
@@ -97,20 +97,8 @@ export default function OurMission() {
               </div>
             </div>
             <div className="relative">
-              <div className="absolute -inset-5 bg-gradient-to-tr from-sky-400/15 to-indigo-400/15 blur-3xl rounded-[2.5rem]" />
-              <div className="relative rounded-3xl bg-slate-900 p-8 shadow-2xl overflow-hidden animate-float-slow">
-                <div className="absolute inset-0 bg-grid opacity-60" />
-                <div className="relative grid grid-cols-2 gap-4">
-                  {PILLARS.map((v) => (
-                    <div key={v.title} className="glass-card rounded-2xl p-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-3">
-                        <v.icon className="w-5 h-5 text-sky-300" />
-                      </div>
-                      <p className="text-white font-bold text-sm">{v.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 to-sky-300/35 blur-3xl" />
+              <img src="/images/luxury/mission-outcomes.webp" alt="Abstract journey from an idea to connected technology outcomes" width="1536" height="1024" loading="lazy" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
             </div>
           </div>
         </div>
@@ -121,7 +109,7 @@ export default function OurMission() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How We Work</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
+            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">
               Four principles guide every product we build and every engagement we take on.
             </p>
@@ -147,7 +135,7 @@ export default function OurMission() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">What We Aim For</p>
-              <h2 className="font-playfair text-4xl font-bold text-white mb-6">Our Goals</h2>
+              <h2 className="font-sans text-4xl font-bold text-white mb-6">Our Goals</h2>
               <div className="space-y-4">
                 {GOALS.map((goal, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -177,7 +165,7 @@ export default function OurMission() {
       {/* CTA */}
       <section className="py-16 bg-sky-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-playfair text-3xl font-bold text-white mb-4">Build the Future with Us</h2>
+          <h2 className="font-sans text-3xl font-bold text-white mb-4">Build the Future with Us</h2>
           <p className="text-sky-100 mb-8 text-lg">
             Whether you need a technology partner or a product to power your business, we're ready when you are.
           </p>

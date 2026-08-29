@@ -161,36 +161,50 @@ export default function About() {
       <div className="pt-20 lg:pt-24">
 
         {/* Hero */}
-        <section className="relative py-28 bg-mesh overflow-hidden">
-          <div className="absolute inset-0 bg-grid" />
-          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
+        <section className="premium-page-hero py-28 sm:py-36">
+          <div className="absolute inset-0 corporate-grid opacity-30" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">SynapVex Technologies</p>
-            <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-              Our Services
+            <p className="text-sky-800 font-bold text-xs uppercase tracking-[0.2em] mb-5">SynapVex Technologies</p>
+            <h1 className="font-display text-5xl sm:text-7xl font-semibold text-[#102d48] mb-7 leading-[1.02] tracking-[-0.05em]">
+              Expertise with <span className="bg-gradient-to-r from-sky-700 to-amber-500 bg-clip-text text-transparent">executive-level polish.</span>
             </h1>
-            <p className="text-slate-300 text-xl leading-relaxed max-w-3xl mx-auto">
+            <p className="text-slate-600 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
               Full-spectrum technology solutions for businesses of every size — from custom software and cybersecurity to cloud infrastructure, digital marketing, and our own LMS platform.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link to="/contact" className="px-7 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
+              <Link to="/contact" className="luxury-button-primary gap-2">
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/products" className="px-7 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
+              <Link to="/products" className="luxury-button-light gap-2">
                 <GraduationCap className="w-4 h-4" /> Explore Our Products
               </Link>
             </div>
           </div>
         </section>
 
+        <section className="bg-white py-24 sm:py-32">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:px-8">
+            <div className="relative">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sky-300/35 to-amber-200/30 blur-3xl" />
+              <img src="/images/luxury/connected-capabilities.webp" alt="Connected cloud, software and security architecture" width="1536" height="1024" loading="eager" fetchPriority="high" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+            </div>
+            <div>
+              <p className="corporate-eyebrow">Connected by design</p>
+              <h2 className="corporate-heading mt-4">Serious technical depth without fragmented delivery.</h2>
+              <p className="mt-6 text-base leading-8 text-slate-600">Software, infrastructure, security and support are treated as one connected operating system. That reduces handoffs, makes ownership clearer and produces technology built to last.</p>
+            </div>
+          </div>
+        </section>
+
         {/* All Services Grid */}
-        <section className="py-20 bg-slate-50">
+        <section className="py-24 bg-gradient-to-b from-slate-950 via-[#071327] to-slate-950 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Offer</p>
-              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Services — In Detail</h2>
-              <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sky-300 font-semibold text-sm uppercase tracking-[0.22em] mb-3">What We Offer</p>
+              <h2 className="font-sans text-4xl sm:text-5xl font-bold text-white mb-4 tracking-[-0.04em]">One partner. Serious technical depth.</h2>
+              <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
                 Every service is delivered by specialists with deep domain expertise, focused on solving your real business challenges.
               </p>
             </div>
@@ -198,18 +212,19 @@ export default function About() {
               {SERVICES.map((svc, idx) => (
                 <div
                   key={svc.title}
-                  className={`rounded-2xl border p-6 ${svc.bg} ${svc.border} hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-7 shadow-2xl shadow-black/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-400/40 hover:bg-white/[0.09]"
                 >
+                  <div className="absolute -right-16 -top-16 h-36 w-36 rounded-full bg-sky-500/10 blur-3xl transition-colors group-hover:bg-cyan-400/20" />
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 bg-white rounded-xl flex items-center justify-center shadow-sm shrink-0">
+                    <div className="w-12 h-12 bg-white/10 border border-white/10 rounded-2xl flex items-center justify-center shadow-sm shrink-0">
                       <svc.icon className={`w-5 h-5 ${svc.color}`} />
                     </div>
                     <span className={`text-xs font-bold uppercase tracking-wider ${svc.color}`}>0{idx + 1}</span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-3">{svc.title}</h3>
+                  <h3 className="font-bold text-white text-lg mb-4">{svc.title}</h3>
                   <ul className="space-y-2">
                     {svc.items.map(item => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                      <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
                         <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${svc.color}`} />
                         {item}
                       </li>
@@ -231,7 +246,7 @@ export default function About() {
                 </div>
                 <h3 className="font-bold text-slate-900 text-lg mb-1">LMS Platform</h3>
                 <p className="text-sm text-slate-500 mb-3 leading-relaxed">
-                  Synapvex Learn is our own SaaS-based Learning Management System. Create courses, enrol students, run quizzes, issue certificates — and use AI to generate entire curricula in minutes.
+                  SynapVex Learn is our own SaaS-based Learning Management System. Create courses, enrol students, run quizzes, issue certificates — and use AI to generate entire curricula in minutes.
                 </p>
                 <ul className="space-y-2 mb-5">
                   {[
@@ -252,9 +267,9 @@ export default function About() {
                 </ul>
                 <Link
                   to="/products/learn"
-                  className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors text-sm"
+                  className="luxury-button-primary w-full gap-2 !px-5 !py-3"
                 >
-                  <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn <ArrowRight className="w-4 h-4" />
+                  <GraduationCap className="w-4 h-4" /> Discover SynapVex Learn <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -266,7 +281,7 @@ export default function About() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Why SynapVex</p>
-              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Why Choose SynapVex Technologies?</h2>
+              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Why Choose SynapVex Technologies?</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {WHY_US.map((item) => (
@@ -288,7 +303,7 @@ export default function About() {
         <section className="py-20 bg-slate-900 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.12),transparent_60%)]" />
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-playfair text-4xl font-bold text-white mb-5">
+            <h2 className="font-sans text-4xl font-bold text-white mb-5">
               Ready to Partner with SynapVex?
             </h2>
             <p className="text-slate-300 text-lg mb-8 leading-relaxed">
@@ -297,7 +312,7 @@ export default function About() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="px-8 py-3.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
+                className="luxury-button-primary gap-2 !px-8 !py-3.5"
               >
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>

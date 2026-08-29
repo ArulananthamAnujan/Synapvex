@@ -8,7 +8,7 @@ const COMPANY_LINKS = [
   { label: 'Capabilities', href: '/about' },
   { label: 'Our mission', href: '/our-mission' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Book online', href: '/book-online' },
+  { label: 'Start a project', href: '/book-online' },
 ];
 
 const SUPPORT_LINKS = [
@@ -21,12 +21,15 @@ const SUPPORT_LINKS = [
 
 export default function PublicFooter() {
   return (
-    <footer className="bg-slate-950 text-slate-300">
+    <footer className="relative overflow-hidden border-t border-sky-400/20 bg-[#020617] text-slate-300">
+      <div className="pointer-events-none absolute inset-x-[8%] top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+      <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/10 blur-[100px]" />
+      <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
+        <div className="grid gap-12 py-20 sm:py-24 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
           <div className="max-w-md">
             <Link to="/" className="inline-flex" aria-label="SynapVex home">
-              <MaximusLogo height={42} variant="light" brand="corporate" />
+              <MaximusLogo height={72} variant="light" brand="corporate" />
             </Link>
             <p className="mt-6 text-sm leading-6 text-slate-400">
               Technology products and delivery services for organisations modernising their operations, customer experiences and digital infrastructure.

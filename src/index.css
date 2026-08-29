@@ -12,7 +12,10 @@
   }
 
   body {
-    @apply font-sans antialiased bg-slate-50 text-slate-900;
+    @apply font-sans antialiased text-slate-900;
+    background: #f6f8fc;
+    font-feature-settings: "ss01" 1, "cv02" 1, "cv03" 1;
+    line-height: 1.7;
   }
 
   ::selection {
@@ -29,13 +32,30 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-semibold;
+    @apply font-display font-semibold;
+    text-wrap: balance;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-150 shadow-sm hover:shadow-sky-md focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
+    @apply relative isolate overflow-hidden border border-white/25 text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), transparent 42%),
+      linear-gradient(120deg, #073f67 0%, #087dad 52%, #15a8d0 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.34),
+      inset 0 -1px 0 rgba(0,31,55,.25),
+      0 14px 30px -14px rgba(4,91,137,.68);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.44),
+      inset 0 -1px 0 rgba(0,31,55,.22),
+      0 20px 38px -14px rgba(4,119,170,.7);
   }
 
   .btn-secondary {
@@ -51,11 +71,22 @@
   }
 
   .card {
-    @apply bg-white dark:bg-navy-800 rounded-xl shadow-sm border border-slate-200 dark:border-navy-700 overflow-hidden;
+    @apply dark:bg-navy-800 rounded-2xl border dark:border-navy-700 overflow-hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(248,250,252,0.94));
+    border-color: rgba(148, 163, 184, 0.24);
+    box-shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.38), 0 2px 12px rgba(15, 23, 42, 0.04);
   }
 
   .card-hover {
-    @apply bg-white dark:bg-navy-800 rounded-xl shadow-sm border border-slate-200 dark:border-navy-700 overflow-hidden hover:shadow-md hover:border-sky-200 dark:hover:border-sky-700 transition-all duration-200;
+    @apply dark:bg-navy-800 rounded-2xl border dark:border-navy-700 overflow-hidden hover:border-sky-300 dark:hover:border-sky-700 transition-all duration-300;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-color: rgba(148, 163, 184, 0.24);
+    box-shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.35);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 60px -30px rgba(2, 132, 199, 0.42);
   }
 
   .input-field {
@@ -95,11 +126,91 @@
   }
 
   .corporate-eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.18em] text-sky-700;
+    @apply text-xs font-bold uppercase tracking-[0.24em] text-sky-700;
   }
 
   .corporate-heading {
-    @apply text-3xl font-bold leading-tight tracking-[-0.025em] text-slate-950 sm:text-4xl;
+    @apply font-display text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-slate-950 sm:text-4xl lg:text-5xl;
+  }
+
+  .luxury-button-primary {
+    @apply relative isolate inline-flex items-center justify-center overflow-hidden rounded-2xl border border-white/30 px-7 py-4 text-sm font-bold text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.18), transparent 42%),
+      linear-gradient(120deg, #073f67 0%, #087dad 52%, #15a8d0 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.38),
+      inset 0 -1px 0 rgba(0,31,55,.28),
+      0 18px 38px -14px rgba(4,91,137,.7),
+      0 6px 12px -8px rgba(2,45,76,.5);
+  }
+
+  .btn-primary::before,
+  .luxury-button-primary::before,
+  .luxury-button-light::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transform: translateX(-115%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent);
+    transition: transform .65s cubic-bezier(.2,.75,.2,1);
+  }
+
+  .luxury-button-primary:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.48),
+      inset 0 -1px 0 rgba(0,31,55,.25),
+      0 24px 48px -13px rgba(4,119,170,.72),
+      0 8px 18px -10px rgba(2,45,76,.55);
+  }
+
+  .luxury-button-light {
+    @apply relative isolate inline-flex items-center justify-center overflow-hidden rounded-2xl border border-white/80 bg-white/80 px-7 py-4 text-sm font-bold text-sky-950 backdrop-blur-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-300;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,1),
+      0 16px 38px -24px rgba(12,69,105,.55),
+      0 0 0 1px rgba(125,211,252,.24);
+  }
+
+  .luxury-button-light:hover {
+    transform: translateY(-3px);
+    border-color: rgba(252,211,77,.75);
+    background: rgba(255,255,255,.98);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      0 24px 46px -22px rgba(8,96,140,.48),
+      0 0 0 1px rgba(245,158,11,.2);
+  }
+
+  .btn-primary:hover::before,
+  .luxury-button-primary:hover::before,
+  .luxury-button-light:hover::before {
+    transform: translateX(115%) skewX(-18deg);
+  }
+
+  .luxury-surface {
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.9),
+      0 30px 80px rgba(26,78,115,.16),
+      0 8px 28px -18px rgba(8,83,123,.22);
+  }
+
+  .premium-page-hero {
+    @apply relative overflow-hidden;
+    background:
+      radial-gradient(circle at 8% 18%, rgba(251,191,36,.24), transparent 30%),
+      radial-gradient(circle at 92% 12%, rgba(56,189,248,.3), transparent 34%),
+      radial-gradient(circle at 70% 100%, rgba(52,211,153,.08), transparent 30%),
+      linear-gradient(135deg, #fffdf8 0%, #edf8fd 54%, #f8fafc 100%);
+  }
+
+  .premium-page-hero::after {
+    content: '';
+    @apply pointer-events-none absolute inset-x-[12%] bottom-0 h-px;
+    background: linear-gradient(90deg, transparent, rgba(14,116,144,.24), transparent);
   }
 
   .tab-active {
