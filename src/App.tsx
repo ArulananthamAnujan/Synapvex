@@ -113,7 +113,6 @@ const Teach = lazy(() => import('./pages/public/Teach'));
 const TeachRegister = lazy(() => import('./pages/public/TeachRegister'));
 const Products = lazy(() => import('./pages/public/Products'));
 const ProductLearn = lazy(() => import('./pages/public/ProductLearn'));
-const ProductPte = lazy(() => import('./pages/public/ProductPte'));
 const PrivacyPolicy = lazy(() => import('./pages/public/legal/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/public/legal/TermsOfService'));
 const RefundPolicy = lazy(() => import('./pages/public/legal/RefundPolicy'));
@@ -296,7 +295,6 @@ export default function App() {
                 <Route path="/teach/register" element={<TeachRegister />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/learn" element={<ProductLearn />} />
-                <Route path="/products/pte" element={<ProductPte />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/refund-policy" element={<RefundPolicy />} />

@@ -29,8 +29,8 @@ const EXPERIENCES = [
     description: 'Work across all four skills, receive focused AI feedback and see where to improve before the pressure of test day.',
     journey: ['Choose a skill', 'Complete timed practice', 'Receive feedback', 'Improve your score'],
     outcome: 'A clearer path from practice to exam readiness.',
-    href: '/products/pte',
-    external: false,
+    href: 'https://synapvexpte.netlify.app',
+    external: true,
   },
   {
     key: 'crm',
