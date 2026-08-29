@@ -1,7 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Target, Heart, Globe, Star, CheckCircle, ArrowRight, Users, Package, Briefcase } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+
+const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const PILLARS = [
   {
@@ -98,7 +101,9 @@ export default function OurMission() {
             </div>
             <div className="relative">
               <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 to-sky-300/35 blur-3xl" />
-              <img src="/images/luxury/mission-outcomes.webp" alt="Abstract journey from an idea to connected technology outcomes" width="1536" height="1024" loading="lazy" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-amber-50" />}>
+                <InteractiveOrbitalScene ariaLabel="Interactive journey from ideas to connected technology outcomes" className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-amber-50 via-white to-sky-50" />
+              </Suspense>
             </div>
           </div>
         </div>
