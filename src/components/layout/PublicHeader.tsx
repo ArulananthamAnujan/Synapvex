@@ -43,7 +43,7 @@ export default function PublicHeader() {
 
   const shellStyle = scrolled || isOpen
     ? 'border-white/90 bg-white/95 shadow-[0_22px_55px_-24px_rgba(8,65,101,0.42)]'
-    : 'border-white/80 bg-white/78 shadow-[0_18px_45px_-28px_rgba(8,65,101,0.34)]';
+    : 'border-white/80 bg-white/[0.78] shadow-[0_18px_45px_-28px_rgba(8,65,101,0.34)]';
 
   return (
     <header className="fixed left-0 right-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
