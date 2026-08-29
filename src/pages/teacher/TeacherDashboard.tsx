@@ -43,11 +43,14 @@ export default function TeacherDashboard() {
         const result = await verifyStripeCheckoutSession(sessionId);
         if (!active) return;
         toast.success(`Subscription activated — ${(result.tokens_added ?? 0).toLocaleString()} AI credits are ready.`);
-        navigate('/teacher/billing', { replace: true });
       } catch (error) {
         if (active) {
           toast.error(error instanceof Error ? error.message : 'Could not verify the payment. Please contact support.');
         }
+      } finally {
+        // Never leave a Checkout session in the dashboard URL. Otherwise a
+        // failed or abandoned session is retried and shown again on every visit.
+        if (active) navigate('/teacher/billing', { replace: true });
       }
     })();
 
