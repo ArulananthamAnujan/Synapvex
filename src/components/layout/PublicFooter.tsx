@@ -26,8 +26,8 @@ export default function PublicFooter() {
       <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/10 blur-[100px]" />
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 py-20 sm:py-24 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
-          <div className="max-w-md">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 py-12 sm:gap-10 sm:py-16 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
+          <div className="col-span-2 max-w-md lg:col-span-1">
             <Link to="/" className="inline-flex" aria-label="SynapVex home">
               <MaximusLogo height={72} variant="light" brand="corporate" />
             </Link>
@@ -72,12 +72,12 @@ export default function PublicFooter() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">Delivery presence</h2>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-5 grid grid-cols-3 gap-3">
               {LOCATIONS.map(location => (
-                <li key={location.key} className="flex items-start gap-2.5 text-sm text-slate-400">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                <li key={location.key} className="min-w-0 text-[11px] text-slate-400 sm:flex sm:items-start sm:gap-2.5 sm:text-sm">
+                  <MapPin className="mb-1 h-4 w-4 shrink-0 text-sky-400 sm:mb-0 sm:mt-0.5" />
                   <span>{location.city}, {location.country}</span>
                 </li>
               ))}
