@@ -38,8 +38,8 @@ export default function PublicHeader() {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Products', href: '/products' },
-    { label: 'Services', href: '/about' },
-    { label: 'Our Mission', href: '/our-mission' },
+    { label: 'Capabilities', href: '/about' },
+    { label: 'Company', href: '/our-mission' },
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -60,26 +60,26 @@ export default function PublicHeader() {
   };
 
   const headerBg = scrolled || isOpen
-    ? 'bg-white shadow-md border-b border-slate-200'
+    ? 'bg-white shadow-sm border-b border-slate-200'
     : 'bg-white/95 backdrop-blur-md border-b border-slate-200/80';
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${headerBg}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[88px]">
+        <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center shrink-0">
-            <MaximusLogo height={64} variant="dark" />
+            <MaximusLogo height={54} variant="dark" />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
+                className={`relative py-2 text-sm font-semibold transition-colors whitespace-nowrap ${
                   isActive(link.href)
-                    ? 'bg-sky-600 text-white'
-                    : 'text-slate-700 hover:bg-sky-50 hover:text-sky-700'
+                    ? 'text-sky-700 after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:bg-sky-600'
+                    : 'text-slate-600 hover:text-slate-950'
                 }`}
               >
                 {link.label}
@@ -124,15 +124,15 @@ export default function PublicHeader() {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-50 rounded-lg transition-all border border-sky-200"
+                  className="px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-slate-950"
                 >
-                  Login
+                  Sign in
                 </Link>
                 <Link
                   to="/contact"
-                  className="px-5 py-2 text-sm font-bold bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-all shadow-sm"
+                  className="rounded-md bg-sky-700 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-sky-800"
                 >
-                  Get in Touch
+                  Discuss a project
                 </Link>
               </div>
             )}
@@ -140,22 +140,25 @@ export default function PublicHeader() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-slate-600 hover:bg-sky-50 hover:text-sky-600 rounded-lg transition-colors"
+            className="rounded-md p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 lg:hidden"
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
         {isOpen && (
-          <div className="lg:hidden border-t border-slate-100 py-4 space-y-1 animate-slide-down">
+          <div id="mobile-navigation" className="space-y-1 border-t border-slate-100 py-4 lg:hidden animate-slide-down">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={`block px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                   isActive(link.href)
-                    ? 'bg-sky-600 text-white'
-                    : 'text-slate-700 hover:bg-sky-50 hover:text-sky-700'
+                    ? 'bg-sky-50 text-sky-800'
+                    : 'text-slate-700 hover:bg-slate-50 hover:text-slate-950'
                 }`}
               >
                 {link.label}
@@ -173,8 +176,8 @@ export default function PublicHeader() {
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="block px-4 py-2.5 text-sky-700 border border-sky-200 hover:bg-sky-50 rounded-lg text-sm font-semibold text-center transition-colors">Login</Link>
-                  <Link to="/contact" className="block px-4 py-2.5 bg-sky-600 text-white rounded-lg text-sm font-bold text-center transition-colors hover:bg-sky-700">Get in Touch</Link>
+                  <Link to="/login" className="block rounded-md border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">Sign in</Link>
+                  <Link to="/contact" className="block rounded-md bg-sky-700 px-4 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-sky-800">Discuss a project</Link>
                 </>
               )}
             </div>

@@ -103,6 +103,7 @@ export default {
       fontFamily: {
         display: ['Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        playfair: ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in':    'fadeIn 0.25s ease-out',

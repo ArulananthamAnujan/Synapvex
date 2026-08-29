@@ -1,161 +1,94 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import MaximusLogo from '../ui/MaximusLogo';
 import { PRODUCTS } from '../../lib/products';
 import { LOCATIONS } from '../../lib/locations';
 
+const COMPANY_LINKS = [
+  { label: 'Capabilities', href: '/about' },
+  { label: 'Our mission', href: '/our-mission' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Book online', href: '/book-online' },
+];
+
+const SUPPORT_LINKS = [
+  { label: 'Sign in', href: '/login' },
+  { label: 'Verify certificate', href: '/verify' },
+  { label: 'Privacy policy', href: '/privacy' },
+  { label: 'Terms of service', href: '/terms' },
+  { label: 'Refund policy', href: '/refund-policy' },
+];
+
 export default function PublicFooter() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-white border-t border-slate-200 text-slate-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
-          <div className="lg:col-span-2">
-            <Link to="/" className="inline-flex items-center gap-3 mb-5">
-              <MaximusLogo height={52} variant="dark" />
+    <footer className="bg-slate-950 text-slate-300">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
+          <div className="max-w-md">
+            <Link to="/" className="inline-flex" aria-label="SynapVex home">
+              <MaximusLogo height={54} variant="light" />
             </Link>
-            <p className="text-sm text-slate-500 leading-relaxed mb-5">
-              Innovative, reliable, and cost-effective technology solutions that empower businesses to thrive in the digital age. Your full-spectrum IT partner.
+            <p className="mt-6 text-sm leading-6 text-slate-400">
+              Technology products and delivery services for organisations modernising their operations, customer experiences and digital infrastructure.
             </p>
-            <div className="mb-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Our Offices</p>
-              <ul className="space-y-3">
-                {LOCATIONS.map(loc => (
-                  <li key={loc.key} className="flex items-start gap-3">
-                    <MapPin className="w-4 h-4 text-sky-600 mt-0.5 shrink-0" />
-                    <span className="text-sm text-slate-500">
-                      <span className="font-semibold text-slate-700">{loc.flag} {loc.city}, {loc.country}</span>
-                      <br />{loc.lines[0]}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-7 space-y-3">
+              <a href="mailto:info@synapvex.com" className="flex items-center gap-3 text-sm text-slate-300 transition-colors hover:text-white">
+                <Mail className="h-4 w-4 text-sky-400" /> info@synapvex.com
+              </a>
+              <a href="tel:+8801321203140" className="flex items-center gap-3 text-sm text-slate-300 transition-colors hover:text-white">
+                <Phone className="h-4 w-4 text-sky-400" /> +88 01321-203140
+              </a>
             </div>
-            <ul className="space-y-3 mb-6">
-              <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-sky-600 shrink-0" />
-                <a href="tel:+8801321203140" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">+88 01321-203140</a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-sky-600 shrink-0" />
-                <a href="mailto:info@synapvex.com" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">info@synapvex.com</a>
-              </li>
-            </ul>
-            {/* Social icons removed until real profile URLs exist — dead
-                links undermine trust on a corporate site. Add them back as
-                <a href="https://..."> when the profiles are live. */}
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-5 text-sm uppercase tracking-wider">Quick Links</h4>
-            <ul className="space-y-3">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'Products', href: '/products' },
-                { label: 'Services', href: '/about' },
-                { label: 'Our Mission', href: '/our-mission' },
-                { label: 'Contact Us', href: '/contact' },
-                { label: 'Book Online', href: '/book-online' },
-              ].map(link => (
-                <li key={link.href}>
-                  <Link to={link.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{link.label}</Link>
+            <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">Products</h2>
+            <ul className="mt-5 space-y-3">
+              {PRODUCTS.map(product => (
+                <li key={product.key}>
+                  {product.status === 'live' && product.href && product.external ? (
+                    <a href={product.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors hover:text-white">
+                      {product.name} <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  ) : product.status === 'live' && product.href ? (
+                    <Link to={product.href} className="text-sm text-slate-400 transition-colors hover:text-white">{product.name}</Link>
+                  ) : (
+                    <span className="text-sm text-slate-500">{product.name} · In development</span>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-5 text-sm uppercase tracking-wider">Products</h4>
-            <ul className="space-y-3">
-              {PRODUCTS.map(p => {
-                const live = p.status === 'live';
-                if (live && p.external && p.href) {
-                  return (
-                    <li key={p.key}>
-                      <a
-                        href={p.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-slate-500 hover:text-sky-600 transition-colors font-semibold inline-flex items-center gap-1"
-                      >
-                        {p.name} <ExternalLink className="w-3 h-3" />
-                      </a>
-                    </li>
-                  );
-                }
-                if (live && p.href) {
-                  return (
-                    <li key={p.key}>
-                      <Link to={p.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors font-semibold">{p.name}</Link>
-                    </li>
-                  );
-                }
-                return (
-                  <li key={p.key} className="flex items-center gap-2">
-                    <span className="text-sm text-slate-400">{p.name}</span>
-                    <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded">Soon</span>
-                  </li>
-                );
-              })}
-              <li>
-                <Link to="/products" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">All Products</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-slate-900 font-bold mb-5 text-sm uppercase tracking-wider">Our Services</h4>
-            <ul className="space-y-3">
-              {[
-                'Software Development',
-                'Website Design',
-                'Mobile App Development',
-                'Cybersecurity Services',
-                'Cloud Solutions',
-                'IT Support & Managed Services',
-                'Digital Marketing',
-                'IT Consulting',
-              ].map(service => (
-                <li key={service}>
-                  <Link to="/about" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{service}</Link>
-                </li>
+            <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">Company</h2>
+            <ul className="mt-5 space-y-3">
+              {COMPANY_LINKS.map(link => (
+                <li key={link.href}><Link to={link.href} className="text-sm text-slate-400 transition-colors hover:text-white">{link.label}</Link></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-5 text-sm uppercase tracking-wider">Support</h4>
-            <ul className="space-y-3 mb-6">
-              {[
-                { label: 'Why Choose Us', href: '/about' },
-                { label: 'FAQs', href: '/contact' },
-                { label: 'Verify Certificate', href: '/verify' },
-                { label: 'Sign In', href: '/login' },
-              ].map(link => (
-                <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-            <h4 className="text-slate-900 font-bold mb-4 text-sm uppercase tracking-wider">Policies</h4>
-            <ul className="space-y-3">
-              {[
-                { label: 'Privacy Policy', href: '/privacy' },
-                { label: 'Terms of Service', href: '/terms' },
-                { label: 'Refund Policy', href: '/refund-policy' },
-              ].map(item => (
-                <li key={item.href}>
-                  <Link to={item.href} className="text-sm text-slate-500 hover:text-sky-600 transition-colors">{item.label}</Link>
+            <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-white">Delivery presence</h2>
+            <ul className="mt-5 space-y-3">
+              {LOCATIONS.map(location => (
+                <li key={location.key} className="flex items-start gap-2.5 text-sm text-slate-400">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                  <span>{location.city}, {location.country}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="py-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-400">&copy; {currentYear} SynapVex Technologies. All rights reserved.</p>
-          <p className="text-sm text-slate-400">Empowering businesses to thrive in the digital age.</p>
+        <div className="flex flex-col gap-5 border-t border-slate-800 py-7 lg:flex-row lg:items-center lg:justify-between">
+          <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} SynapVex Technologies. All rights reserved.</p>
+          <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label="Legal and support">
+            {SUPPORT_LINKS.map(link => (
+              <Link key={link.href} to={link.href} className="text-xs text-slate-500 transition-colors hover:text-slate-300">{link.label}</Link>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

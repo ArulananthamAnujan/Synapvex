@@ -1,638 +1,261 @@
 import { Link } from 'react-router-dom';
 import {
-  Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
-  Headphones, BarChart2, Lightbulb, ChevronRight, ArrowRight,
-  CheckCircle, BookOpen, Users, Zap, Award, TrendingUp, GraduationCap, Sparkles,
-  Rocket, Layers, Server, LineChart,
+  ArrowRight, Briefcase, Cloud, Code2, Globe2, GraduationCap,
+  Layers3, LockKeyhole, Smartphone, Target, Workflow,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
-import Connector from '../../components/ui/Connector';
 import { PRODUCTS } from '../../lib/products';
 
-const SERVICES = [
-  {
-    icon: Code2,
-    title: 'Software Development',
-    desc: 'Custom software solutions designed to streamline business operations, improve productivity, and support growth.',
-    color: 'bg-sky-50',
-    iconBg: 'bg-sky-100',
-    iconColor: 'text-sky-600',
-    border: 'border-sky-100',
-    highlights: ['Custom Business Applications', 'SaaS Product Development', 'API Development & Integration', 'ERP & CRM Solutions'],
-  },
-  {
-    icon: Globe,
-    title: 'Website Design & Development',
-    desc: 'Professional, responsive, and user-friendly websites tailored to your business needs and brand identity.',
-    color: 'bg-emerald-50',
-    iconBg: 'bg-emerald-100',
-    iconColor: 'text-emerald-600',
-    border: 'border-emerald-100',
-    highlights: ['Corporate & E-commerce Websites', 'Custom Web Applications', 'WordPress Development', 'SEO Optimisation'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile App Development',
-    desc: 'Innovative mobile applications for businesses seeking to engage customers and improve accessibility.',
-    color: 'bg-violet-50',
-    iconBg: 'bg-violet-100',
-    iconColor: 'text-violet-600',
-    border: 'border-violet-100',
-    highlights: ['iOS App Development', 'Android App Development', 'Cross-Platform Apps', 'Business Process Automation'],
-  },
-  {
-    icon: Palette,
-    title: 'Graphic Design & Branding',
-    desc: 'Creative design solutions that strengthen your brand identity and elevate your marketing presence.',
-    color: 'bg-amber-50',
-    iconBg: 'bg-amber-100',
-    iconColor: 'text-amber-600',
-    border: 'border-amber-100',
-    highlights: ['Logo & Corporate Branding', 'Marketing Materials', 'Social Media Graphics', 'UI/UX Design'],
-  },
-  {
-    icon: Network,
-    title: 'Network Solutions',
-    desc: 'Reliable network infrastructure and support services to keep your business connected and secure.',
-    color: 'bg-cyan-50',
-    iconBg: 'bg-cyan-100',
-    iconColor: 'text-cyan-600',
-    border: 'border-cyan-100',
-    highlights: ['Network Design & Implementation', 'LAN/WAN Setup', 'VPN Configuration', 'Structured Cabling'],
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Solutions',
-    desc: 'Flexible and scalable cloud services to improve collaboration, security, and operational efficiency.',
-    color: 'bg-blue-50',
-    iconBg: 'bg-blue-100',
-    iconColor: 'text-blue-600',
-    border: 'border-blue-100',
-    highlights: ['Cloud Migration', 'Microsoft 365 & Google Workspace', 'Cloud Infrastructure Management', 'Backup & Disaster Recovery'],
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Cybersecurity Services',
-    desc: 'Protecting businesses from cyber threats through proactive security measures and best practices.',
-    color: 'bg-rose-50',
-    iconBg: 'bg-rose-100',
-    iconColor: 'text-rose-600',
-    border: 'border-rose-100',
-    highlights: ['Security Assessments', 'Vulnerability Testing', 'Endpoint Protection', 'Incident Response Support'],
-  },
-  {
-    icon: Headphones,
-    title: 'IT Support & Managed Services',
-    desc: 'Comprehensive IT support to ensure your technology operates smoothly and efficiently at all times.',
-    color: 'bg-teal-50',
-    iconBg: 'bg-teal-100',
-    iconColor: 'text-teal-600',
-    border: 'border-teal-100',
-    highlights: ['Help Desk Support', 'Remote & On-Site Support', 'Server Administration', 'Managed IT Services'],
-  },
-  {
-    icon: BarChart2,
-    title: 'Digital Marketing',
-    desc: 'Helping businesses increase visibility and generate leads through strategic digital marketing.',
-    color: 'bg-orange-50',
-    iconBg: 'bg-orange-100',
-    iconColor: 'text-orange-600',
-    border: 'border-orange-100',
-    highlights: ['SEO & Content Marketing', 'Social Media Marketing', 'PPC Advertising', 'Email Marketing'],
-  },
-  {
-    icon: Lightbulb,
-    title: 'IT Consulting',
-    desc: 'Expert advice to help businesses leverage technology for growth, efficiency, and innovation.',
-    color: 'bg-yellow-50',
-    iconBg: 'bg-yellow-100',
-    iconColor: 'text-yellow-600',
-    border: 'border-yellow-100',
-    highlights: ['Technology Strategy & Planning', 'Digital Transformation', 'IT Project Management', 'Business Process Automation'],
-    link: null,
-  },
+const CAPABILITIES = [
+  { icon: Code2, title: 'Custom software', description: 'Purpose-built business applications, SaaS products, APIs and system integrations.' },
+  { icon: Globe2, title: 'Digital platforms', description: 'Corporate websites, commerce experiences and responsive web applications.' },
+  { icon: Smartphone, title: 'Mobile products', description: 'Cross-platform mobile applications designed around real customer workflows.' },
+  { icon: Cloud, title: 'Cloud & infrastructure', description: 'Cloud migration, collaboration platforms, networking, backup and continuity.' },
+  { icon: LockKeyhole, title: 'Security & support', description: 'Security assessments, endpoint protection and dependable managed IT support.' },
+  { icon: Briefcase, title: 'Technology advisory', description: 'Practical technology strategy, delivery planning and digital transformation guidance.' },
 ];
 
-const WHY_US = [
-  { icon: Users, title: 'Experienced Professionals', desc: 'A team of certified technology experts with deep industry knowledge across all service areas.' },
-  { icon: Zap, title: 'Customised Solutions', desc: 'We tailor every solution to your unique business goals — no one-size-fits-all approaches.' },
-  { icon: Globe, title: 'End-to-End IT Services', desc: 'From consulting and design through deployment and ongoing support, we cover the full technology lifecycle.' },
-  { icon: ShieldCheck, title: 'Security & Performance Focus', desc: 'We build with security and performance at the core, not as an afterthought.' },
-  { icon: TrendingUp, title: 'Scalable & Future-Ready', desc: 'Solutions designed to grow with your business, adapting to new challenges and opportunities.' },
-  { icon: Award, title: 'Transparent Communication', desc: 'Competitive pricing, clear timelines, and honest communication throughout every engagement.' },
+const DELIVERY_STEPS = [
+  { number: '01', title: 'Understand', description: 'We clarify the business problem, users, risks and measures of success.' },
+  { number: '02', title: 'Plan', description: 'We define a practical scope, delivery roadmap and technical approach.' },
+  { number: '03', title: 'Deliver', description: 'We design, build and test in focused stages with clear progress updates.' },
+  { number: '04', title: 'Improve', description: 'We support the launch, measure performance and strengthen the solution over time.' },
+];
+
+const DIFFERENTIATORS = [
+  { icon: Layers3, title: 'Product-led thinking', description: 'We apply the same product discipline used to build our own platforms to every client engagement.' },
+  { icon: Workflow, title: 'End-to-end delivery', description: 'Strategy, design, engineering, infrastructure and support work as one connected programme.' },
+  { icon: LockKeyhole, title: 'Built for resilience', description: 'Security, maintainability and operational continuity are considered from the beginning.' },
+  { icon: Target, title: 'Commercially focused', description: 'Every recommendation is tied to a clear operational need or business outcome.' },
 ];
 
 export default function Home() {
+  const liveProducts = PRODUCTS.filter(product => product.status === 'live');
+
   return (
-    <div className="min-h-screen bg-white dark:bg-navy-950">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-navy-950 dark:text-white">
       <PublicHeader />
 
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-mesh">
-        <div className="absolute inset-0 bg-grid" />
-        {/* animated ambient blobs */}
-        <div className="absolute top-[-8rem] right-[-6rem] w-[36rem] h-[36rem] bg-sky-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="absolute bottom-[-10rem] left-[-6rem] w-[30rem] h-[30rem] bg-indigo-500/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '6s' }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40" />
+      <main>
+        <section className="relative overflow-hidden bg-slate-950 pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
+          <div className="absolute inset-0 corporate-grid opacity-40" aria-hidden="true" />
+          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-sky-900/30 to-transparent" aria-hidden="true" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: copy */}
-            <div>
-              <div className="inline-flex items-center gap-2 glass-card rounded-full px-4 py-1.5 mb-6 animate-rise">
-                <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
-                <span className="text-sky-200 text-sm font-semibold">Technology Products &amp; Services</span>
+          <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
+            <div className="max-w-3xl">
+              <div className="mb-7 inline-flex items-center gap-2 border-l-2 border-sky-400 pl-3 text-sm font-semibold tracking-wide text-sky-200">
+                Technology products and delivery services
               </div>
-              <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-5 animate-rise" style={{ animationDelay: '80ms' }}>
-                Powering Your<br />
-                <span className="text-gradient-sky">Digital Future</span>
+              <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
+                Technology that moves your organisation forward.
               </h1>
-              <p className="text-lg text-slate-300 leading-relaxed mb-9 max-w-xl animate-rise" style={{ animationDelay: '160ms' }}>
-                We build software products businesses run on — led by SynapVex Learn — and deliver
-                the technology services to match.
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
-              <div className="flex flex-wrap gap-4 animate-rise" style={{ animationDelay: '240ms' }}>
-                <Link to="/products" className="group flex items-center gap-2 px-8 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold transition-all text-base shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:-translate-y-0.5">
-                  Explore Our Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-md bg-sky-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-950/30 transition-colors hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
+                  Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/contact" className="flex items-center gap-2 px-8 py-3.5 rounded-xl glass-card text-white font-bold hover:bg-white/15 transition-all text-base">
-                  Get a Free Consultation <ChevronRight className="w-5 h-5" />
+                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-600 bg-white/5 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:border-slate-400 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-slate-300">
+                  Explore our platforms
                 </Link>
               </div>
             </div>
 
-            {/* Right: floating product-family panel */}
-            <div className="hidden lg:block animate-rise" style={{ animationDelay: '320ms' }}>
-              <div className="relative animate-float-slow">
-                {/* soft glow behind the panel */}
-                <div className="absolute -inset-6 bg-gradient-to-tr from-sky-500/30 via-blue-500/20 to-indigo-500/20 blur-3xl rounded-[2.5rem]" />
-
-                <div className="relative rounded-[1.75rem] p-[1px] bg-gradient-to-b from-white/25 to-white/5 shadow-2xl">
-                  <div className="rounded-[1.7rem] bg-slate-900/85 backdrop-blur-xl p-6">
-                    {/* header */}
-                    <div className="flex items-center gap-3 mb-5">
-                      <svg viewBox="0 0 300 300" className="w-10 h-10 shrink-0" aria-hidden="true">
-                        <defs>
-                          <linearGradient id="hp-orbit" x1="30" y1="250" x2="270" y2="70" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#38BDF8" /><stop offset="1" stopColor="#3B82F6" />
-                          </linearGradient>
-                          <radialGradient id="hp-core" cx="0.5" cy="0.5" r="0.5">
-                            <stop stopColor="#BAE6FD" /><stop offset="1" stopColor="#2563EB" />
-                          </radialGradient>
-                        </defs>
-                        <g transform="translate(6 18)">
-                          <ellipse cx="150" cy="160" rx="128" ry="56" transform="rotate(-24 150 160)" stroke="url(#hp-orbit)" strokeWidth="9" fill="none" strokeLinecap="round" strokeDasharray="330 140" strokeDashoffset="60" />
-                          <g stroke="#94A3B8" strokeWidth="4" opacity="0.55">
-                            <line x1="118" y1="70" x2="196" y2="96" /><line x1="118" y1="70" x2="78" y2="140" />
-                            <line x1="150" y1="150" x2="118" y2="70" /><line x1="196" y1="96" x2="222" y2="160" />
-                            <line x1="78" y1="140" x2="108" y2="196" /><line x1="150" y1="150" x2="222" y2="160" />
-                            <line x1="150" y1="150" x2="108" y2="196" /><line x1="150" y1="150" x2="166" y2="212" />
-                          </g>
-                          <circle cx="118" cy="70" r="13" fill="#E2E8F0" /><circle cx="196" cy="96" r="13" fill="#E2E8F0" />
-                          <circle cx="78" cy="140" r="15" fill="#38BDF8" /><circle cx="222" cy="160" r="12" fill="#E2E8F0" />
-                          <circle cx="108" cy="196" r="13" fill="#E2E8F0" /><circle cx="166" cy="212" r="13" fill="#E2E8F0" />
-                          <circle cx="150" cy="150" r="19" fill="url(#hp-core)" />
-                        </g>
-                      </svg>
-                      <div className="leading-tight">
-                        <p className="text-white font-bold text-[15px]">
-                          Synap<span className="text-sky-400">Vex</span>
-                        </p>
-                        <p className="text-slate-400 text-[11px]">The product family</p>
-                      </div>
-                    </div>
-
-                    {/* first two products — feature cards */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {PRODUCTS.slice(0, 2).map(p => {
-                        const live = p.status === 'live';
-                        return (
-                          <div
-                            key={p.key}
-                            className={`relative rounded-2xl p-4 border transition-colors ${
-                              live
-                                ? 'border-sky-400/40 bg-gradient-to-br from-sky-500/15 to-indigo-500/10 shadow-lg shadow-sky-500/10'
-                                : 'border-white/10 bg-white/[0.03]'
-                            }`}
-                          >
-                            <span className={`absolute top-3 right-3 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
-                              live ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-slate-400'
-                            }`}>
-                              {live ? 'Live' : 'Soon'}
-                            </span>
-                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${
-                              live ? `bg-gradient-to-br ${p.gradient} shadow-lg` : 'bg-white/[0.06]'
-                            }`}>
-                              <p.icon className={`w-5 h-5 ${live ? 'text-white' : 'text-slate-400'}`} />
-                            </div>
-                            <p className={`text-[13px] font-bold leading-tight ${live ? 'text-white' : 'text-slate-300'}`}>{p.name}</p>
-                            <p className="text-slate-400 text-[10px] mt-1 leading-snug line-clamp-2">{p.tagline}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    {/* remaining products — full-width rows (keeps the layout balanced) */}
-                    {PRODUCTS.slice(2).map(p => {
-                      const live = p.status === 'live';
-                      return (
-                        <div
-                          key={p.key}
-                          className={`mt-3 flex items-center gap-3 rounded-2xl p-3.5 border ${
-                            live ? 'border-sky-400/40 bg-gradient-to-br from-sky-500/10 to-indigo-500/5' : 'border-white/10 bg-white/[0.03]'
-                          }`}
-                        >
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                            live ? `bg-gradient-to-br ${p.gradient} shadow-lg` : 'bg-white/[0.06]'
-                          }`}>
-                            <p.icon className={`w-5 h-5 ${live ? 'text-white' : 'text-slate-400'}`} />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className={`text-[13px] font-bold leading-tight ${live ? 'text-white' : 'text-slate-300'}`}>{p.name}</p>
-                            <p className="text-slate-400 text-[10px] mt-0.5 leading-snug truncate">{p.tagline}</p>
-                          </div>
-                          <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full shrink-0 ${
-                            live ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-slate-400'
-                          }`}>
-                            {live ? 'Live' : 'Soon'}
-                          </span>
-                        </div>
-                      );
-                    })}
-
-                    {/* single, clean call to action */}
-                    <Link
-                      to="/teach/register?free=1"
-                      className="group mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 px-4 py-3.5 shadow-lg shadow-sky-500/25 transition-all"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <Sparkles className="w-4 h-4 text-white shrink-0" />
-                        <span className="text-[13px] text-white font-bold">Start teaching free</span>
-                        <span className="text-[11px] text-sky-100/90 font-medium hidden xl:inline">· no card required</span>
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* floating status badge — sits above the panel corner, clear of all text */}
-                <div className="absolute -top-4 -right-4 rounded-xl bg-white px-3.5 py-2.5 shadow-2xl animate-float" style={{ animationDelay: '1.2s' }}>
-                  <p className="flex items-center gap-2 text-[12px] font-bold text-slate-900 whitespace-nowrap">
-                    <span className="relative flex w-2.5 h-2.5">
-                      <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
-                      <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    </span>
-                    {PRODUCTS.filter(p => p.status === 'live').length} products live
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats band */}
-      <section className="relative -mt-2 py-12 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Rocket, value: '10+', label: 'Products & Services' },
-              { icon: Users, value: '500+', label: 'Students & Clients' },
-              { icon: Award, value: '100%', label: 'Satisfaction Focus' },
-              { icon: Globe, value: '24/7', label: 'Support & Monitoring' },
-            ].map((stat, i) => (
-              <Reveal key={i} delay={i * 80} className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-sky-500/20">
-                  <stat.icon className="w-6 h-6 text-white" />
-                </div>
+            <div className="border border-slate-700 bg-slate-900/90 shadow-2xl shadow-black/30">
+              <div className="flex items-center justify-between border-b border-slate-700 px-6 py-5">
                 <div>
-                  <p className="font-playfair text-2xl font-bold text-slate-900 leading-none">{stat.value}</p>
-                  <p className="text-sm text-slate-500 mt-1">{stat.label}</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">SynapVex portfolio</p>
+                  <p className="mt-1 text-sm text-slate-400">Products and delivery capabilities</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  {liveProducts.length} live platforms
+                </div>
+              </div>
 
-      <Connector from="light" to="light" />
-
-      {/* Our Products */}
-      <section id="products" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-14">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Our Products</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">One company, a growing family of products</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
-              Like the tools you already rely on every day, SynapVex products share one account and one
-              standard of quality — starting with SynapVex Learn, live today.
-            </p>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {PRODUCTS.map((product, idx) => {
-              const live = product.status === 'live';
-              const bannerGradient = live ? product.gradient : 'from-slate-500 to-slate-600';
-              const card = (
-                <div
-                  className={`h-full rounded-3xl border overflow-hidden bg-white flex flex-col transition-all duration-300 ${
-                    live
-                      ? 'border-slate-200 shadow-md hover:shadow-2xl hover:-translate-y-1.5'
-                      : 'border-slate-200 hover:shadow-lg hover:-translate-y-0.5'
-                  }`}
-                >
-                  {/* illustrated banner */}
-                  <div className={`relative h-32 bg-gradient-to-br ${bannerGradient} overflow-hidden`}>
-                    {/* network texture */}
-                    <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
-                      <defs>
-                        <pattern id={`net-${product.key}`} width="26" height="26" patternUnits="userSpaceOnUse">
-                          <circle cx="2" cy="2" r="1.4" fill="white" opacity="0.4" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill={`url(#net-${product.key})`} />
-                    </svg>
-                    <div className="absolute -top-10 -right-8 w-32 h-32 bg-white/15 rounded-full blur-2xl" />
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl" />
-
-                    {/* status pill */}
-                    <span className={`absolute top-4 right-4 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
-                      live ? 'bg-white/90 text-emerald-700' : 'bg-black/25 text-white/90 backdrop-blur'
-                    }`}>
-                      {live ? 'Live' : 'Coming Soon'}
-                    </span>
-
-                    {/* prominent product icon */}
-                    <div className="absolute -bottom-7 left-6 w-16 h-16 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 flex items-center justify-center">
-                      <div className={`w-full h-full rounded-2xl bg-gradient-to-br ${bannerGradient} flex items-center justify-center`}>
-                        <product.icon className="w-8 h-8 text-white" />
+              <div className="p-6">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
+                <div className="space-y-2">
+                  {PRODUCTS.map(product => (
+                    <div key={product.key} className="flex items-center gap-4 border border-slate-700/80 bg-slate-950/50 px-4 py-3.5">
+                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                        <product.icon className="h-5 w-5 text-white" />
                       </div>
-                    </div>
-                  </div>
-
-                  {/* content */}
-                  <div className="p-6 pt-11 flex flex-col flex-1">
-                    <h3 className={`font-bold text-lg mb-1.5 ${live ? 'text-slate-900' : 'text-slate-700'}`}>{product.name}</h3>
-                    <p className={`text-sm leading-relaxed flex-1 ${live ? 'text-slate-500' : 'text-slate-400'}`}>{product.tagline}</p>
-                    {live ? (
-                      <span className="inline-flex items-center gap-1.5 mt-5 text-sm font-bold text-sky-600 group-hover:gap-2.5 transition-all">
-                        {product.external ? 'Open' : 'Explore'} <ArrowRight className="w-4 h-4" />
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-slate-400">
-                        Launching soon
-                      </span>
-                    )}
-                  </div>
-                </div>
-              );
-              return (
-                <Reveal key={product.key} delay={idx * 90} className="group h-full">
-                  {live && product.href && product.external
-                    ? <a href={product.href} target="_blank" rel="noopener noreferrer" className="block h-full">{card}</a>
-                    : live && product.href
-                    ? <Link to={product.href} className="block h-full">{card}</Link>
-                    : <div className="h-full">{card}</div>}
-                </Reveal>
-              );
-            })}
-          </div>
-          <div className="text-center mt-10">
-            <Link to="/products" className="inline-flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors">
-              See all products <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <Connector from="light" to="light" />
-
-      {/* Services Overview */}
-      <section id="services" className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-14">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Do</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Services</h2>
-            <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
-              End-to-end technology solutions to modernise, secure and grow your business.
-            </p>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {SERVICES.map((svc, i) => (
-              <Reveal
-                as="div"
-                key={svc.title}
-                delay={(i % 4) * 70}
-                className={`group rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${svc.color} ${svc.border}`}
-              >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${svc.iconBg} ${svc.iconColor}`}>
-                  <svc.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-slate-900 text-base mb-1.5 leading-snug">{svc.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{svc.desc}</p>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="text-center mt-10">
-            <Link to="/about" className="inline-flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors">
-              See all services <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      <Connector from="light" to="light" />
-
-      {/* Featured Product: LMS */}
-      <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            <Reveal direction="right">
-              <div className="inline-flex items-center gap-2 bg-sky-50 border border-sky-200 rounded-full px-4 py-1.5 mb-5">
-                <BookOpen className="w-4 h-4 text-sky-600" />
-                <span className="text-sky-700 text-sm font-semibold">Flagship Product · Live Now</span>
-              </div>
-              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-5 leading-tight">
-                SynapVex Learn —<br />
-                <span className="text-sky-600">Sell courses from your own website</span>
-              </h2>
-              <p className="text-slate-500 leading-relaxed mb-6">
-                Built for independent teachers, academies and corporate trainers. Create your courses
-                here, get your own branded course page with your logo and colors, and share one link
-                from your website — your students land on <em>your</em> page, enrol, pay and learn,
-                while SynapVex runs everything behind the scenes.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                {[
-                  'Your own branded course page',
-                  'AI-powered course & quiz builder',
-                  'One link from your website — students enrol directly',
-                  'Set your price & collect payments',
-                  'Automated certificate generation',
-                  'Quizzes, exams & assignments',
-                  'Student progress tracking & analytics',
-                  'Live session booking',
-                ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <CheckCircle className="w-4 h-4 text-sky-500 shrink-0" />
-                    <span className="text-sm text-slate-700">{f}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-4">
-                <Link to="/products/learn" className="group px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-600/25 flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4" /> Discover SynapVex Learn
-                </Link>
-                <Link to="/products" className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-sky-400 hover:text-sky-600 transition-colors flex items-center gap-2">
-                  <Users className="w-4 h-4" /> View All Products
-                </Link>
-              </div>
-            </Reveal>
-
-            {/* Designed browser mockup of a branded course storefront */}
-            <Reveal direction="left" delay={120} className="relative">
-              <div className="absolute -inset-6 bg-gradient-to-tr from-sky-400/20 to-indigo-400/20 blur-3xl rounded-[2.5rem]" />
-              <div className="relative rounded-3xl bg-white border border-slate-200 shadow-2xl overflow-hidden animate-float-slow">
-                {/* browser chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-slate-100 border-b border-slate-200">
-                  <span className="w-3 h-3 rounded-full bg-red-400" />
-                  <span className="w-3 h-3 rounded-full bg-amber-400" />
-                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                  <div className="ml-3 flex items-center gap-1.5 bg-white rounded-md px-3 py-1 text-xs text-slate-400 flex-1 truncate">
-                    synapvex.com/school/<span className="text-slate-700 font-semibold">your-academy</span>
-                  </div>
-                </div>
-                {/* branded hero */}
-                <div className="px-6 py-8 text-center bg-gradient-to-br from-sky-600 to-indigo-700">
-                  <div className="w-12 h-12 bg-white rounded-2xl mx-auto mb-3 flex items-center justify-center font-black text-sky-600 text-xl shadow-lg">Y</div>
-                  <p className="text-white font-bold text-lg">Your Academy</p>
-                  <p className="text-white/70 text-xs">Your logo · Your colors · Your courses</p>
-                </div>
-                {/* course grid */}
-                <div className="p-5 grid grid-cols-3 gap-3">
-                  {['Fundamentals', 'Advanced', 'Masterclass'].map((c, i) => (
-                    <div key={c} className="rounded-xl border border-slate-100 overflow-hidden shadow-sm">
-                      <div className={`h-16 bg-gradient-to-br ${['from-sky-100 to-sky-50', 'from-indigo-100 to-indigo-50', 'from-emerald-100 to-emerald-50'][i]}`} />
-                      <div className="p-2">
-                        <p className="text-[10px] font-bold text-slate-700 truncate">{c}</p>
-                        <p className="text-[9px] text-sky-600 font-bold mt-1">Enrol →</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-bold text-white">{product.name}</p>
+                        <p className="truncate text-xs text-slate-400">{product.tagline}</p>
                       </div>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-300' : 'text-slate-500'}`}>
+                        {product.status === 'live' ? 'Live' : 'In development'}
+                      </span>
                     </div>
                   ))}
                 </div>
-              </div>
-              {/* floating stat chip */}
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl px-4 py-3 shadow-xl border border-slate-100 animate-float" style={{ animationDelay: '2s' }}>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 bg-sky-600 rounded-xl flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900 text-sm leading-none">From $29/mo</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Students join free</p>
-                  </div>
+
+                <div className="mt-6 grid grid-cols-2 gap-px border border-slate-700 bg-slate-700">
+                  {['Software engineering', 'Cloud & infrastructure', 'Cybersecurity', 'Managed support'].map(item => (
+                    <div key={item} className="bg-slate-900 px-3 py-3 text-xs font-medium text-slate-300">{item}</div>
+                  ))}
                 </div>
               </div>
-            </Reveal>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Connector from="light" to="dark" />
+        <section className="border-b border-slate-200 bg-white" aria-label="Delivery presence">
+          <div className="mx-auto grid max-w-7xl divide-y divide-slate-200 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
+            {[
+              ['Australia', 'Client relationships and regional growth'],
+              ['Sri Lanka', 'Product and delivery capability'],
+              ['Bangladesh', 'Engineering and operational support'],
+            ].map(([region, detail]) => (
+              <div key={region} className="px-0 py-6 sm:px-6 first:sm:pl-0 last:sm:pr-0">
+                <p className="text-sm font-bold text-slate-900">{region}</p>
+                <p className="mt-1 text-sm text-slate-500">{detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Process Timeline */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-16">
-            <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How We Work</p>
-            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">From idea to launch in four steps</h2>
-            <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
-              A proven process that keeps you informed and in control at every stage.
-            </p>
-          </Reveal>
+        <section className="bg-slate-50 py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+              <div>
+                <p className="corporate-eyebrow">Our product portfolio</p>
+                <h2 className="corporate-heading mt-3">We build and operate products of our own.</h2>
+              </div>
+              <p className="max-w-2xl text-base leading-7 text-slate-600 lg:justify-self-end">
+                Our platforms keep us close to the realities of product strategy, engineering, operations and customer support. That experience directly informs how we deliver for clients.
+              </p>
+            </Reveal>
 
-          <div className="relative">
-            {/* connecting line for desktop */}
-            <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-sky-200 via-blue-300 to-sky-200" />
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
-              {[
-                { icon: Lightbulb, step: '01', title: 'Discover', desc: 'We dive deep into your goals, challenges and vision to map the right solution.' },
-                { icon: Layers, step: '02', title: 'Design', desc: 'Architecture, UX and visual design come together in a blueprint you approve.' },
-                { icon: Server, step: '03', title: 'Build', desc: 'Our engineers develop, test and iterate with continuous feedback loops.' },
-                { icon: LineChart, step: '04', title: 'Launch & Grow', desc: 'We deploy, monitor and optimise — scaling as your business grows.' },
-              ].map((phase, i) => (
-                <Reveal key={phase.step} delay={i * 120} className="relative text-center">
-                  <div className="relative inline-flex">
-                    {/* pulse ring */}
-                    <div className="absolute inset-0 rounded-2xl bg-sky-400/30 animate-pulse-ring" />
-                    <div className="relative w-20 h-20 rounded-2xl bg-white border-2 border-sky-200 shadow-lg flex items-center justify-center mb-5 mx-auto transition-transform group-hover:scale-110">
-                      <phase.icon className="w-9 h-9 text-sky-600" />
-                      <span className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-sky-600 text-white text-xs font-bold flex items-center justify-center shadow-md">
-                        {phase.step}
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              {PRODUCTS.map((product, index) => {
+                const live = product.status === 'live';
+                const content = (
+                  <article className="flex h-full flex-col border border-slate-200 bg-white p-7 transition-colors hover:border-sky-300">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                        <product.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
+                        {live ? 'Available now' : 'In development'}
                       </span>
                     </div>
+                    <h3 className="mt-7 text-xl font-bold text-slate-900">{product.name}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
+                    <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
+                      {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
+                    </div>
+                  </article>
+                );
+
+                return (
+                  <Reveal key={product.key} delay={index * 80} className="h-full">
+                    {live && product.href && product.external ? (
+                      <a href={product.href} target="_blank" rel="noopener noreferrer" className="block h-full">{content}</a>
+                    ) : live && product.href ? (
+                      <Link to={product.href} className="block h-full">{content}</Link>
+                    ) : content}
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="max-w-3xl">
+              <p className="corporate-eyebrow">Core capabilities</p>
+              <h2 className="corporate-heading mt-3">One accountable partner across the technology lifecycle.</h2>
+              <p className="mt-5 text-base leading-7 text-slate-600">
+                Engage SynapVex for a focused project or a connected programme spanning product development, infrastructure and ongoing support.
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
+              {CAPABILITIES.map((capability, index) => (
+                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-7 lg:p-8">
+                  <capability.icon className="h-6 w-6 text-sky-700" />
+                  <h3 className="mt-5 text-lg font-bold text-slate-900">{capability.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{capability.description}</p>
+                </Reveal>
+              ))}
+            </div>
+
+            <div className="mt-8">
+              <Link to="/about" className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-800">
+                Explore all services <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-200 bg-slate-50 py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
+              <Reveal>
+                <p className="corporate-eyebrow">How we deliver</p>
+                <h2 className="corporate-heading mt-3">Structured delivery. Clear decisions.</h2>
+                <p className="mt-5 text-base leading-7 text-slate-600">
+                  A straightforward engagement model keeps teams aligned from the first conversation through launch and continuous improvement.
+                </p>
+              </Reveal>
+
+              <div className="divide-y divide-slate-200 border-y border-slate-200">
+                {DELIVERY_STEPS.map((step, index) => (
+                  <Reveal key={step.number} delay={index * 60} className="grid gap-3 py-6 sm:grid-cols-[64px_150px_1fr] sm:items-start">
+                    <span className="text-sm font-bold text-sky-700">{step.number}</span>
+                    <h3 className="text-base font-bold text-slate-900">{step.title}</h3>
+                    <p className="text-sm leading-6 text-slate-600">{step.description}</p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="max-w-3xl">
+              <p className="corporate-eyebrow">Why SynapVex</p>
+              <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
+            </Reveal>
+
+            <div className="mt-12 grid gap-8 md:grid-cols-2">
+              {DIFFERENTIATORS.map((item, index) => (
+                <Reveal key={item.title} delay={(index % 2) * 70} className="flex gap-5 border-t border-slate-200 pt-6">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
+                    <item.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-2">{phase.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">{phase.desc}</p>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                  </div>
                 </Reveal>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Connector from="light" to="dark" />
-
-      {/* Why Choose SynapVex */}
-      <section className="py-24 relative overflow-hidden bg-mesh">
-        <div className="absolute inset-0 bg-grid" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-14">
-            <p className="text-sky-400 font-semibold text-sm uppercase tracking-widest mb-2">Our Difference</p>
-            <h2 className="font-playfair text-4xl font-bold text-white mb-4">Why Choose SynapVex Technologies?</h2>
-            <p className="text-slate-400 max-w-xl mx-auto leading-relaxed">We are a partner in your success — delivering technology that works, scales, and evolves with your business.</p>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {WHY_US.map((item, i) => (
-              <Reveal as="div" key={i} delay={(i % 3) * 90} className="p-6 rounded-2xl glass-card hover:bg-white/12 hover:border-sky-500/40 transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-11 h-11 bg-sky-500/20 border border-sky-500/30 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-500/30 group-hover:scale-110 transition-all">
-                  <item.icon className="w-5 h-5 text-sky-400" />
-                </div>
-                <h3 className="font-bold text-white text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Connector from="dark" to="dark" />
-
-      {/* CTA Banner */}
-      <section className="py-20 bg-mesh relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-sky-500/10 rounded-full blur-3xl animate-blob" />
-        <Reveal className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Business with Technology?
-          </h2>
-          <p className="text-slate-300 mb-8 text-lg max-w-2xl mx-auto">
-            Partner with SynapVex Technologies for innovative, reliable, and cost-effective IT solutions that drive real results.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/contact" className="px-8 py-3.5 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-500/30 flex items-center gap-2">
-              <Zap className="w-5 h-5" /> Get a Free Consultation
-            </Link>
-            <Link to="/products" className="px-8 py-3.5 glass-card text-white font-bold rounded-xl hover:bg-white/15 transition-colors flex items-center gap-2">
-              <BookOpen className="w-5 h-5" /> Explore Our Products
+        <section className="bg-sky-700 py-16 sm:py-20">
+          <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-2 text-sm font-semibold text-sky-100">
+                <GraduationCap className="h-5 w-5" /> Product engineering and technology delivery
+              </div>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Let’s turn your next technology priority into a clear plan.</h2>
+            </div>
+            <Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
+              Start a conversation <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </Reveal>
-      </section>
+        </section>
+      </main>
 
       <PublicFooter />
     </div>
