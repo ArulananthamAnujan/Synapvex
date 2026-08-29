@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BookOpen, Users, FileText, Award, ChevronRight, AlertCircle, ArrowUpRight, Store } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
@@ -8,6 +9,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { DashboardStatSkeleton } from '../../components/ui/LoadingSkeleton';
 import TeacherCreditBanner from '../../components/teacher/TeacherCreditBanner';
 import type { Course, Assignment } from '../../types';
+import { verifyStripeCheckoutSession } from '../../lib/stripe';
 
 interface RecentSubmission {
   id: string;
@@ -17,6 +19,8 @@ interface RecentSubmission {
 }
 
 export default function TeacherDashboard() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([]);
   const [totalStudents, setTotalStudents] = useState(0);
   const [pendingGrades, setPendingGrades] = useState(0);
@@ -26,6 +30,29 @@ export default function TeacherDashboard() {
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [loadingActivity, setLoadingActivity] = useState(true);
   const { profile } = useAuth();
+
+  // Compatibility recovery for Checkout sessions created before successful
+  // subscription returns were moved to /teacher/billing.
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id');
+    if (searchParams.get('subscription') !== 'success' || !sessionId) return;
+
+    let active = true;
+    void (async () => {
+      try {
+        const result = await verifyStripeCheckoutSession(sessionId);
+        if (!active) return;
+        toast.success(`Subscription activated — ${(result.tokens_added ?? 0).toLocaleString()} AI credits are ready.`);
+        navigate('/teacher/billing', { replace: true });
+      } catch (error) {
+        if (active) {
+          toast.error(error instanceof Error ? error.message : 'Could not verify the payment. Please contact support.');
+        }
+      }
+    })();
+
+    return () => { active = false; };
+  }, [navigate, searchParams]);
 
   useEffect(() => {
     if (!profile) return;

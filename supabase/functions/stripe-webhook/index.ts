@@ -9,11 +9,8 @@ const corsHeaders = {
 };
 
 async function safeUpsert(supabase: ReturnType<typeof createClient>, table: string, data: Record<string, unknown>, opts: { onConflict: string }) {
-  try {
-    await supabase.from(table).upsert(data, opts);
-  } catch (e) {
-    console.error(`safeUpsert ${table} failed:`, e);
-  }
+  const { error } = await supabase.from(table).upsert(data, opts);
+  if (error) throw new Error(`${table} upsert failed: ${error.message}`);
 }
 
 Deno.serve(async (req: Request) => {
@@ -93,49 +90,22 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const now = new Date();
       const interval = metadata.billing_interval === "yearly" ? "yearly" : "monthly";
-      const periodDays = interval === "yearly" ? 365 : 30;
-      const periodEnd = new Date(now.getTime() + periodDays * 24 * 60 * 60 * 1000);
-
-      // Activate subscription
-      const { error: subError } = await supabase
-        .from("teacher_subscriptions")
-        .upsert({
-          teacher_id,
-          plan_id,
-          status: "active",
-          billing_interval: interval,
-          cancel_at_period_end: false,
-          cancelled_at: null,
-          stripe_session_id: stripeSessionId,
-          stripe_payment_id: stripePaymentId || null,
-          amount_paid_cents: amountCents,
-          current_period_start: now.toISOString(),
-          current_period_end: periodEnd.toISOString(),
-          updated_at: now.toISOString(),
-        }, { onConflict: "stripe_session_id" });
-
-      if (subError) console.error("Teacher subscription upsert error:", subError);
-
-      // Grant the plan's monthly AI credits into the plan/free bucket
-      const { data: planRow } = await supabase
-        .from("teacher_subscription_plans")
-        .select("ai_tokens_monthly")
-        .eq("id", plan_id)
-        .maybeSingle();
-      if (planRow?.ai_tokens_monthly) {
-        await supabase.rpc("add_teacher_tokens", {
-          p_user_id: teacher_id,
-          p_tokens: planRow.ai_tokens_monthly,
-        });
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_teacher_subscription",
+        {
+          p_teacher_id: teacher_id,
+          p_plan_id: plan_id,
+          p_billing_interval: interval,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Teacher subscription fulfilment failed: ${fulfillmentError.message}`);
       }
-
-      // Also ensure the profile role is teacher
-      await supabase
-        .from("profiles")
-        .update({ role: "teacher" })
-        .eq("id", teacher_id);
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
 
       await safeUpsert(supabase, "payments", {
         user_id: teacher_id,
@@ -146,17 +116,25 @@ Deno.serve(async (req: Request) => {
         stripe_payment_id: stripePaymentId || null,
       }, { onConflict: "stripe_session_id" });
 
-      console.log(`Teacher subscription activated for ${teacher_id} on plan ${plan_id}`);
+      console.log(
+        `Teacher subscription ${result?.applied ? "activated" : "already fulfilled"} for ${teacher_id} on plan ${plan_id}`,
+      );
       return new Response(
-        JSON.stringify({ received: true, type: "teacher_subscription", activated: true }),
+        JSON.stringify({
+          received: true,
+          type: "teacher_subscription",
+          activated: true,
+          already_fulfilled: result?.applied === false,
+          tokens_added: result?.tokens_added ?? 0,
+        }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     // --- AI Plan / custom credit top-up ---
     if (purchaseType === "teacher_ai_plan" || purchaseType === "teacher_topup_custom") {
-      const { teacher_id, plan_id, token_amount } = metadata;
-      if (!teacher_id || !token_amount) {
+      const { teacher_id, plan_id } = metadata;
+      if (!teacher_id || (purchaseType === "teacher_ai_plan" && !plan_id)) {
         console.error("Missing metadata for teacher AI top-up");
         return new Response(JSON.stringify({ received: true, warning: "Missing metadata" }), {
           status: 200,
@@ -164,13 +142,22 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const tokens = parseInt(token_amount, 10);
-      try {
-        // Top-ups go into the top-up bucket (spent at 2× once plan credits run out)
-        await supabase.rpc("add_teacher_topup", { p_user_id: teacher_id, p_tokens: tokens });
-      } catch (e) {
-        console.error("Teacher top-up add error:", e);
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_teacher_topup",
+        {
+          p_teacher_id: teacher_id,
+          p_purchase_type: purchaseType,
+          p_plan_id: plan_id || null,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Teacher top-up fulfilment failed: ${fulfillmentError.message}`);
       }
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
+      const tokens = result?.tokens_added ?? 0;
 
       await safeUpsert(supabase, "payments", {
         user_id: teacher_id,
@@ -181,16 +168,23 @@ Deno.serve(async (req: Request) => {
         stripe_payment_id: stripePaymentId || null,
       }, { onConflict: "stripe_session_id" });
 
-      console.log(`Added ${tokens} AI credits to teacher ${teacher_id} (plan ${plan_id})`);
+      console.log(
+        `${result?.applied ? "Added" : "Previously added"} ${tokens} AI credits to teacher ${teacher_id} (plan ${plan_id})`,
+      );
       return new Response(
-        JSON.stringify({ received: true, type: "teacher_ai_plan", tokens_added: tokens }),
+        JSON.stringify({
+          received: true,
+          type: purchaseType,
+          tokens_added: tokens,
+          already_fulfilled: result?.applied === false,
+        }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     if (purchaseType === "ai_plan") {
-      const { student_id, plan_id, token_amount } = metadata;
-      if (!student_id || !token_amount) {
+      const { student_id, plan_id } = metadata;
+      if (!student_id || !plan_id) {
         console.error("Missing metadata for AI plan purchase");
         return new Response(JSON.stringify({ received: true, warning: "Missing metadata" }), {
           status: 200,
@@ -198,12 +192,21 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const tokens = parseInt(token_amount, 10);
-      try {
-        await supabase.rpc("add_student_tokens", { p_user_id: student_id, p_tokens: tokens });
-      } catch (e) {
-        console.error("Token add error:", e);
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_student_ai_plan",
+        {
+          p_student_id: student_id,
+          p_plan_id: plan_id,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Student AI fulfilment failed: ${fulfillmentError.message}`);
       }
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
+      const tokens = result?.tokens_added ?? 0;
 
       await safeUpsert(supabase, "payments", {
         user_id: student_id,
@@ -214,9 +217,16 @@ Deno.serve(async (req: Request) => {
         stripe_payment_id: stripePaymentId || null,
       }, { onConflict: "stripe_session_id" });
 
-      console.log(`Added ${tokens} AI tokens to student ${student_id} (plan ${plan_id})`);
+      console.log(
+        `${result?.applied ? "Added" : "Previously added"} ${tokens} AI tokens to student ${student_id} (plan ${plan_id})`,
+      );
       return new Response(
-        JSON.stringify({ received: true, type: "ai_plan", tokens_added: tokens }),
+        JSON.stringify({
+          received: true,
+          type: "ai_plan",
+          tokens_added: tokens,
+          already_fulfilled: result?.applied === false,
+        }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

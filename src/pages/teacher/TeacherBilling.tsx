@@ -10,6 +10,7 @@ import { teacherNavItems } from './teacherNav';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { formatCredits } from '../../lib/utils';
+import { verifyStripeCheckoutSession } from '../../lib/stripe';
 
 interface SubPlan {
   id: string;
@@ -99,13 +100,43 @@ export default function TeacherBilling() {
   useEffect(() => { load(); }, [load]);
 
   useEffect(() => {
-    if (searchParams.get('tokens') === 'success') {
-      toast.success('Payment received — your AI credits will appear shortly.');
+    const tokensStatus = searchParams.get('tokens');
+    const subscriptionStatus = searchParams.get('subscription');
+    const sessionId = searchParams.get('session_id');
+
+    if (tokensStatus === 'cancelled') {
+      toast.info('Payment cancelled.');
+      window.history.replaceState({}, '', window.location.pathname);
+      return;
     }
-    if (searchParams.get('subscription') === 'success') {
-      toast.success('Payment received — your plan is being activated.');
-    }
-  }, [searchParams]);
+
+    if (!sessionId || (tokensStatus !== 'success' && subscriptionStatus !== 'success')) return;
+
+    let active = true;
+    void (async () => {
+      setWorking('verifying-payment');
+      try {
+        const result = await verifyStripeCheckoutSession(sessionId);
+        if (!active) return;
+        const credits = result.tokens_added ?? 0;
+        if (result.type === 'teacher_subscription') {
+          toast.success(`Subscription activated — ${formatCredits(credits)} AI credits are ready.`);
+        } else {
+          toast.success(`${formatCredits(credits)} AI credits added to your account.`);
+        }
+        window.history.replaceState({}, '', window.location.pathname);
+        await load();
+      } catch (error) {
+        if (active) {
+          toast.error(error instanceof Error ? error.message : 'Could not verify the payment. Please contact support.');
+        }
+      } finally {
+        if (active) setWorking(null);
+      }
+    })();
+
+    return () => { active = false; };
+  }, [load, searchParams]);
 
   const startCheckout = async (body: Record<string, unknown>, workingKey: string) => {
     setWorking(workingKey);

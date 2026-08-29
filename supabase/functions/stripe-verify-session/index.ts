@@ -9,11 +9,8 @@ const corsHeaders = {
 };
 
 async function safeUpsert(supabase: ReturnType<typeof createClient>, table: string, data: Record<string, unknown>, opts: { onConflict: string }) {
-  try {
-    await supabase.from(table).upsert(data, opts);
-  } catch (e) {
-    console.error(`safeUpsert ${table} failed:`, e);
-  }
+  const { error } = await supabase.from(table).upsert(data, opts);
+  if (error) throw new Error(`${table} upsert failed: ${error.message}`);
 }
 
 Deno.serve(async (req: Request) => {
@@ -74,38 +71,143 @@ Deno.serve(async (req: Request) => {
     const stripeSessionId = session.id;
     const stripePaymentId = typeof session.payment_intent === "string" ? session.payment_intent : "";
 
-    if (metadata.student_id !== user.id) {
+    const purchaseType = metadata.type || "course";
+    const ownerId = purchaseType.startsWith("teacher_")
+      ? metadata.teacher_id
+      : metadata.student_id;
+
+    if (ownerId !== user.id) {
       return new Response(JSON.stringify({ error: "Session does not belong to this user" }), {
         status: 403,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const purchaseType = metadata.type || "course";
-
-    if (purchaseType === "ai_plan") {
-      const { plan_id, token_amount } = metadata;
-      const tokens = parseInt(token_amount || "0", 10);
-
-      if (tokens > 0) {
-        try {
-          await supabase.rpc("add_student_tokens", { p_user_id: user.id, p_tokens: tokens });
-        } catch (e) {
-          console.error("Token add error:", e);
-        }
-
-        await safeUpsert(supabase, "payments", {
-          user_id: user.id,
-          amount: amountCents / 100,
-          currency: "AUD",
-          status: "completed",
-          stripe_session_id: stripeSessionId,
-          stripe_payment_id: stripePaymentId || null,
-        }, { onConflict: "stripe_session_id" });
+    if (purchaseType === "teacher_subscription") {
+      const { plan_id } = metadata;
+      if (!plan_id) {
+        return new Response(JSON.stringify({ error: "Missing plan_id in session metadata" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
 
+      const interval = metadata.billing_interval === "yearly" ? "yearly" : "monthly";
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_teacher_subscription",
+        {
+          p_teacher_id: user.id,
+          p_plan_id: plan_id,
+          p_billing_interval: interval,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Teacher subscription fulfilment failed: ${fulfillmentError.message}`);
+      }
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
+
+      await safeUpsert(supabase, "payments", {
+        user_id: user.id,
+        amount: amountCents / 100,
+        currency: "AUD",
+        status: "completed",
+        stripe_session_id: stripeSessionId,
+        stripe_payment_id: stripePaymentId || null,
+      }, { onConflict: "stripe_session_id" });
+
+      return new Response(JSON.stringify({
+        enrolled: true,
+        type: purchaseType,
+        activated: true,
+        tokens_added: result?.tokens_added ?? 0,
+        already_fulfilled: result?.applied === false,
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (purchaseType === "teacher_ai_plan" || purchaseType === "teacher_topup_custom") {
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_teacher_topup",
+        {
+          p_teacher_id: user.id,
+          p_purchase_type: purchaseType,
+          p_plan_id: metadata.plan_id || null,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Teacher top-up fulfilment failed: ${fulfillmentError.message}`);
+      }
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
+
+      await safeUpsert(supabase, "payments", {
+        user_id: user.id,
+        amount: amountCents / 100,
+        currency: "AUD",
+        status: "completed",
+        stripe_session_id: stripeSessionId,
+        stripe_payment_id: stripePaymentId || null,
+      }, { onConflict: "stripe_session_id" });
+
+      return new Response(JSON.stringify({
+        enrolled: true,
+        type: purchaseType,
+        tokens_added: result?.tokens_added ?? 0,
+        already_fulfilled: result?.applied === false,
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (purchaseType === "ai_plan") {
+      const { plan_id } = metadata;
+      if (!plan_id) {
+        return new Response(JSON.stringify({ error: "Missing plan_id in session metadata" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const { data: fulfillment, error: fulfillmentError } = await supabase.rpc(
+        "fulfill_student_ai_plan",
+        {
+          p_student_id: user.id,
+          p_plan_id: plan_id,
+          p_stripe_session_id: stripeSessionId,
+          p_stripe_payment_id: stripePaymentId,
+          p_amount_cents: amountCents,
+        },
+      );
+      if (fulfillmentError) {
+        throw new Error(`Student AI fulfilment failed: ${fulfillmentError.message}`);
+      }
+      const result = fulfillment?.[0] as { applied?: boolean; tokens_added?: number } | undefined;
+      const tokens = result?.tokens_added ?? 0;
+
+      await safeUpsert(supabase, "payments", {
+        user_id: user.id,
+        amount: amountCents / 100,
+        currency: "AUD",
+        status: "completed",
+        stripe_session_id: stripeSessionId,
+        stripe_payment_id: stripePaymentId || null,
+      }, { onConflict: "stripe_session_id" });
+
       console.log(`AI plan ${plan_id}: ${tokens} tokens for user ${user.id}`);
-      return new Response(JSON.stringify({ enrolled: true, type: "ai_plan", tokens_added: tokens }), {
+      return new Response(JSON.stringify({
+        enrolled: true,
+        type: "ai_plan",
+        tokens_added: tokens,
+        already_fulfilled: result?.applied === false,
+      }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });

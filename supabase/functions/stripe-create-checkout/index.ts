@@ -10,21 +10,23 @@ const corsHeaders = {
 
 const ALLOWED_ORIGINS = [
   Deno.env.get("SITE_URL"),
+  "https://synapvex.com.au",
+  "https://www.synapvex.com.au",
   "https://maximusacademy.com.au",
   "https://www.maximusacademy.com.au",
 ].filter(Boolean) as string[];
 
 function getSiteUrl(req: Request): string {
-  // Always prefer the configured SITE_URL env var
-  const envUrl = Deno.env.get("SITE_URL");
-  if (envUrl) return envUrl;
-
-  // Only accept Origin header if it matches our allowlist
+  // Prefer the current trusted app origin. This keeps Checkout returns on the
+  // right product even when a legacy SITE_URL secret still points at Maximus.
   const origin = req.headers.get("origin");
   if (origin && ALLOWED_ORIGINS.includes(origin)) return origin;
 
-  // Safe fallback — never use untrusted headers for redirect URLs
-  return "https://maximusacademy.com.au";
+  const envUrl = Deno.env.get("SITE_URL");
+  if (envUrl && ALLOWED_ORIGINS.includes(envUrl)) return envUrl;
+
+  // Safe fallback — never use an untrusted header for redirect URLs.
+  return "https://synapvex.com.au";
 }
 
 Deno.serve(async (req: Request) => {
@@ -66,7 +68,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const body = await req.json();
-    const { type, course_id, plan_id, billing_interval, amount_cents, token_amount } = body;
+    const { type, course_id, plan_id, billing_interval, amount_cents } = body;
     const siteUrl = getSiteUrl(req);
 
     // --- Teacher Subscription ---
@@ -123,7 +125,7 @@ Deno.serve(async (req: Request) => {
           billing_interval: interval,
           type: "teacher_subscription",
         },
-        success_url: `${siteUrl}/teacher?subscription=success&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${siteUrl}/teacher/billing?subscription=success&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${siteUrl}/teach/register?plan=${plan.slug}&cancelled=1`,
       });
 
@@ -313,8 +315,10 @@ Deno.serve(async (req: Request) => {
 
     if (type === "teacher_topup_custom") {
       const cents = Math.round(Number(amount_cents) || 0);
-      const credits = Math.round(Number(token_amount) || 0);
-      if (cents < 500 || credits < 1) {
+      // The paid amount is authoritative. Never let the browser choose how
+      // many credits a custom payment grants.
+      const credits = Math.round((cents * 12) / 100);
+      if (cents < 500) {
         return new Response(JSON.stringify({ error: "Minimum top-up is $5." }), {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
