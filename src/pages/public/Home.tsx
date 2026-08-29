@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
-  ArrowRight, Briefcase, Cloud, Code2, Globe2, GraduationCap,
-  Layers3, LockKeyhole, Smartphone, Target, Workflow,
+  ArrowRight, Briefcase, CheckCircle2, Cloud, Code2, ExternalLink, Globe2, GraduationCap,
+  Layers3, LockKeyhole, ShieldCheck, Smartphone, Target, Workflow,
 } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
@@ -30,6 +30,40 @@ const DIFFERENTIATORS = [
   { icon: Workflow, title: 'End-to-end delivery', description: 'Strategy, design, engineering, infrastructure and support work as one connected programme.' },
   { icon: LockKeyhole, title: 'Built for resilience', description: 'Security, maintainability and operational continuity are considered from the beginning.' },
   { icon: Target, title: 'Commercially focused', description: 'Every recommendation is tied to a clear operational need or business outcome.' },
+];
+
+const BUYER_EVIDENCE = [
+  {
+    label: 'Live product',
+    title: 'SynapVex Learn',
+    description: 'Inspect the public product page, teacher onboarding and the end-to-end course commerce proposition.',
+    facts: ['AI-assisted course, quiz and exam building', 'Branded course storefronts', 'Payments, progress and certificates'],
+    href: '/products/learn',
+    external: false,
+  },
+  {
+    label: 'Live product',
+    title: 'SynapVex PTE',
+    description: 'Open the deployed exam-preparation platform and evaluate the learner experience directly.',
+    facts: ['Speaking, writing, reading and listening practice', 'AI feedback for productive skills', 'Mock tests and progress tracking'],
+    href: 'https://synapvexpte.netlify.app',
+    external: true,
+  },
+  {
+    label: 'Delivery evidence',
+    title: 'One connected engineering model',
+    description: 'The capabilities offered to clients are the same disciplines required to operate our own products.',
+    facts: ['Product design and software engineering', 'Cloud, security and operational continuity', 'Launch support and continuous improvement'],
+    href: '/about',
+    external: false,
+  },
+];
+
+const MODEL_COMPARISON = [
+  ['Accountability', 'A defined project handover', 'Build, operate and continuously improve'],
+  ['Product judgement', 'Based mainly on client briefs', 'Informed by operating live platforms'],
+  ['Delivery scope', 'Often split between several suppliers', 'Product, cloud, security and support together'],
+  ['Success measure', 'Features shipped', 'Operational adoption and business outcomes'],
 ];
 
 export default function Home() {
@@ -176,6 +210,13 @@ export default function Home() {
                     </div>
                     <h3 className="mt-7 text-xl font-bold text-slate-900">{product.name}</h3>
                     <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
+                    <ul className="mt-5 space-y-2 border-t border-slate-100 pt-5">
+                      {product.features.slice(0, 3).map(feature => (
+                        <li key={feature} className="flex gap-2 text-xs leading-5 text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600" /> {feature}
+                        </li>
+                      ))}
+                    </ul>
                     <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
                       {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
                     </div>
@@ -194,6 +235,78 @@ export default function Home() {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden bg-[#071a2b] py-28 text-white sm:py-40">
+          <div className="absolute left-1/2 top-0 h-[34rem] w-[52rem] -translate-x-1/2 rounded-full bg-sky-500/10 blur-[120px]" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-300">Evidence before promises</p>
+                <h2 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.04em] sm:text-6xl">
+                  Evaluate what we have already built.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-base leading-7 text-slate-300 lg:justify-self-end">
+                Serious technology decisions need more than a services list. These are the products, workflows and delivery capabilities a prospective client can inspect today.
+              </p>
+            </Reveal>
+
+            <div className="mt-16 grid gap-5 lg:grid-cols-3">
+              {BUYER_EVIDENCE.map((item, index) => {
+                const content = (
+                  <article className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.055] p-7 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:bg-white/[0.08]">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="rounded-full border border-sky-300/25 bg-sky-300/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-sky-200">{item.label}</span>
+                      {item.external ? <ExternalLink className="h-4 w-4 text-slate-500 transition group-hover:text-sky-300" /> : <ArrowRight className="h-4 w-4 text-slate-500 transition group-hover:translate-x-1 group-hover:text-sky-300" />}
+                    </div>
+                    <h3 className="mt-7 text-xl font-bold text-white">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-300">{item.description}</p>
+                    <ul className="mt-7 space-y-3 border-t border-white/10 pt-6">
+                      {item.facts.map(fact => (
+                        <li key={fact} className="flex gap-3 text-sm leading-5 text-slate-200">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" /> {fact}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="mt-8 text-sm font-bold text-sky-300">Inspect the evidence</span>
+                  </article>
+                );
+
+                return (
+                  <Reveal key={item.title} delay={index * 70} className="h-full">
+                    {item.external ? (
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" className="block h-full">{content}</a>
+                    ) : (
+                      <Link to={item.href} className="block h-full">{content}</Link>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+
+            <Reveal className="mt-20 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045]">
+              <div className="grid gap-5 border-b border-white/10 p-7 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:p-10">
+                <div>
+                  <div className="flex items-center gap-3 text-sky-300"><ShieldCheck className="h-5 w-5" /><span className="text-xs font-bold uppercase tracking-[0.18em]">The SynapVex difference</span></div>
+                  <h3 className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em]">Not simply another project supplier.</h3>
+                </div>
+                <p className="max-w-2xl text-sm leading-6 text-slate-300 lg:justify-self-end">
+                  We bring the operating discipline of a product company into client delivery—so decisions account for launch, adoption, security, maintenance and growth from the beginning.
+                </p>
+              </div>
+              <div className="hidden grid-cols-[0.7fr_1fr_1fr] border-b border-white/10 px-7 py-4 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 md:grid lg:px-10">
+                <span>Decision area</span><span>Project-only model</span><span className="text-sky-300">SynapVex model</span>
+              </div>
+              {MODEL_COMPARISON.map(([area, typical, synapvex]) => (
+                <div key={area} className="grid gap-3 border-b border-white/10 px-7 py-6 last:border-b-0 md:grid-cols-[0.7fr_1fr_1fr] md:gap-8 lg:px-10">
+                  <span className="text-sm font-bold text-white">{area}</span>
+                  <span className="text-sm leading-6 text-slate-400">{typical}</span>
+                  <span className="flex gap-2 text-sm font-semibold leading-6 text-sky-100"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-400" />{synapvex}</span>
+                </div>
+              ))}
+            </Reveal>
           </div>
         </section>
 
