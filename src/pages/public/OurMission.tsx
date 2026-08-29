@@ -97,20 +97,8 @@ export default function OurMission() {
               </div>
             </div>
             <div className="relative">
-              <div className="absolute -inset-5 bg-gradient-to-tr from-sky-400/15 to-indigo-400/15 blur-3xl rounded-[2.5rem]" />
-              <div className="relative rounded-3xl bg-slate-900 p-8 shadow-2xl overflow-hidden animate-float-slow">
-                <div className="absolute inset-0 bg-grid opacity-60" />
-                <div className="relative grid grid-cols-2 gap-4">
-                  {PILLARS.map((v) => (
-                    <div key={v.title} className="glass-card rounded-2xl p-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-3">
-                        <v.icon className="w-5 h-5 text-sky-300" />
-                      </div>
-                      <p className="text-white font-bold text-sm">{v.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 to-sky-300/35 blur-3xl" />
+              <img src="/images/luxury/mission-outcomes.webp" alt="Abstract journey from an idea to connected technology outcomes" width="1536" height="1024" loading="lazy" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
             </div>
           </div>
         </div>

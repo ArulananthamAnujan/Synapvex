@@ -138,6 +138,21 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="bg-white py-24 sm:py-32">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
+            <Reveal>
+              <p className="corporate-eyebrow">One connected technology partner</p>
+              <h2 className="corporate-heading mt-4">Products, platforms and delivery—designed to work together.</h2>
+              <p className="mt-6 max-w-xl text-base leading-8 text-slate-600">Our product experience sharpens our client delivery, while real operational challenges continuously improve the platforms we build. The result is technology with both imagination and commercial discipline.</p>
+              <Link to="/about" className="mt-9 inline-flex items-center gap-2 text-sm font-bold text-sky-800 transition-colors hover:text-amber-600">See how we deliver <ArrowRight className="h-4 w-4" /></Link>
+            </Reveal>
+            <Reveal delay={100} className="relative">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 via-transparent to-sky-300/40 blur-3xl" />
+              <img src="/images/luxury/product-ecosystem.webp" alt="Sculptural connected digital product ecosystem" width="1536" height="1024" loading="lazy" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+            </Reveal>
+          </div>
+        </section>
+
         <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">

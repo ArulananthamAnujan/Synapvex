@@ -184,6 +184,20 @@ export default function About() {
           </div>
         </section>
 
+        <section className="bg-white py-24 sm:py-32">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:px-8">
+            <div className="relative">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sky-300/35 to-amber-200/30 blur-3xl" />
+              <img src="/images/luxury/connected-capabilities.webp" alt="Connected cloud, software and security architecture" width="1536" height="1024" loading="eager" fetchPriority="high" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+            </div>
+            <div>
+              <p className="corporate-eyebrow">Connected by design</p>
+              <h2 className="corporate-heading mt-4">Serious technical depth without fragmented delivery.</h2>
+              <p className="mt-6 text-base leading-8 text-slate-600">Software, infrastructure, security and support are treated as one connected operating system. That reduces handoffs, makes ownership clearer and produces technology built to last.</p>
+            </div>
+          </div>
+        </section>
+
         {/* All Services Grid */}
         <section className="py-24 bg-gradient-to-b from-slate-950 via-[#071327] to-slate-950 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
