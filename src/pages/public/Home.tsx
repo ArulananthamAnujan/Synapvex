@@ -39,43 +39,40 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#fffdf8] via-[#f7fafb] to-[#edf5f8] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
-          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-300/18 blur-[115px]" aria-hidden="true" />
-          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-300/20 blur-[125px]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-[#020617] pt-36 pb-24 sm:pt-40 sm:pb-28 lg:pt-48 lg:pb-32">
+          <div className="absolute inset-0 corporate-grid opacity-40" aria-hidden="true" />
+          <div className="absolute -left-40 top-12 h-[34rem] w-[34rem] rounded-full bg-blue-600/20 blur-[110px]" aria-hidden="true" />
+          <div className="absolute -right-32 top-20 h-[38rem] w-[38rem] rounded-full bg-cyan-500/15 blur-[120px]" aria-hidden="true" />
+          <div className="absolute bottom-[-18rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-indigo-600/20 blur-[130px]" aria-hidden="true" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
-              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-800 shadow-[0_8px_24px_-14px_rgba(32,92,133,0.35)] backdrop-blur-sm">
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-200 shadow-inner shadow-white/5">
                 Technology products and delivery services
               </div>
-              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-[#102d48] sm:text-6xl lg:text-8xl">
-                Technology, <span className="bg-gradient-to-r from-sky-800 via-sky-600 to-amber-500 bg-clip-text text-transparent">engineered forward.</span>
+              <h1 className="max-w-3xl text-4xl font-bold leading-[1.04] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">
+                Technology that moves your <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">organisation forward.</span>
               </h1>
-              <p className="mt-10 max-w-xl text-lg leading-8 text-slate-600">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
                 SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
-              <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <Link to="/contact" className="luxury-button-primary gap-2">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200/30 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 px-7 py-4 text-sm font-bold text-white shadow-xl shadow-sky-950/40 transition-all hover:-translate-y-0.5 hover:shadow-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
                   Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/products" className="luxury-button-light gap-2">
+                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-bold text-white backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-sky-300/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-slate-300">
                   Explore our platforms
                 </Link>
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl" aria-label="SynapVex product portfolio">
-              <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
-              <div className="relative flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/90 px-5 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-rose-300" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-                <div className="mx-auto rounded-lg border border-slate-200 bg-white px-6 py-1.5 text-[10px] font-semibold tracking-wide text-slate-400">synapvex.com.au / product portfolio</div>
-              </div>
-              <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
+            <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/[0.07] shadow-2xl shadow-black/40 backdrop-blur-xl">
+              <div className="flex items-center justify-between border-b border-slate-700 px-6 py-5">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
-                  <p className="mt-1 text-sm text-slate-500">Products and delivery capabilities</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">SynapVex portfolio</p>
+                  <p className="mt-1 text-sm text-slate-400">Products and delivery capabilities</p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   {liveProducts.length} live platforms
                 </div>
@@ -85,24 +82,24 @@ export default function Home() {
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
-                    <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
+                    <div key={product.key} className="flex items-center gap-4 rounded-xl border border-white/10 bg-slate-950/45 px-4 py-3.5 transition-all hover:border-sky-400/30 hover:bg-white/10">
+                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
-                        <p className="truncate text-xs text-slate-500">{product.tagline}</p>
+                        <p className="truncate text-sm font-bold text-white">{product.name}</p>
+                        <p className="truncate text-xs text-slate-400">{product.tagline}</p>
                       </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-300' : 'text-slate-500'}`}>
                         {product.status === 'live' ? 'Live' : 'In development'}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-sky-100 bg-sky-100">
+                <div className="mt-6 grid grid-cols-2 gap-px border border-slate-700 bg-slate-700">
                   {['Software engineering', 'Cloud & infrastructure', 'Cybersecurity', 'Managed support'].map(item => (
-                    <div key={item} className="bg-white/90 px-3 py-3 text-xs font-semibold text-slate-600">{item}</div>
+                    <div key={item} className="bg-slate-900 px-3 py-3 text-xs font-medium text-slate-300">{item}</div>
                   ))}
                 </div>
               </div>
@@ -110,38 +107,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-b border-white/10 bg-slate-950" aria-label="Delivery presence">
-          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
+        <section className="border-b border-slate-200 bg-white" aria-label="Delivery presence">
+          <div className="mx-auto grid max-w-7xl divide-y divide-slate-200 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
             {[
               ['Australia', 'Client relationships and regional growth'],
               ['Sri Lanka', 'Product and delivery capability'],
               ['Bangladesh', 'Engineering and operational support'],
             ].map(([region, detail]) => (
-              <div key={region} className="px-0 py-9 sm:px-8 first:sm:pl-0 last:sm:pr-0">
-                <p className="text-sm font-bold tracking-wide text-white">{region}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{detail}</p>
+              <div key={region} className="px-0 py-6 sm:px-6 first:sm:pl-0 last:sm:pr-0">
+                <p className="text-sm font-bold text-slate-900">{region}</p>
+                <p className="mt-1 text-sm text-slate-500">{detail}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border-b border-sky-100 bg-white" aria-label="Company proof points">
-          <div className="mx-auto grid max-w-7xl gap-px bg-sky-100 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
-            {[
-              ['02', 'Live product platforms', 'Products operated by the same team that delivers for clients.'],
-              ['03', 'Delivery regions', 'A connected presence across Australia, Sri Lanka and Bangladesh.'],
-              ['06', 'Core capabilities', 'From product engineering and cloud through security and support.'],
-            ].map(([value, label, detail]) => (
-              <div key={label} className="bg-white px-7 py-12 sm:py-14">
-                <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[#102d48]">{value}</p>
-                <p className="mt-3 text-sm font-bold uppercase tracking-[0.13em] text-sky-800">{label}</p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">{detail}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
+        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
@@ -153,13 +134,13 @@ export default function Home() {
               </p>
             </Reveal>
 
-            <div className="mt-20 grid gap-8 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
                   <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
+                      <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
                         <product.icon className="h-6 w-6 text-white" />
                       </div>
                       <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
@@ -188,7 +169,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-28 sm:py-40">
+        <section className="bg-white py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Core capabilities</p>
@@ -198,9 +179,9 @@ export default function Home() {
               </p>
             </Reveal>
 
-            <div className="mt-20 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
               {CAPABILITIES.map((capability, index) => (
-                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-9 lg:p-12">
+                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-7 lg:p-8">
                   <capability.icon className="h-6 w-6 text-sky-700" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{capability.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{capability.description}</p>
@@ -216,9 +197,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-slate-50 py-28 sm:py-40">
+        <section className="border-y border-slate-200 bg-slate-50 py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
                 <p className="corporate-eyebrow">How we deliver</p>
                 <h2 className="corporate-heading mt-3">Structured delivery. Clear decisions.</h2>
@@ -240,14 +221,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-28 sm:py-40">
+        <section className="bg-white py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Why SynapVex</p>
               <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
             </Reveal>
 
-            <div className="mt-20 grid gap-12 md:grid-cols-2">
+            <div className="mt-12 grid gap-8 md:grid-cols-2">
               {DIFFERENTIATORS.map((item, index) => (
                 <Reveal key={item.title} delay={(index % 2) * 70} className="flex gap-5 border-t border-slate-200 pt-6">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
@@ -263,15 +244,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-slate-950 py-24 sm:py-32">
+        <section className="bg-sky-700 py-16 sm:py-20">
           <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 text-sm font-semibold text-sky-100">
                 <GraduationCap className="h-5 w-5" /> Product engineering and technology delivery
               </div>
-              <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-6xl">Let’s turn your next technology priority into a clear plan.</h2>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Let’s turn your next technology priority into a clear plan.</h2>
             </div>
-            <Link to="/contact" className="luxury-button-light shrink-0 gap-2 !px-7 !py-4">
+            <Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-sky-800 transition-colors hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
               Start a conversation <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

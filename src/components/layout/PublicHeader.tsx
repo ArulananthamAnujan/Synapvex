@@ -41,30 +41,27 @@ export default function PublicHeader() {
     return location.pathname.startsWith(href);
   };
 
-  const shellStyle = scrolled || isOpen
-    ? 'border-white/90 bg-white/95 shadow-[0_22px_55px_-24px_rgba(8,65,101,0.42)]'
-    : 'border-white/80 bg-white/[0.78] shadow-[0_18px_45px_-28px_rgba(8,65,101,0.34)]';
+  const headerBg = scrolled || isOpen
+    ? 'bg-slate-950/95 shadow-2xl shadow-slate-950/20 border-b border-white/10 backdrop-blur-xl'
+    : 'bg-slate-950/85 backdrop-blur-xl border-b border-white/10';
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
-      <div className={`relative mx-auto max-w-7xl overflow-hidden rounded-[22px] border px-4 backdrop-blur-2xl transition-all duration-300 sm:px-6 lg:px-7 ${shellStyle}`}>
-        <div className="pointer-events-none absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
-        <div className="pointer-events-none absolute -right-12 -top-20 h-36 w-36 rounded-full bg-sky-300/20 blur-3xl" />
-        <div className="flex h-[74px] items-center justify-between">
-          <Link to="/" className="group relative flex shrink-0 items-center">
-            <span className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-sky-100/0 via-sky-100/70 to-amber-100/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
-            <MaximusLogo height={52} variant="dark" brand="corporate" />
+    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${headerBg}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <Link to="/" className="flex items-center shrink-0">
+            <MaximusLogo height={56} variant="light" brand="corporate" />
           </Link>
 
-          <nav className="hidden items-center gap-1 rounded-2xl border border-slate-200/70 bg-white/60 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-20px_rgba(15,64,94,0.5)] lg:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative whitespace-nowrap rounded-xl px-3.5 py-2 text-[13px] font-bold tracking-[0.01em] transition-all duration-300 ${
+                className={`relative py-2 text-sm font-semibold transition-colors whitespace-nowrap ${
                   isActive(link.href)
-                    ? 'bg-gradient-to-b from-white to-sky-50 text-sky-900 shadow-[0_7px_18px_-12px_rgba(2,82,126,0.65),inset_0_0_0_1px_rgba(125,211,252,0.3)] after:absolute after:bottom-1 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-amber-400'
-                    : 'text-slate-600 hover:bg-white/75 hover:text-sky-900'
+                    ? 'text-white after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:bg-gradient-to-r after:from-sky-400 after:to-cyan-300'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 {link.label}
@@ -72,18 +69,18 @@ export default function PublicHeader() {
             ))}
           </nav>
 
-          <div ref={menuRef} className="hidden shrink-0 items-center gap-3 lg:flex">
-            <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] text-slate-500 transition-all hover:bg-white/70 hover:text-sky-900">
+          <div ref={menuRef} className="hidden lg:flex items-center gap-2 shrink-0">
+            <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:text-white">
               {user && profile && <LayoutDashboard className="h-4 w-4" />}{user && profile ? 'Workspace' : 'Client portal'}
             </button>
-            <Link to="/book-online" className="luxury-button-primary gap-2 !rounded-xl !px-5 !py-2.5">
+            <Link to="/book-online" className="inline-flex items-center gap-2 rounded-xl border border-sky-300/30 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-sky-950/40 transition-all hover:-translate-y-0.5 hover:shadow-sky-500/25">
               Start a project <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-xl border border-slate-200/80 bg-white/70 p-2.5 text-slate-600 shadow-sm transition-colors hover:bg-sky-50 hover:text-sky-900 lg:hidden"
+            className="rounded-lg p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
             aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
@@ -93,23 +90,23 @@ export default function PublicHeader() {
         </div>
 
         {isOpen && (
-          <div id="mobile-navigation" className="space-y-1 border-t border-sky-100/80 py-4 lg:hidden animate-slide-down">
+          <div id="mobile-navigation" className="space-y-1 border-t border-white/10 py-4 lg:hidden animate-slide-down">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={`block px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                   isActive(link.href)
-                    ? 'bg-sky-50 text-sky-800'
-                    : 'text-slate-700 hover:bg-sky-50 hover:text-sky-900'
+                    ? 'bg-sky-500/15 text-sky-300'
+                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 border-t border-sky-100 flex flex-col gap-2">
-              <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="block w-full rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition-colors hover:bg-sky-50">{user && profile ? 'Open workspace' : 'Client portal'}</button>
-              <Link to="/book-online" className="luxury-button-primary block !rounded-xl !px-4 !py-2.5 text-center">Start a project</Link>
+            <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+              <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="block w-full rounded-xl border border-white/15 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-white/10">{user && profile ? 'Open workspace' : 'Client portal'}</button>
+              <Link to="/book-online" className="block rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 px-4 py-2.5 text-center text-sm font-bold text-white">Start a project</Link>
             </div>
           </div>
         )}
