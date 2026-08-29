@@ -107,69 +107,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-b border-white/10 bg-slate-950" aria-label="Delivery presence">
-          <div className="mx-auto grid max-w-7xl divide-y divide-white/10 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
+        <section className="border-b border-white/10 bg-slate-950 py-2" aria-label="Delivery presence">
+          <div className="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-white/10 px-3 sm:px-6 lg:px-8">
             {[
               ['Australia', 'Client relationships and regional growth'],
               ['Sri Lanka', 'Product and delivery capability'],
               ['Bangladesh', 'Engineering and operational support'],
             ].map(([region, detail]) => (
-              <div key={region} className="px-0 py-9 sm:px-8 first:sm:pl-0 last:sm:pr-0">
-                <p className="text-sm font-bold tracking-wide text-white">{region}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{detail}</p>
+              <div key={region} className="min-w-0 px-2 py-4 text-center sm:px-8 sm:py-5 sm:text-left first:sm:pl-0 last:sm:pr-0">
+                <p className="truncate text-[11px] font-bold tracking-wide text-white sm:text-sm">{region}</p>
+                <p className="mt-1 hidden text-xs leading-5 text-slate-400 sm:block">{detail}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-              <div>
-                <p className="corporate-eyebrow">Our product portfolio</p>
-                <h2 className="corporate-heading mt-3">We build and operate products of our own.</h2>
-              </div>
-              <p className="max-w-2xl text-base leading-7 text-slate-600 lg:justify-self-end">
-                Our platforms keep us close to the realities of product strategy, engineering, operations and customer support. That experience directly informs how we deliver for clients.
-              </p>
-            </Reveal>
-
-            <div className="mt-20 grid gap-8 lg:grid-cols-3">
-              {PRODUCTS.map((product, index) => {
-                const live = product.status === 'live';
-                const content = (
-                  <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
-                        <product.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
-                        {live ? 'Available now' : 'In development'}
-                      </span>
-                    </div>
-                    <h3 className="mt-7 text-xl font-bold text-slate-900">{product.name}</h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
-                    <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
-                      {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
-                    </div>
-                  </article>
-                );
-
-                return (
-                  <Reveal key={product.key} delay={index * 80} className="h-full">
-                    {live && product.href && product.external ? (
-                      <a href={product.href} target="_blank" rel="noopener noreferrer" className="block h-full">{content}</a>
-                    ) : live && product.href ? (
-                      <Link to={product.href} className="block h-full">{content}</Link>
-                    ) : content}
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-white py-28 sm:py-40">
+        <section className="bg-white py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Core capabilities</p>
@@ -197,7 +150,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-slate-50 py-28 sm:py-40">
+        <section className="border-y border-slate-200 bg-slate-50 py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
@@ -221,7 +174,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-28 sm:py-40">
+        <section className="bg-white py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Why SynapVex</p>

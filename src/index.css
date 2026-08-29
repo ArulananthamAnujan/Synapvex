@@ -418,3 +418,27 @@
     animation: none !important;
   }
 }
+
+
+/* Compact homepage and glass brand mark */
+.glass-logo-shell {
+  border: 1px solid rgba(255,255,255,.88);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.78),rgba(234,247,252,.56));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 -1px 0 rgba(255,255,255,.4),
+    0 12px 30px -22px rgba(8,65,101,.58);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.glass-logo-shell:hover {
+  transform: translateY(-1px);
+  border-color: rgba(125,211,252,.7);
+  box-shadow: inset 0 1px 0 #fff,0 18px 34px -22px rgba(2,132,199,.55);
+}
+.glass-logo-shell:active { transform: translateY(1px) scale(.98); }
+@media (max-width:639px) {
+  .glass-logo-shell { padding:.3rem .5rem; border-radius:.85rem; }
+}

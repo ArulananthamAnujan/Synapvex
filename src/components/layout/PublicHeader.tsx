@@ -51,7 +51,7 @@ export default function PublicHeader() {
         <div className="pointer-events-none absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent" />
         <div className="pointer-events-none absolute -right-12 -top-20 h-36 w-36 rounded-full bg-sky-300/20 blur-3xl" />
         <div className="flex h-[74px] items-center justify-between">
-          <Link to="/" className="group relative flex shrink-0 items-center">
+          <Link to="/" className="glass-logo-shell group relative flex shrink-0 items-center rounded-2xl px-2.5 py-1.5">
             <span className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-sky-100/0 via-sky-100/70 to-amber-100/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
             <MaximusLogo height={52} variant="dark" brand="corporate" />
           </Link>
