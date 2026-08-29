@@ -81,20 +81,33 @@ export default function Home() {
               <div className="p-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
-                  {PRODUCTS.map(product => (
-                    <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
-                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
-                        <product.icon className="h-5 w-5 text-white" />
+                  {PRODUCTS.map(product => {
+                    const row = (
+                      <div className="premium-clickable-product flex items-center gap-4 rounded-2xl px-4 py-4">
+                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${product.gradient}`}>
+                          <product.icon className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
+                          <p className="truncate text-xs text-slate-500">{product.tagline}</p>
+                        </div>
+                        <span className={`shrink-0 text-[9px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
+                          {product.status === 'live' ? 'Open' : 'Preview'}
+                        </span>
+                        <ArrowRight className="h-4 w-4 shrink-0 text-sky-700" />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
-                        <p className="truncate text-xs text-slate-500">{product.tagline}</p>
-                      </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
-                        {product.status === 'live' ? 'Live' : 'In development'}
-                      </span>
-                    </div>
-                  ))}
+                    );
+
+                    return product.href && product.external ? (
+                      <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className="block rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-400">
+                        {row}
+                      </a>
+                    ) : (
+                      <Link key={product.key} to={product.href || `/products#${product.key}`} className="block rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-400">
+                        {row}
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-sky-100 bg-sky-100">
@@ -104,21 +117,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-slate-950 py-2" aria-label="Delivery presence">
-          <div className="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-white/10 px-3 sm:px-6 lg:px-8">
-            {[
-              ['Australia', 'Client relationships and regional growth'],
-              ['Sri Lanka', 'Product and delivery capability'],
-              ['Bangladesh', 'Engineering and operational support'],
-            ].map(([region, detail]) => (
-              <div key={region} className="min-w-0 px-2 py-4 text-center sm:px-8 sm:py-5 sm:text-left first:sm:pl-0 last:sm:pr-0">
-                <p className="truncate text-[11px] font-bold tracking-wide text-white sm:text-sm">{region}</p>
-                <p className="mt-1 hidden text-xs leading-5 text-slate-400 sm:block">{detail}</p>
-              </div>
-            ))}
           </div>
         </section>
 
@@ -132,10 +130,10 @@ export default function Home() {
               </p>
             </Reveal>
 
-            <div className="mt-20 grid border-l border-t border-slate-200 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {CAPABILITIES.map((capability, index) => (
-                <Reveal key={capability.title} delay={(index % 3) * 60} className="border-b border-r border-slate-200 bg-white p-9 lg:p-12">
-                  <capability.icon className="h-6 w-6 text-sky-700" />
+                <Reveal key={capability.title} delay={(index % 3) * 60} className="premium-capability-card rounded-[22px] p-6 sm:p-7">
+                  <div className="premium-capability-icon"><capability.icon className="h-5 w-5" /></div>
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{capability.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{capability.description}</p>
                 </Reveal>
@@ -150,7 +148,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-slate-50 py-20 sm:py-28">
+        <section className="premium-delivery-section border-y border-sky-100/70 py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
@@ -161,12 +159,11 @@ export default function Home() {
                 </p>
               </Reveal>
 
-              <div className="divide-y divide-slate-200 border-y border-slate-200">
+              <div className="grid gap-3 sm:grid-cols-2">
                 {DELIVERY_STEPS.map((step, index) => (
-                  <Reveal key={step.number} delay={index * 60} className="grid gap-3 py-6 sm:grid-cols-[64px_150px_1fr] sm:items-start">
-                    <span className="text-sm font-bold text-sky-700">{step.number}</span>
-                    <h3 className="text-base font-bold text-slate-900">{step.title}</h3>
-                    <p className="text-sm leading-6 text-slate-600">{step.description}</p>
+                  <Reveal key={step.number} delay={index * 60} className="premium-delivery-step rounded-[20px] p-5 sm:p-6">
+                    <div className="flex items-center gap-3"><span className="premium-step-number">{step.number}</span><h3 className="text-base font-bold text-slate-900">{step.title}</h3></div>
+                    <p className="mt-4 text-sm leading-6 text-slate-600">{step.description}</p>
                   </Reveal>
                 ))}
               </div>
@@ -183,7 +180,7 @@ export default function Home() {
 
             <div className="mt-20 grid gap-12 md:grid-cols-2">
               {DIFFERENTIATORS.map((item, index) => (
-                <Reveal key={item.title} delay={(index % 2) * 70} className="flex gap-5 border-t border-slate-200 pt-6">
+                <Reveal key={item.title} delay={(index % 2) * 70} className="premium-difference-card rounded-[22px] p-5 sm:p-6">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
                     <item.icon className="h-5 w-5" />
                   </div>
