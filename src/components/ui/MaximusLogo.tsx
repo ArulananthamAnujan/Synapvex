@@ -4,6 +4,7 @@ interface MaximusLogoProps {
   height?: number;
   variant?: 'light' | 'dark';
   compact?: boolean;
+  brand?: 'corporate' | 'learn';
 }
 
 const DARK_LOGO = '/synapvex-logo.png';        // navy wordmark — for light backgrounds
@@ -16,12 +17,12 @@ const LIGHT_LOGO = '/synapvex-logo-light.png'; // light wordmark — for dark ba
  * `variant="light"` to force the light logo on an always-dark surface. An
  * admin-configured `logo_url` from site settings always takes precedence.
  */
-export default function MaximusLogo({ height = 64, variant = 'dark', compact = false }: MaximusLogoProps) {
+export default function MaximusLogo({ height = 64, variant = 'dark', compact = false, brand = 'learn' }: MaximusLogoProps) {
   const { logo_url, platform_name } = useSiteSettings();
   const alt = platform_name || 'SynapVex';
   const style = { height, width: 'auto', maxWidth: '100%', objectFit: 'contain' as const };
 
-  if (compact && !logo_url) {
+  if ((compact || brand === 'corporate') && !logo_url) {
     return (
       <span className="inline-flex min-w-0 items-center gap-2.5" aria-label={alt}>
         <img src="/favicon.svg" alt="" aria-hidden="true" style={{ width: height, height }} className="shrink-0 rounded-xl" />
@@ -30,7 +31,7 @@ export default function MaximusLogo({ height = 64, variant = 'dark', compact = f
             Synap<span className="text-blue-600 dark:text-blue-400">Vex</span>
           </span>
           <span className={`mt-1 block text-[0.57rem] font-bold uppercase tracking-[0.28em] ${variant === 'light' ? 'text-slate-300' : 'text-slate-500 dark:text-slate-400'}`}>
-            Learn
+            {brand === 'learn' ? 'Learn' : 'Technologies'}
           </span>
         </span>
       </span>

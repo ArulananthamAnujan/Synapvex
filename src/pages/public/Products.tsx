@@ -1,141 +1,14 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Clock, Sparkles, ExternalLink } from 'lucide-react';
+import { ArrowRight, Check, ExternalLink } from 'lucide-react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
 import { PRODUCTS } from '../../lib/products';
 
 export default function Products() {
-  return (
-    <div className="bg-white min-h-screen">
-      <PublicHeader />
-      <div className="pt-20 lg:pt-24">
-        {/* Hero */}
-        <section className="bg-mesh py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid" />
-          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/12 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
-          <Reveal className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 glass-card rounded-full px-4 py-1.5 mb-6">
-              <Sparkles className="w-4 h-4 text-sky-300" />
-              <span className="text-sky-200 text-sm font-semibold">The Synapvex Product Family</span>
-            </div>
-            <h1 className="font-playfair text-4xl lg:text-6xl font-bold text-white mb-5">
-              Products built to<br /><span className="text-gradient-sky">power your growth</span>
-            </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-              Synapvex is more than services — we build software products businesses run on.
-              One account, a growing family of tools.
-            </p>
-          </Reveal>
-        </section>
-
-        {/* Product cards */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid md:grid-cols-2 gap-8">
-            {PRODUCTS.map((product, idx) => {
-              const live = product.status === 'live';
-              return (
-                <Reveal
-                  as="div"
-                  key={product.key}
-                  delay={(idx % 2) * 100}
-                  className={`rounded-3xl border overflow-hidden transition-all duration-300 ${
-                    live
-                      ? 'border-sky-200 shadow-lg hover:shadow-2xl hover:-translate-y-1.5'
-                      : 'border-slate-200 opacity-90 hover:opacity-100'
-                  }`}
-                >
-                  <div className={`bg-gradient-to-br ${product.gradient} px-7 py-6 flex items-center justify-between`}>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-white/15 border border-white/25 rounded-2xl flex items-center justify-center">
-                        <product.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="font-bold text-white text-xl">{product.name}</h2>
-                        <p className="text-white/70 text-sm">{product.tagline}</p>
-                      </div>
-                    </div>
-                    {live ? (
-                      <span className="bg-white text-slate-900 text-xs font-bold px-3 py-1 rounded-full shrink-0">LIVE</span>
-                    ) : (
-                      <span className="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shrink-0">
-                        <Clock className="w-3 h-3" /> COMING SOON
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-7">
-                    <p className="text-slate-600 text-sm leading-relaxed mb-5">{product.description}</p>
-                    <ul className="space-y-2 mb-6">
-                      {product.features.map(f => (
-                        <li key={f} className="flex items-start gap-2.5 text-sm text-slate-700">
-                          <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${product.accent}`} />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    {live && product.href ? (
-                      <div className="flex flex-wrap gap-3">
-                        {product.external ? (
-                          <a
-                            href={product.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`px-6 py-2.5 ${product.accentBg} text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2`}
-                          >
-                            Open {product.name} <ExternalLink className="w-4 h-4" />
-                          </a>
-                        ) : (
-                          <>
-                            <Link
-                              to={product.href}
-                              className={`px-6 py-2.5 ${product.accentBg} text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2`}
-                            >
-                              Explore {product.name} <ArrowRight className="w-4 h-4" />
-                            </Link>
-                            <Link
-                              to="/teach/register"
-                              className="px-6 py-2.5 border-2 border-slate-200 text-slate-700 text-sm font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors"
-                            >
-                              View Pricing
-                            </Link>
-                          </>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        to="/contact"
-                        className="inline-flex items-center gap-2 px-6 py-2.5 border-2 border-slate-200 text-slate-500 text-sm font-bold rounded-xl hover:border-slate-300 transition-colors"
-                      >
-                        Get notified at launch
-                      </Link>
-                    )}
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="bg-slate-50 border-t border-slate-100 py-16">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="font-playfair text-3xl font-bold text-slate-900 mb-3">Need something custom?</h2>
-            <p className="text-slate-500 mb-7">
-              Beyond our products, Synapvex builds custom software, websites and apps for businesses of every size.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/about" className="px-7 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors">
-                Explore Our Services
-              </Link>
-              <Link to="/contact" className="px-7 py-3 border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:border-sky-400 hover:text-sky-600 transition-colors">
-                Talk to Us
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
-      <PublicFooter />
-    </div>
-  );
+  return <div className="min-h-screen bg-white text-slate-950"><PublicHeader /><main className="pt-20">
+    <section className="relative overflow-hidden bg-slate-950 py-20 sm:py-28"><div className="corporate-grid absolute inset-0 opacity-50" aria-hidden="true" /><div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-300">Product portfolio</p><div className="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end"><h1 className="max-w-4xl text-4xl font-bold leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl">Focused software for real operating challenges.</h1><p className="max-w-xl text-base leading-7 text-slate-300 lg:justify-self-end">We build, operate and continuously improve our own platforms. Each product has a clear audience, an honest status and a direct path to value.</p></div></div></section>
+    <section className="py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="space-y-8">{PRODUCTS.map(product => { const live = product.status === 'live'; return <Reveal key={product.key} className="grid overflow-hidden border border-slate-200 bg-white lg:grid-cols-[0.72fr_1.28fr]"><div className={`relative flex min-h-64 flex-col justify-between overflow-hidden bg-gradient-to-br ${product.gradient} p-8 text-white sm:p-10`}><div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border border-white/20" aria-hidden="true" /><product.icon className="relative h-10 w-10" /><div className="relative mt-16"><p className="text-xs font-bold uppercase tracking-[0.18em] text-white/70">{live ? 'Available now' : 'In development'}</p><h2 className="mt-3 text-3xl font-bold tracking-tight">{product.name}</h2><p className="mt-2 text-sm text-white/80">{product.tagline}</p></div></div><div className="p-8 sm:p-10 lg:p-12"><div className="grid gap-8 md:grid-cols-[1fr_0.85fr]"><div><p className="text-base leading-7 text-slate-600">{product.description}</p><div className="mt-8">{live && product.href && product.external ? <a href={product.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white hover:bg-sky-700">Open product <ExternalLink className="h-4 w-4" /></a> : live && product.href ? <Link to={product.href} className="inline-flex items-center gap-2 rounded-md bg-slate-950 px-5 py-3 text-sm font-bold text-white hover:bg-sky-700">Explore product <ArrowRight className="h-4 w-4" /></Link> : <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-800">Ask about the roadmap <ArrowRight className="h-4 w-4" /></Link>}</div></div><ul className="space-y-3 border-t border-slate-200 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">{product.features.map(feature => <li key={feature} className="flex gap-3 text-sm leading-6 text-slate-700"><Check className="mt-1 h-4 w-4 shrink-0 text-sky-700" />{feature}</li>)}</ul></div></div></Reveal>; })}</div></div></section>
+    <section className="border-y border-slate-200 bg-slate-50 py-16"><div className="mx-auto flex max-w-7xl flex-col gap-7 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8"><div><p className="corporate-eyebrow">Need a tailored solution?</p><h2 className="mt-3 text-3xl font-bold tracking-tight">Our delivery team can build around your operation.</h2></div><Link to="/book-online" className="inline-flex shrink-0 items-center gap-2 rounded-md bg-sky-700 px-6 py-3.5 text-sm font-bold text-white hover:bg-sky-800">Start a project <ArrowRight className="h-4 w-4" /></Link></div></section>
+  </main><PublicFooter /></div>;
 }

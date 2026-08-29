@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, User, LogOut, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, LayoutDashboard, Menu, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import MaximusLogo from '../ui/MaximusLogo';
-import { roleLabel } from '../../lib/utils';
 
 export default function PublicHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { user, profile, signOut } = useAuth();
+  const { user, profile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -22,18 +20,7 @@ export default function PublicHeader() {
 
   useEffect(() => {
     setIsOpen(false);
-    setUserMenuOpen(false);
   }, [location]);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setUserMenuOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -47,11 +34,6 @@ export default function PublicHeader() {
     if (profile?.role === 'admin') navigate('/admin');
     else if (profile?.role === 'teacher') navigate('/teacher');
     else navigate('/student');
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
   };
 
   const isActive = (href: string) => {
@@ -68,7 +50,7 @@ export default function PublicHeader() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center shrink-0">
-            <MaximusLogo height={54} variant="dark" />
+            <MaximusLogo height={42} variant="dark" brand="corporate" />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
@@ -87,55 +69,13 @@ export default function PublicHeader() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
-            {user && profile ? (
-              <div className="relative" ref={menuRef}>
-                <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-sky-50 transition-all"
-                >
-                  <div className="w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-sm font-bold text-white">
-                    {(profile.full_name?.[0] || profile.email[0]).toUpperCase()}
-                  </div>
-                  <span className="text-sm font-semibold max-w-[100px] truncate">
-                    {profile.full_name?.split(' ')[0] || 'Account'}
-                  </span>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {userMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-navy-800 rounded-xl shadow-2xl border border-slate-100 dark:border-navy-700 py-1.5 animate-fade-in z-50">
-                    <div className="px-4 py-3 border-b border-slate-100 dark:border-navy-700">
-                      <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{profile.full_name || 'User'}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{profile.email}</p>
-                      <span className="inline-flex mt-1.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full font-semibold">{roleLabel(profile.role)}</span>
-                    </div>
-                    <button onClick={handleDashboard} className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-navy-700 transition-colors">
-                      <User className="w-4 h-4 text-slate-400 dark:text-slate-500" /> My Dashboard
-                    </button>
-                    <div className="border-t border-slate-100 dark:border-navy-700 mt-1 pt-1">
-                      <button onClick={handleSignOut} className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  className="px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-slate-950"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  to="/contact"
-                  className="rounded-md bg-sky-700 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-sky-800"
-                >
-                  Discuss a project
-                </Link>
-              </div>
-            )}
+          <div ref={menuRef} className="hidden lg:flex items-center gap-2 shrink-0">
+            <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-slate-950">
+              {user && profile && <LayoutDashboard className="h-4 w-4" />}{user && profile ? 'Workspace' : 'Client portal'}
+            </button>
+            <Link to="/book-online" className="inline-flex items-center gap-2 rounded-md bg-slate-950 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-sky-700">
+              Start a project <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
 
           <button
@@ -165,21 +105,8 @@ export default function PublicHeader() {
               </Link>
             ))}
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-              {user && profile ? (
-                <>
-                  <button onClick={handleDashboard} className="flex items-center gap-2 px-4 py-2.5 text-sky-700 hover:bg-sky-50 rounded-lg text-sm font-semibold transition-colors">
-                    <User className="w-4 h-4" /> My Dashboard
-                  </button>
-                  <button onClick={handleSignOut} className="flex items-center gap-2 px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-lg text-sm font-semibold transition-colors">
-                    <LogOut className="w-4 h-4" /> Sign Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="block rounded-md border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">Sign in</Link>
-                  <Link to="/contact" className="block rounded-md bg-sky-700 px-4 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-sky-800">Discuss a project</Link>
-                </>
-              )}
+              <button onClick={user && profile ? handleDashboard : () => navigate('/login')} className="block w-full rounded-md border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">{user && profile ? 'Open workspace' : 'Client portal'}</button>
+              <Link to="/book-online" className="block rounded-md bg-slate-950 px-4 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-sky-700">Start a project</Link>
             </div>
           </div>
         )}

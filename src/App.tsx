@@ -145,10 +145,19 @@ const StudentF2FRequests = lazy(() => import('./pages/student/StudentF2FRequests
 
 function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-navy-900 flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-12 h-12 border-4 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-white font-medium font-playfair">Loading Synapvex...</p>
+    <div className="min-h-screen bg-white" role="status" aria-label="Loading page">
+      <div className="h-20 border-b border-slate-200 px-4 sm:px-6">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between">
+          <div className="h-9 w-40 animate-pulse rounded bg-slate-100" />
+          <div className="hidden h-8 w-72 animate-pulse rounded bg-slate-100 sm:block" />
+        </div>
+      </div>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="h-3 w-32 animate-pulse rounded bg-sky-100" />
+        <div className="mt-6 h-12 max-w-2xl animate-pulse rounded bg-slate-100" />
+        <div className="mt-4 h-12 max-w-xl animate-pulse rounded bg-slate-100" />
+        <div className="mt-8 h-4 max-w-lg animate-pulse rounded bg-slate-100" />
+        <span className="sr-only">Loading SynapVex</span>
       </div>
     </div>
   );

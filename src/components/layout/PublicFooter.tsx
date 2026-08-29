@@ -26,7 +26,7 @@ export default function PublicFooter() {
         <div className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
           <div className="max-w-md">
             <Link to="/" className="inline-flex" aria-label="SynapVex home">
-              <MaximusLogo height={54} variant="light" />
+              <MaximusLogo height={42} variant="light" brand="corporate" />
             </Link>
             <p className="mt-6 text-sm leading-6 text-slate-400">
               Technology products and delivery services for organisations modernising their operations, customer experiences and digital infrastructure.
