@@ -76,31 +76,31 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 {PRODUCTS.map(product => {
                   const live = product.status === 'live';
                   const card = (
-                    <div className={`split-product-card glass-touch group flex h-full min-h-[150px] flex-col items-start gap-3 rounded-[20px] p-3.5 sm:grid sm:min-h-0 sm:grid-cols-[48px_minmax(0,1fr)_auto] sm:items-center sm:p-4 ${product.key === 'crm' ? 'max-sm:grid max-sm:min-h-0 max-sm:grid-cols-[48px_minmax(0,1fr)_auto] max-sm:items-center' : ''}`}>
+                    <div className="split-product-card glass-touch group grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3 rounded-[20px] p-3.5 sm:p-4">
                       <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${product.gradient} shadow-[inset_0_1px_0_rgba(255,255,255,.3),0_12px_24px_-16px_rgba(8,65,101,.65)]`}>
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-bold leading-tight text-[#102d48] sm:truncate sm:text-base">{product.name}</h3>
+                          <h3 className="truncate text-sm font-bold text-[#102d48] sm:text-base">{product.name}</h3>
                           <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${live ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                         </div>
                         <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{product.tagline}</p>
                       </div>
-                      <ArrowRight className="mt-auto h-4 w-4 shrink-0 self-end text-sky-700/75 transition-all duration-200 group-hover:translate-x-1 group-hover:text-sky-800 sm:mt-0 sm:self-auto" />
+                      <ArrowRight className="h-4 w-4 shrink-0 text-sky-700/75 transition-all duration-200 group-hover:translate-x-1 group-hover:text-sky-800" />
                     </div>
                   );
 
                   return product.href && product.external ? (
-                    <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className={`block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400 ${product.key === 'crm' ? 'col-span-2' : ''}`}>
+                    <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
                       {card}
                     </a>
                   ) : (
-                    <Link key={product.key} to={product.href || `/products#${product.key}`} className={`block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400 ${product.key === 'crm' ? 'col-span-2' : ''}`}>
+                    <Link key={product.key} to={product.href || `/products#${product.key}`} className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
                       {card}
                     </Link>
                   );
@@ -123,17 +123,20 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="premium-capabilities-section relative py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="max-w-3xl">
+        <section className="premium-capabilities-section relative py-16 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16 lg:px-8">
+            <Reveal className="max-w-3xl lg:sticky lg:top-32">
               <p className="corporate-eyebrow">Core capabilities</p>
               <h2 className="corporate-heading mt-3">One accountable partner across the technology lifecycle.</h2>
               <p className="mt-5 text-base leading-7 text-slate-600">
                 Engage SynapVex for a focused project or a connected programme spanning product development, infrastructure and ongoing support.
               </p>
+              <Link to="/about" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-800">
+                Explore all services <ArrowRight className="h-4 w-4" />
+              </Link>
             </Reveal>
 
-            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2">
               {CAPABILITIES.map((capability, index) => (
                 <Reveal key={capability.title} delay={(index % 3) * 60} className="premium-capability-card rounded-[22px] p-6 sm:p-7">
                   <div className="premium-capability-icon"><capability.icon className="h-5 w-5" /></div>
@@ -143,15 +146,10 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-8">
-              <Link to="/about" className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-800">
-                Explore all services <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </div>
         </section>
 
-        <section className="premium-delivery-section border-y border-sky-100/70 py-20 sm:py-28">
+        <section className="premium-delivery-section border-y border-sky-100/70 py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
               <Reveal>
@@ -174,14 +172,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="bg-white py-16 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Why SynapVex</p>
               <h2 className="corporate-heading mt-3">Technical depth with a business point of view.</h2>
             </Reveal>
 
-            <div className="mt-20 grid gap-12 md:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {DIFFERENTIATORS.map((item, index) => (
                 <Reveal key={item.title} delay={(index % 2) * 70} className="premium-difference-card rounded-[22px] p-5 sm:p-6">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-sky-50 text-sky-700">
