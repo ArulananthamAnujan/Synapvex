@@ -198,6 +198,21 @@
       0 8px 28px -18px rgba(8,83,123,.22);
   }
 
+  .premium-page-hero {
+    @apply relative overflow-hidden;
+    background:
+      radial-gradient(circle at 8% 18%, rgba(251,191,36,.24), transparent 30%),
+      radial-gradient(circle at 92% 12%, rgba(56,189,248,.3), transparent 34%),
+      radial-gradient(circle at 70% 100%, rgba(52,211,153,.08), transparent 30%),
+      linear-gradient(135deg, #fffdf8 0%, #edf8fd 54%, #f8fafc 100%);
+  }
+
+  .premium-page-hero::after {
+    content: '';
+    @apply pointer-events-none absolute inset-x-[12%] bottom-0 h-px;
+    background: linear-gradient(90deg, transparent, rgba(14,116,144,.24), transparent);
+  }
+
   .tab-active {
     @apply bg-white dark:bg-navy-700 text-sky-700 dark:text-sky-400 shadow-sm font-semibold;
   }

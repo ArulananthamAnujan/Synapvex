@@ -161,23 +161,23 @@ export default function About() {
       <div className="pt-20 lg:pt-24">
 
         {/* Hero */}
-        <section className="relative py-32 bg-[#020617] overflow-hidden">
-          <div className="absolute inset-0 bg-grid" />
-          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-500/15 rounded-full blur-3xl animate-blob" />
-          <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
+        <section className="premium-page-hero py-28 sm:py-36">
+          <div className="absolute inset-0 corporate-grid opacity-30" />
+          <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">SynapVex Technologies</p>
-            <h1 className="font-sans text-5xl sm:text-7xl font-bold text-white mb-6 leading-[1.02] tracking-[-0.05em]">
-              Expertise with <span className="bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent">executive-level polish.</span>
+            <p className="text-sky-800 font-bold text-xs uppercase tracking-[0.2em] mb-5">SynapVex Technologies</p>
+            <h1 className="font-display text-5xl sm:text-7xl font-semibold text-[#102d48] mb-7 leading-[1.02] tracking-[-0.05em]">
+              Expertise with <span className="bg-gradient-to-r from-sky-700 to-amber-500 bg-clip-text text-transparent">executive-level polish.</span>
             </h1>
-            <p className="text-slate-300 text-xl leading-relaxed max-w-3xl mx-auto">
+            <p className="text-slate-600 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
               Full-spectrum technology solutions for businesses of every size — from custom software and cybersecurity to cloud infrastructure, digital marketing, and our own LMS platform.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link to="/contact" className="px-7 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center gap-2">
+              <Link to="/contact" className="luxury-button-primary gap-2">
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/products" className="px-7 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 hover:bg-white/10 transition-colors flex items-center gap-2">
+              <Link to="/products" className="luxury-button-light gap-2">
                 <GraduationCap className="w-4 h-4" /> Explore Our Products
               </Link>
             </div>
@@ -253,7 +253,7 @@ export default function About() {
                 </ul>
                 <Link
                   to="/products/learn"
-                  className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors text-sm"
+                  className="luxury-button-primary w-full gap-2 !px-5 !py-3"
                 >
                   <GraduationCap className="w-4 h-4" /> Discover SynapVex Learn <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -298,7 +298,7 @@ export default function About() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="px-8 py-3.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
+                className="luxury-button-primary gap-2 !px-8 !py-3.5"
               >
                 Get a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>

@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, Component, ReactNode } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { safeInternalPath } from './lib/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
@@ -56,6 +56,16 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
 
 const Home = lazy(() => import('./pages/public/Home'));
 const Courses = lazy(() => import('./pages/public/Courses'));
@@ -232,6 +242,7 @@ export default function App() {
           <ToastProvider>
             <Toaster position="top-right" richColors closeButton />
             <SeoManager />
+            <ScrollToTop />
             <ErrorBoundary>
             <Suspense fallback={<LoadingScreen />}>
               <Routes>
