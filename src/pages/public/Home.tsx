@@ -7,15 +7,16 @@ import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
 import ProductMotionVisual from '../../components/ui/ProductMotionVisual';
+import ProductSystemExperience from '../../components/ui/ProductSystemExperience';
 import { PRODUCTS } from '../../lib/products';
 
 const CAPABILITIES = [
-  { icon: Code2, title: 'Custom software', description: 'Purpose-built business applications, SaaS products, APIs and system integrations.' },
-  { icon: Globe2, title: 'Digital platforms', description: 'Corporate websites, commerce experiences and responsive web applications.' },
-  { icon: Smartphone, title: 'Mobile products', description: 'Cross-platform mobile applications designed around real customer workflows.' },
-  { icon: Cloud, title: 'Cloud & infrastructure', description: 'Cloud migration, collaboration platforms, networking, backup and continuity.' },
-  { icon: LockKeyhole, title: 'Security & support', description: 'Security assessments, endpoint protection and dependable managed IT support.' },
-  { icon: Briefcase, title: 'Technology advisory', description: 'Practical technology strategy, delivery planning and digital transformation guidance.' },
+  { icon: Code2, title: 'Replace manual work', description: 'Turn spreadsheets, repeated administration and disconnected processes into one dependable application.' },
+  { icon: Globe2, title: 'Create a better digital front door', description: 'Give customers a faster, clearer way to discover, purchase and engage with your organisation.' },
+  { icon: Smartphone, title: 'Work from anywhere', description: 'Put the workflows your team relies on into a responsive product that works across devices.' },
+  { icon: Cloud, title: 'Modernise without disruption', description: 'Move systems, collaboration and continuity forward with a practical transition plan.' },
+  { icon: LockKeyhole, title: 'Reduce operational risk', description: 'Design security, backup, maintainability and support into the solution from the start.' },
+  { icon: Briefcase, title: 'Make the next decision clearer', description: 'Translate business priorities into a realistic technology roadmap, scope and delivery sequence.' },
 ];
 
 const DELIVERY_STEPS = [
@@ -81,13 +82,13 @@ export default function Home() {
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
               <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-800 shadow-[0_8px_24px_-14px_rgba(32,92,133,0.35)] backdrop-blur-sm">
-                Technology products and delivery services
+                Products that solve real operational problems
               </div>
               <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-[#102d48] sm:text-6xl lg:text-8xl">
                 Technology, <span className="bg-gradient-to-r from-sky-800 via-sky-600 to-amber-500 bg-clip-text text-transparent">engineered forward.</span>
               </h1>
               <p className="mt-10 max-w-xl text-lg leading-8 text-slate-600">
-                SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
+                Bring us the process that wastes time, the customer journey that underperforms or the product idea that needs to become real. We design, build and keep it working.
               </p>
               <div className="mt-12 flex flex-col gap-4 sm:flex-row">
                 <Link to="/contact" className="luxury-button-primary gap-2">
@@ -166,9 +167,9 @@ export default function Home() {
         <section className="border-b border-sky-100 bg-white" aria-label="Company proof points">
           <div className="mx-auto grid max-w-7xl gap-px bg-sky-100 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
             {[
-              ['02', 'Live product platforms', 'Products operated by the same team that delivers for clients.'],
-              ['03', 'Delivery regions', 'A connected presence across Australia, Sri Lanka and Bangladesh.'],
-              ['06', 'Core capabilities', 'From product engineering and cloud through security and support.'],
+              ['Build', 'From unclear idea to working product', 'We shape the problem, design the experience and engineer the solution.'],
+              ['Operate', 'One team stays accountable after launch', 'Cloud, security, support and improvement continue around the product.'],
+              ['Improve', 'Your technology evolves with the business', 'Real usage and customer feedback guide what should happen next.'],
             ].map(([value, label, detail]) => (
               <div key={label} className="bg-white px-7 py-12 sm:py-14">
                 <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[#102d48]">{value}</p>
@@ -183,58 +184,15 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
-                <p className="corporate-eyebrow">Our product portfolio</p>
-                <h2 className="corporate-heading mt-3">We build and operate products of our own.</h2>
+                <p className="corporate-eyebrow">Choose a product journey</p>
+                <h2 className="corporate-heading mt-3">See how the SynapVex system works.</h2>
               </div>
               <p className="max-w-2xl text-base leading-7 text-slate-600 lg:justify-self-end">
-                Our platforms keep us close to the realities of product strategy, engineering, operations and customer support. That experience directly informs how we deliver for clients.
+                Select a platform to explore the customer problem, the working journey and the outcome it is designed to create.
               </p>
             </Reveal>
 
-            <div className="mt-20 grid gap-8 lg:grid-cols-3">
-              {PRODUCTS.map((product, index) => {
-                const live = product.status === 'live';
-                const content = (
-                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
-                    <div className="m-3 mb-0 overflow-hidden rounded-xl transition-transform duration-500 group-hover:scale-[1.02]">
-                      <ProductMotionVisual variant={product.key === 'learn' ? 'learn' : product.key === 'pte' ? 'pte' : 'crm'} compact />
-                    </div>
-                    <div className="flex flex-1 flex-col p-7 pt-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
-                        <product.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
-                        {live ? 'Available now' : 'In development'}
-                      </span>
-                    </div>
-                    <h3 className="mt-7 text-xl font-bold text-slate-900">{product.name}</h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
-                    <ul className="mt-5 space-y-2 border-t border-slate-100 pt-5">
-                      {product.features.slice(0, 3).map(feature => (
-                        <li key={feature} className="flex gap-2 text-xs leading-5 text-slate-600">
-                          <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-600" /> {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
-                      {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
-                    </div>
-                    </div>
-                  </article>
-                );
-
-                return (
-                  <Reveal key={product.key} delay={index * 80} className="h-full">
-                    {live && product.href && product.external ? (
-                      <a href={product.href} target="_blank" rel="noopener noreferrer" className="block h-full">{content}</a>
-                    ) : live && product.href ? (
-                      <Link to={product.href} className="block h-full">{content}</Link>
-                    ) : content}
-                  </Reveal>
-                );
-              })}
-            </div>
+            <Reveal className="mt-20"><ProductSystemExperience /></Reveal>
           </div>
         </section>
 
@@ -314,9 +272,9 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-3xl">
               <p className="corporate-eyebrow">Core capabilities</p>
-              <h2 className="corporate-heading mt-3">One accountable partner across the technology lifecycle.</h2>
+              <h2 className="corporate-heading mt-3">Tell us what is slowing you down.</h2>
               <p className="mt-5 text-base leading-7 text-slate-600">
-                Engage SynapVex for a focused project or a connected programme spanning product development, infrastructure and ongoing support.
+                You do not need to arrive with a technical specification. Start with the customer problem, operational bottleneck or growth priority.
               </p>
             </Reveal>
 
