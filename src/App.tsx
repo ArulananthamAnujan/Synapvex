@@ -73,19 +73,27 @@ function ScrollToTop() {
   }, []);
 
   useLayoutEffect(() => {
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+
     const resetPosition = () => {
-      document.documentElement.scrollTop = 0;
+      root.scrollTop = 0;
       document.body.scrollTop = 0;
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     };
 
     resetPosition();
     const frame = window.requestAnimationFrame(resetPosition);
-    const timer = window.setTimeout(resetPosition, 100);
+    const timer = window.setTimeout(() => {
+      resetPosition();
+      root.style.scrollBehavior = previousScrollBehavior;
+    }, 100);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(timer);
+      root.style.scrollBehavior = previousScrollBehavior;
     };
   }, [pathname]);
 
