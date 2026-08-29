@@ -58,6 +58,17 @@ type PayoutMethod = 'bank' | 'paypal';
 const fmt = (cents: number) => `A$${(cents / 100).toFixed(2)}`;
 const PLAN_ICONS = [Zap, Star, Crown];
 
+const parsePlanFeatures = (value: unknown): string[] => {
+  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === 'string');
+  if (typeof value !== 'string' || !value.trim()) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === 'string') : [];
+  } catch {
+    return [];
+  }
+};
+
 export default function TeacherEarnings() {
   const { profile } = useAuth();
   const [summary, setSummary] = useState<EarningsSummary | null>(null);
@@ -97,7 +108,7 @@ export default function TeacherEarnings() {
       if (summaryRes.data) setSummary(summaryRes.data as EarningsSummary);
       if (earningsRes.data) setEarnings(earningsRes.data.map(row => ({ ...row, course: Array.isArray(row.course) ? row.course[0] : row.course })) as EarningsRow[]);
       if (payoutsRes.data) setPayouts(payoutsRes.data as PayoutRow[]);
-      if (plansRes.data) setAiPlans(plansRes.data.map(p => ({ ...p, features: Array.isArray(p.features) ? p.features : JSON.parse(p.features as unknown as string) })));
+      if (plansRes.data) setAiPlans(plansRes.data.map(p => ({ ...p, features: parsePlanFeatures(p.features) })));
       if (creditsRes.data) setAiCredits(creditsRes.data);
       setLoading(false);
     };
