@@ -39,10 +39,9 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#fcfdff] via-[#eef8fc] to-[#f8fafc] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
-          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-400/25 blur-[105px]" aria-hidden="true" />
-          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-400/30 blur-[115px]" aria-hidden="true" />
-          <div className="absolute bottom-[-20rem] left-[40%] h-[36rem] w-[36rem] rounded-full bg-emerald-300/10 blur-[120px]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#fffdf8] via-[#f7fafb] to-[#edf5f8] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
+          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-300/18 blur-[115px]" aria-hidden="true" />
+          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-300/20 blur-[125px]" aria-hidden="true" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
@@ -65,8 +64,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl">
+            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
+              <div className="relative flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/90 px-5 py-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-300" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+                <div className="mx-auto rounded-lg border border-slate-200 bg-white px-6 py-1.5 text-[10px] font-semibold tracking-wide text-slate-400">synapvex.com.au / product portfolio</div>
+              </div>
               <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
@@ -83,7 +86,7 @@ export default function Home() {
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
                     <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
-                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -156,7 +159,7 @@ export default function Home() {
                 const content = (
                   <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
                     <div className="flex items-start justify-between gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
                         <product.icon className="h-6 w-6 text-white" />
                       </div>
                       <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
