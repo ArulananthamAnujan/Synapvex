@@ -167,7 +167,7 @@ export default function About() {
           <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-indigo-500/15 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">SynapVex Technologies</p>
-            <h1 className="font-sans text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
               Our Services
             </h1>
             <p className="text-slate-300 text-xl leading-relaxed max-w-3xl mx-auto">
@@ -189,7 +189,7 @@ export default function About() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">What We Offer</p>
-              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Our Services — In Detail</h2>
+              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Services — In Detail</h2>
               <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
                 Every service is delivered by specialists with deep domain expertise, focused on solving your real business challenges.
               </p>
@@ -231,7 +231,7 @@ export default function About() {
                 </div>
                 <h3 className="font-bold text-slate-900 text-lg mb-1">LMS Platform</h3>
                 <p className="text-sm text-slate-500 mb-3 leading-relaxed">
-                  SynapVex Learn is our own SaaS-based Learning Management System. Create courses, enrol students, run quizzes, issue certificates — and use AI to generate entire curricula in minutes.
+                  Synapvex Learn is our own SaaS-based Learning Management System. Create courses, enrol students, run quizzes, issue certificates — and use AI to generate entire curricula in minutes.
                 </p>
                 <ul className="space-y-2 mb-5">
                   {[
@@ -254,7 +254,7 @@ export default function About() {
                   to="/products/learn"
                   className="flex items-center justify-center gap-2 w-full px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors text-sm"
                 >
-                  <GraduationCap className="w-4 h-4" /> Discover SynapVex Learn <ArrowRight className="w-4 h-4" />
+                  <GraduationCap className="w-4 h-4" /> Discover Synapvex Learn <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -266,7 +266,7 @@ export default function About() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Why SynapVex</p>
-              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Why Choose SynapVex Technologies?</h2>
+              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Why Choose SynapVex Technologies?</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {WHY_US.map((item) => (
@@ -288,7 +288,7 @@ export default function About() {
         <section className="py-20 bg-slate-900 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.12),transparent_60%)]" />
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-sans text-4xl font-bold text-white mb-5">
+            <h2 className="font-playfair text-4xl font-bold text-white mb-5">
               Ready to Partner with SynapVex?
             </h2>
             <p className="text-slate-300 text-lg mb-8 leading-relaxed">

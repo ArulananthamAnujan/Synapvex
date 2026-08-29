@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { GraduationCap, ArrowLeft, Mail, CheckCircle } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
-import MaximusLogo from '../../components/ui/MaximusLogo';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -33,7 +32,6 @@ export default function ForgotPassword() {
         <DarkModeToggle />
       </div>
       <div className="w-full max-w-md">
-        <Link to="/" className="mb-7 flex w-fit"><MaximusLogo height={44} variant="dark" brand="learn" /></Link>
         <Link to="/login" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Sign In
         </Link>

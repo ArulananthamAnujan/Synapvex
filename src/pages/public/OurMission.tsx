@@ -54,7 +54,7 @@ export default function OurMission() {
             <Target className="w-4 h-4 text-sky-400" />
             <span className="text-sky-300 text-sm font-semibold">Our Mission & Values</span>
           </div>
-          <h1 className="font-sans text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="font-playfair text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
             Build. Empower. Grow.
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
@@ -70,16 +70,16 @@ export default function OurMission() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-3">Why We Exist</p>
-              <h2 className="font-sans text-4xl font-bold text-slate-900 mb-6">Our Mission</h2>
+              <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-6">Our Mission</h2>
               <div className="space-y-5 text-slate-600 leading-relaxed">
                 <p>
-                  Great technology shouldn't be reserved for big enterprises. We started SynapVex to
+                  Great technology shouldn't be reserved for big enterprises. We started Synapvex to
                   give growing businesses the same calibre of software, security and strategy — without
                   the enterprise price tag or complexity.
                 </p>
                 <p>
                   We do it two ways: hands-on services — custom software, websites, apps, cloud and
-                  cybersecurity — and a growing family of our own products, led by SynapVex Learn,
+                  cybersecurity — and a growing family of our own products, led by Synapvex Learn,
                   that let businesses and creators launch under their own brand in days, not months.
                 </p>
                 <p>
@@ -121,7 +121,7 @@ export default function OurMission() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">How We Work</p>
-            <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
+            <h2 className="font-playfair text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">
               Four principles guide every product we build and every engagement we take on.
             </p>
@@ -147,7 +147,7 @@ export default function OurMission() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-3">What We Aim For</p>
-              <h2 className="font-sans text-4xl font-bold text-white mb-6">Our Goals</h2>
+              <h2 className="font-playfair text-4xl font-bold text-white mb-6">Our Goals</h2>
               <div className="space-y-4">
                 {GOALS.map((goal, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -177,7 +177,7 @@ export default function OurMission() {
       {/* CTA */}
       <section className="py-16 bg-sky-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-sans text-3xl font-bold text-white mb-4">Build the Future with Us</h2>
+          <h2 className="font-playfair text-3xl font-bold text-white mb-4">Build the Future with Us</h2>
           <p className="text-sky-100 mb-8 text-lg">
             Whether you need a technology partner or a product to power your business, we're ready when you are.
           </p>
