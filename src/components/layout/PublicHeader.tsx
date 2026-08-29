@@ -50,7 +50,7 @@ export default function PublicHeader() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center shrink-0">
-            <MaximusLogo height={42} variant="dark" brand="corporate" />
+            <MaximusLogo height={50} variant="dark" brand="corporate" />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
