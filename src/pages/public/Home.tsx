@@ -39,34 +39,32 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-[#020617] pt-36 pb-24 sm:pt-40 sm:pb-28 lg:pt-48 lg:pb-32">
+        <section className="relative overflow-hidden bg-slate-950 pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
           <div className="absolute inset-0 corporate-grid opacity-40" aria-hidden="true" />
-          <div className="absolute -left-40 top-12 h-[34rem] w-[34rem] rounded-full bg-blue-600/20 blur-[110px]" aria-hidden="true" />
-          <div className="absolute -right-32 top-20 h-[38rem] w-[38rem] rounded-full bg-cyan-500/15 blur-[120px]" aria-hidden="true" />
-          <div className="absolute bottom-[-18rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-indigo-600/20 blur-[130px]" aria-hidden="true" />
+          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-sky-900/30 to-transparent" aria-hidden="true" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-200 shadow-inner shadow-white/5">
+              <div className="mb-7 inline-flex items-center gap-2 border-l-2 border-sky-400 pl-3 text-sm font-semibold tracking-wide text-sky-200">
                 Technology products and delivery services
               </div>
-              <h1 className="max-w-3xl text-4xl font-bold leading-[1.04] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">
-                Technology that moves your <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-400 bg-clip-text text-transparent">organisation forward.</span>
+              <h1 className="max-w-3xl text-4xl font-bold leading-[1.08] tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
+                Technology that moves your organisation forward.
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
                 SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200/30 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 px-7 py-4 text-sm font-bold text-white shadow-xl shadow-sky-950/40 transition-all hover:-translate-y-0.5 hover:shadow-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-md bg-sky-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-950/30 transition-colors hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
                   Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-bold text-white backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-sky-300/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-slate-300">
+                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-600 bg-white/5 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:border-slate-400 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-slate-300">
                   Explore our platforms
                 </Link>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/[0.07] shadow-2xl shadow-black/40 backdrop-blur-xl">
+            <div className="border border-slate-700 bg-slate-900/90 shadow-2xl shadow-black/30">
               <div className="flex items-center justify-between border-b border-slate-700 px-6 py-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">SynapVex portfolio</p>
@@ -82,7 +80,7 @@ export default function Home() {
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
-                    <div key={product.key} className="flex items-center gap-4 rounded-xl border border-white/10 bg-slate-950/45 px-4 py-3.5 transition-all hover:border-sky-400/30 hover:bg-white/10">
+                    <div key={product.key} className="flex items-center gap-4 border border-slate-700/80 bg-slate-950/50 px-4 py-3.5">
                       <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
@@ -122,7 +120,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-20 sm:py-28">
+        <section className="bg-slate-50 py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <div>
@@ -138,7 +136,7 @@ export default function Home() {
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
-                  <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                  <article className="flex h-full flex-col border border-slate-200 bg-white p-7 transition-colors hover:border-sky-300">
                     <div className="flex items-start justify-between gap-4">
                       <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
                         <product.icon className="h-6 w-6 text-white" />

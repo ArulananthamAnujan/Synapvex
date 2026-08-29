@@ -101,12 +101,12 @@ export default function Contact() {
       <div className="pt-20 lg:pt-24">
 
         {/* Hero */}
-        <section className="premium-page-hero py-24 sm:py-32">
-          <div className="absolute inset-0 corporate-grid opacity-25" />
+        <section className="bg-slate-900 py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(14,165,233,0.1),transparent_60%)]" />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sky-800 font-bold text-xs uppercase tracking-[0.2em] mb-5">We're Here to Help</p>
-            <h1 className="font-display text-5xl sm:text-7xl font-semibold text-[#102d48] tracking-[-0.045em] mb-7">Get in Touch</h1>
-            <p className="text-slate-600 text-lg sm:text-xl leading-relaxed">
+            <p className="text-sky-400 font-semibold text-sm uppercase tracking-wider mb-2">We're Here to Help</p>
+            <h1 className="font-sans text-5xl font-bold text-white mb-6">Get in Touch</h1>
+            <p className="text-slate-300 text-xl leading-relaxed">
               Have a question? We'd love to hear from you. We'll respond within 24–48 hours.
             </p>
           </div>
@@ -119,7 +119,7 @@ export default function Contact() {
 
               {/* Info Sidebar */}
               <div className="lg:col-span-1 space-y-6">
-                <div className="luxury-surface rounded-3xl border border-white bg-gradient-to-br from-white to-sky-50/40 p-6">
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
                   <h2 className="font-sans text-xl font-bold text-slate-900 mb-6">Our Offices</h2>
                   <div className="space-y-6">
                     {LOCATIONS.map(loc => (
@@ -138,7 +138,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="luxury-surface rounded-3xl border border-white bg-gradient-to-br from-white to-sky-50/40 p-6">
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
                   <h2 className="font-sans text-xl font-bold text-slate-900 mb-6">Contact Information</h2>
                   <div className="space-y-6">
                     {CONTACT_INFO.map(item => (
@@ -175,7 +175,7 @@ export default function Contact() {
               </div>
 
               {/* Contact Form */}
-              <div className="luxury-surface lg:col-span-2 rounded-3xl border border-white bg-white p-8">
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
                 {sent ? (
                   <div className="text-center py-12">
                     <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -188,7 +188,7 @@ export default function Contact() {
                     </p>
                     <button
                       onClick={() => { setSent(false); setForm({ name: '', email: '', subject: '', message: '' }); }}
-                      className="luxury-button-primary !px-6 !py-3"
+                      className="px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-colors"
                     >
                       Send Another Message
                     </button>
@@ -254,7 +254,7 @@ export default function Contact() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="luxury-button-primary gap-2 !px-6 !py-3 disabled:opacity-60"
+                        className="px-6 py-3 bg-sky-600 hover:bg-sky-700 disabled:opacity-60 text-white font-bold rounded-xl transition-colors flex items-center gap-2"
                       >
                         <Send className="w-4 h-4" />
                         {loading ? 'Sending...' : 'Send Message'}

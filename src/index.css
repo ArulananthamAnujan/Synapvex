@@ -12,9 +12,7 @@
   }
 
   body {
-    @apply font-sans antialiased text-slate-900;
-    background: #f6f8fc;
-    font-feature-settings: "ss01" 1, "cv02" 1, "cv03" 1;
+    @apply font-sans antialiased bg-slate-50 text-slate-900;
   }
 
   ::selection {
@@ -32,15 +30,12 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans font-semibold;
-    text-wrap: balance;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
-    background: linear-gradient(135deg, #2563eb 0%, #0284c7 55%, #06b6d4 100%);
-    box-shadow: 0 12px 28px -12px rgba(2, 132, 199, 0.75);
+    @apply bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-150 shadow-sm hover:shadow-sky-md focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
   }
 
   .btn-secondary {
@@ -56,22 +51,11 @@
   }
 
   .card {
-    @apply dark:bg-navy-800 rounded-2xl border dark:border-navy-700 overflow-hidden;
-    background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(248,250,252,0.94));
-    border-color: rgba(148, 163, 184, 0.24);
-    box-shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.38), 0 2px 12px rgba(15, 23, 42, 0.04);
+    @apply bg-white dark:bg-navy-800 rounded-xl shadow-sm border border-slate-200 dark:border-navy-700 overflow-hidden;
   }
 
   .card-hover {
-    @apply dark:bg-navy-800 rounded-2xl border dark:border-navy-700 overflow-hidden hover:border-sky-300 dark:hover:border-sky-700 transition-all duration-300;
-    background: linear-gradient(145deg, #ffffff, #f8fafc);
-    border-color: rgba(148, 163, 184, 0.24);
-    box-shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.35);
-  }
-
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 28px 60px -30px rgba(2, 132, 199, 0.42);
+    @apply bg-white dark:bg-navy-800 rounded-xl shadow-sm border border-slate-200 dark:border-navy-700 overflow-hidden hover:shadow-md hover:border-sky-200 dark:hover:border-sky-700 transition-all duration-200;
   }
 
   .input-field {
@@ -111,11 +95,11 @@
   }
 
   .corporate-eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.24em] text-sky-700;
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-sky-700;
   }
 
   .corporate-heading {
-    @apply text-3xl font-bold leading-[1.08] tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl;
+    @apply text-3xl font-bold leading-tight tracking-[-0.025em] text-slate-950 sm:text-4xl;
   }
 
   .tab-active {

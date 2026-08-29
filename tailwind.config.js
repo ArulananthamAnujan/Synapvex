@@ -101,9 +101,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Fraunces', 'Georgia', 'serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        playfair: ['Fraunces', 'Georgia', 'serif'],
+        playfair: ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in':    'fadeIn 0.25s ease-out',
