@@ -65,56 +65,64 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl">
-              <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
-              <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
+            <div className="space-y-4">
+              <div className="flex items-end justify-between gap-4 px-1">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
-                  <p className="mt-1 text-sm text-slate-500">Products and delivery capabilities</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-sky-700">Product ecosystem</p>
+                  <h2 className="mt-1 font-display text-2xl font-semibold tracking-[-0.03em] text-[#102d48]">Choose a platform</h2>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                  {liveProducts.length} live platforms
-                </div>
+                <Link to="/products" className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-700">
+                  View all <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
 
-              <div className="p-6">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
-                <div className="space-y-2">
-                  {PRODUCTS.map(product => {
-                    const row = (
-                      <div className="premium-clickable-product flex items-center gap-4 rounded-2xl px-4 py-4">
-                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${product.gradient}`}>
-                          <product.icon className="h-5 w-5 text-white" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
-                          <p className="truncate text-xs text-slate-500">{product.tagline}</p>
-                        </div>
-                        <span className={`shrink-0 text-[9px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
-                          {product.status === 'live' ? 'Open' : 'Preview'}
-                        </span>
-                        <ArrowRight className="h-4 w-4 shrink-0 text-sky-700" />
+              <div className="grid gap-3">
+                {PRODUCTS.map(product => {
+                  const live = product.status === 'live';
+                  const card = (
+                    <div className="split-product-card glass-touch group grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3 rounded-[20px] p-3.5 sm:p-4">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${product.gradient} shadow-[inset_0_1px_0_rgba(255,255,255,.3),0_12px_24px_-16px_rgba(8,65,101,.65)]`}>
+                        <product.icon className="h-5 w-5 text-white" />
                       </div>
-                    );
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h3 className="truncate text-sm font-bold text-[#102d48] sm:text-base">{product.name}</h3>
+                          <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${live ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                        </div>
+                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{product.tagline}</p>
+                      </div>
+                      <div className="split-product-action">
+                        <span className="hidden text-[9px] font-bold uppercase tracking-[.12em] text-sky-800 sm:block">
+                          {live ? 'Open' : 'Preview'}
+                        </span>
+                        <ArrowRight className="h-4 w-4 text-sky-700 transition-transform group-hover:translate-x-0.5" />
+                      </div>
+                    </div>
+                  );
 
-                    return product.href && product.external ? (
-                      <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className="block rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-400">
-                        {row}
-                      </a>
-                    ) : (
-                      <Link key={product.key} to={product.href || `/products#${product.key}`} className="block rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-400">
-                        {row}
-                      </Link>
-                    );
-                  })}
-                </div>
+                  return product.href && product.external ? (
+                    <a key={product.key} href={product.href} target="_blank" rel="noopener noreferrer" className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
+                      {card}
+                    </a>
+                  ) : (
+                    <Link key={product.key} to={product.href || `/products#${product.key}`} className="block rounded-[20px] focus:outline-none focus:ring-2 focus:ring-sky-400">
+                      {card}
+                    </Link>
+                  );
+                })}
+              </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-sky-100 bg-sky-100">
-                  {['Software engineering', 'Cloud & infrastructure', 'Cybersecurity', 'Managed support'].map(item => (
-                    <div key={item} className="bg-white/90 px-3 py-3 text-xs font-semibold text-slate-600">{item}</div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  ['Software', 'Apps & integrations'],
+                  ['Cloud', 'Infrastructure'],
+                  ['Security', 'Support & resilience'],
+                ].map(([label, detail]) => (
+                  <Link key={label} to="/about" className="top-capability-chip glass-touch rounded-2xl p-3">
+                    <span className="block text-[10px] font-bold uppercase tracking-[.11em] text-sky-800">{label}</span>
+                    <span className="mt-1 hidden text-[10px] leading-4 text-slate-500 sm:block">{detail}</span>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

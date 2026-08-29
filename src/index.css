@@ -511,3 +511,63 @@
 @media (max-width:639px) {
   .premium-clickable-product:hover,.premium-capability-card:hover { transform:none; }
 }
+
+
+/* Split product navigation for clear mobile interaction */
+.split-product-card {
+  position:relative;
+  cursor:pointer;
+  border:1px solid rgba(186,230,253,.72);
+  background:
+    radial-gradient(circle at 94% 10%,rgba(56,189,248,.13),transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.94),rgba(236,248,253,.76));
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 18px 38px -30px rgba(8,65,101,.58);
+  transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease;
+  -webkit-tap-highlight-color:rgba(14,165,233,.08);
+}
+.split-product-card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.45) 48%,transparent 64%);
+  transform:translateX(-110%);
+  transition:transform .55s ease;
+}
+.split-product-card:hover {
+  transform:translateY(-2px);
+  border-color:rgba(56,189,248,.78);
+  box-shadow:inset 0 1px 0 #fff,0 24px 44px -29px rgba(2,132,199,.52);
+}
+.split-product-card:hover::after { transform:translateX(110%); }
+.split-product-card:active { transform:translateY(1px) scale(.985); transition-duration:80ms; }
+.split-product-action {
+  display:flex;
+  min-height:2.5rem;
+  min-width:2.5rem;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  border:1px solid rgba(186,230,253,.7);
+  border-radius:.85rem;
+  background:rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 #fff,0 9px 20px -16px rgba(8,65,101,.7);
+}
+.top-capability-chip {
+  border:1px solid rgba(186,230,253,.62);
+  background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(239,249,253,.62));
+  box-shadow:inset 0 1px 0 #fff,0 12px 24px -22px rgba(8,65,101,.5);
+  transition:transform .2s ease,border-color .2s ease;
+}
+.top-capability-chip:nth-child(2) {
+  border-color:rgba(253,230,138,.65);
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,249,235,.66));
+}
+.top-capability-chip:hover { transform:translateY(-2px); border-color:rgba(56,189,248,.76); }
+.top-capability-chip:active { transform:translateY(1px) scale(.98); }
+@media (max-width:639px) {
+  .split-product-card:hover,.top-capability-chip:hover { transform:none; }
+}
