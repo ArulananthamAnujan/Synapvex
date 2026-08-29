@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   Code2, Globe, Smartphone, Palette, Network, Cloud, ShieldCheck,
   Headphones, BarChart2, Lightbulb, GraduationCap, CheckCircle, ArrowRight,
@@ -6,6 +7,8 @@ import {
 import { Link } from 'react-router-dom';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
+
+const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const SERVICES = [
   {
@@ -188,7 +191,9 @@ export default function About() {
           <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:px-8">
             <div className="relative">
               <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-sky-300/35 to-amber-200/30 blur-3xl" />
-              <img src="/images/luxury/connected-capabilities.webp" alt="Connected cloud, software and security architecture" width="1536" height="1024" loading="eager" fetchPriority="high" decoding="async" className="luxury-surface relative aspect-[3/2] w-full rounded-[2rem] border border-white object-cover" />
+              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-sky-50" />}>
+                <InteractiveOrbitalScene ariaLabel="Interactive software, cloud and security capability system" className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-white via-sky-50 to-blue-50" />
+              </Suspense>
             </div>
             <div>
               <p className="corporate-eyebrow">Connected by design</p>

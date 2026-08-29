@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function InteractiveOrbitalScene({ className = '' }: { className?: string }) {
+export default function InteractiveOrbitalScene({ className = '', ariaLabel = 'Interactive connected SynapVex technology ecosystem' }: { className?: string; ariaLabel?: string }) {
   const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -166,7 +166,7 @@ export default function InteractiveOrbitalScene({ className = '' }: { className?
   }, []);
 
   return (
-    <div ref={hostRef} role="img" aria-label="Interactive connected SynapVex technology ecosystem" className={`relative min-h-[420px] overflow-hidden rounded-[2rem] ${className}`}>
+    <div ref={hostRef} role="img" aria-label={ariaLabel} className={`relative min-h-[420px] overflow-hidden rounded-[2rem] ${className}`}>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.16),transparent_46%)]" />
       <div className="pointer-events-none absolute bottom-5 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/80 bg-white/65 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-sky-900 shadow-sm backdrop-blur-md">Move to explore</div>
     </div>
