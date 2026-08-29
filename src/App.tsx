@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, Component, ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, Component, ReactNode } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { safeInternalPath } from './lib/utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -61,7 +61,32 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    return () => {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto';
+      }
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const resetPosition = () => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    };
+
+    resetPosition();
+    const frame = window.requestAnimationFrame(resetPosition);
+    const timer = window.setTimeout(resetPosition, 100);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
   }, [pathname]);
 
   return null;
