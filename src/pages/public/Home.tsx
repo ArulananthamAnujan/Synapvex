@@ -122,6 +122,22 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="border-b border-sky-100 bg-white" aria-label="Company proof points">
+          <div className="mx-auto grid max-w-7xl gap-px bg-sky-100 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
+            {[
+              ['02', 'Live product platforms', 'Products operated by the same team that delivers for clients.'],
+              ['03', 'Delivery regions', 'A connected presence across Australia, Sri Lanka and Bangladesh.'],
+              ['06', 'Core capabilities', 'From product engineering and cloud through security and support.'],
+            ].map(([value, label, detail]) => (
+              <div key={label} className="bg-white px-7 py-12 sm:py-14">
+                <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[#102d48]">{value}</p>
+                <p className="mt-3 text-sm font-bold uppercase tracking-[0.13em] text-sky-800">{label}</p>
+                <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">{detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
