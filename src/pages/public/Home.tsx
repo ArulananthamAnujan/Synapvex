@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Briefcase, Cloud, Code2, Globe2, GraduationCap,
@@ -7,9 +6,8 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
+import ProductMotionVisual from '../../components/ui/ProductMotionVisual';
 import { PRODUCTS } from '../../lib/products';
-
-const InteractiveOrbitalScene = lazy(() => import('../../components/ui/InteractiveOrbitalScene'));
 
 const CAPABILITIES = [
   { icon: Code2, title: 'Custom software', description: 'Purpose-built business applications, SaaS products, APIs and system integrations.' },
@@ -42,10 +40,9 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#fcfdff] via-[#eef8fc] to-[#f8fafc] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
-          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-400/25 blur-[105px]" aria-hidden="true" />
-          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-400/30 blur-[115px]" aria-hidden="true" />
-          <div className="absolute bottom-[-20rem] left-[40%] h-[36rem] w-[36rem] rounded-full bg-emerald-300/10 blur-[120px]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#fffdf8] via-[#f7fafb] to-[#edf5f8] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
+          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-300/18 blur-[115px]" aria-hidden="true" />
+          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-300/20 blur-[125px]" aria-hidden="true" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
@@ -68,8 +65,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 backdrop-blur-xl">
+            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl lg:rotate-[1deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0 lg:hover:scale-[1.015]">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
+              <div className="relative flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/90 px-5 py-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-300" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+                <div className="mx-auto rounded-lg border border-slate-200 bg-white px-6 py-1.5 text-[10px] font-semibold tracking-wide text-slate-400">synapvex.com.au / product portfolio</div>
+              </div>
               <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
@@ -81,12 +82,15 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="relative p-6">
+                <div className="pointer-events-none absolute -right-20 -top-20 h-36 w-44 opacity-20 mix-blend-multiply">
+                  <ProductMotionVisual variant="network" compact />
+                </div>
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
                     <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
-                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -141,23 +145,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white py-24 sm:py-32">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-            <Reveal>
-              <p className="corporate-eyebrow">One connected technology partner</p>
-              <h2 className="corporate-heading mt-4">Products, platforms and delivery—designed to work together.</h2>
-              <p className="mt-6 max-w-xl text-base leading-8 text-slate-600">Our product experience sharpens our client delivery, while real operational challenges continuously improve the platforms we build. The result is technology with both imagination and commercial discipline.</p>
-              <Link to="/about" className="mt-9 inline-flex items-center gap-2 text-sm font-bold text-sky-800 transition-colors hover:text-amber-600">See how we deliver <ArrowRight className="h-4 w-4" /></Link>
-            </Reveal>
-            <Reveal delay={100} className="relative">
-              <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-amber-200/40 via-transparent to-sky-300/40 blur-3xl" />
-              <Suspense fallback={<div className="luxury-surface relative aspect-[3/2] w-full animate-pulse rounded-[2rem] border border-white bg-gradient-to-br from-white to-sky-50" />}>
-                <InteractiveOrbitalScene className="luxury-surface relative aspect-[3/2] w-full border border-white bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70" />
-              </Suspense>
-            </Reveal>
-          </div>
-        </section>
-
         <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/40 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
@@ -174,9 +161,13 @@ export default function Home() {
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
-                  <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                    <div className="m-3 mb-0 overflow-hidden rounded-xl transition-transform duration-500 group-hover:scale-[1.02]">
+                      <ProductMotionVisual variant={product.key === 'learn' ? 'learn' : product.key === 'pte' ? 'pte' : 'crm'} compact />
+                    </div>
+                    <div className="flex flex-1 flex-col p-7 pt-6">
                     <div className="flex items-start justify-between gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
                         <product.icon className="h-6 w-6 text-white" />
                       </div>
                       <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${live ? 'text-emerald-700' : 'text-slate-400'}`}>
@@ -187,6 +178,7 @@ export default function Home() {
                     <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
                     <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
                       {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
+                    </div>
                     </div>
                   </article>
                 );
@@ -235,13 +227,16 @@ export default function Home() {
 
         <section className="border-y border-slate-200 bg-slate-50 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-16 lg:grid-cols-[0.68fr_1.32fr] lg:items-center">
               <Reveal>
                 <p className="corporate-eyebrow">How we deliver</p>
                 <h2 className="corporate-heading mt-3">Structured delivery. Clear decisions.</h2>
                 <p className="mt-5 text-base leading-7 text-slate-600">
                   A straightforward engagement model keeps teams aligned from the first conversation through launch and continuous improvement.
                 </p>
+                <div className="mt-9 overflow-hidden rounded-2xl shadow-[0_25px_65px_-35px_rgba(3,105,161,.7)]">
+                  <ProductMotionVisual variant="network" />
+                </div>
               </Reveal>
 
               <div className="divide-y divide-slate-200 border-y border-slate-200">
