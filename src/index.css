@@ -731,3 +731,82 @@
   .glass-logo-shell { padding:.25rem .4rem; }
   header .luxury-button-primary { padding-left:1rem; padding-right:1rem; }
 }
+
+
+/* Unified glass presentation for every public marketing page */
+.public-glass-page {
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(251,191,36,.09),transparent 25%),
+    radial-gradient(circle at 92% 14%,rgba(56,189,248,.12),transparent 28%),
+    linear-gradient(145deg,#f8fbfc,#eef7fa 48%,#fffaf2 100%);
+}
+.public-glass-page .premium-page-hero {
+  background:
+    radial-gradient(circle at 9% 18%,rgba(251,191,36,.2),transparent 29%),
+    radial-gradient(circle at 91% 12%,rgba(56,189,248,.28),transparent 34%),
+    linear-gradient(145deg,#fffdf8,#e9f7fb 58%,#f4fafb);
+}
+.public-glass-page article[class*="bg-white"],
+.public-glass-page aside[class*="bg-white"],
+.public-glass-page div[class*="bg-white"][class*="border"] {
+  border-color:rgba(186,230,253,.64);
+  background:
+    radial-gradient(circle at 94% 8%,rgba(56,189,248,.1),transparent 30%),
+    linear-gradient(145deg,rgba(255,255,255,.9),rgba(238,248,252,.7));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    0 22px 48px -38px rgba(8,65,101,.52);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.public-glass-page article {
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.public-glass-page article:hover {
+  transform:translateY(-3px);
+  border-color:rgba(56,189,248,.72);
+  box-shadow:inset 0 1px 0 #fff,0 28px 52px -36px rgba(2,132,199,.48);
+}
+.public-glass-page input,
+.public-glass-page textarea,
+.public-glass-page select {
+  border-color:rgba(186,230,253,.7);
+  background:rgba(255,255,255,.76);
+  box-shadow:inset 0 1px 0 #fff,0 10px 24px -22px rgba(8,65,101,.5);
+  backdrop-filter:blur(12px);
+}
+.public-glass-page a,
+.public-glass-page button {
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(14,165,233,.08);
+}
+.public-glass-page a[class*="rounded"]:active,
+.public-glass-page button[class*="rounded"]:active {
+  transform:translateY(1px) scale(.98);
+  transition-duration:70ms;
+}
+.public-glass-page section[class*="bg-white"] {
+  background:
+    radial-gradient(circle at 90% 12%,rgba(56,189,248,.08),transparent 28%),
+    linear-gradient(180deg,rgba(255,255,255,.82),rgba(241,249,252,.76));
+}
+.public-glass-page section[class*="bg-slate-50"] {
+  background:
+    radial-gradient(circle at 10% 12%,rgba(245,158,11,.1),transparent 28%),
+    linear-gradient(145deg,#f8fbfd,#edf7fa);
+}
+@media (max-width:639px) {
+  .public-glass-page .premium-page-hero {
+    padding-top:3.5rem;
+    padding-bottom:3.5rem;
+  }
+  .public-glass-page [class~="py-20"],
+  .public-glass-page [class~="py-24"],
+  .public-glass-page [class~="py-28"] {
+    padding-top:3rem;
+    padding-bottom:3rem;
+  }
+  .public-glass-page article:hover { transform:none; }
+  .public-glass-page h1 { text-wrap:balance; }
+}

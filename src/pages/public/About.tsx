@@ -156,7 +156,7 @@ const WHY_US = [
 
 export default function About() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="public-glass-page min-h-screen bg-white">
       <PublicHeader />
       <div className="pt-20 lg:pt-24">
 

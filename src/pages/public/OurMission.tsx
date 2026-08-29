@@ -41,7 +41,7 @@ const GOALS = [
 
 export default function OurMission() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="public-glass-page min-h-screen bg-white">
       <PublicHeader />
 
       {/* Hero */}
