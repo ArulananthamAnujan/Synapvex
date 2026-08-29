@@ -8,7 +8,7 @@ interface ConnectorProps {
  * Animated SVG connector that visually bridges two sections.
  * A gradient line draws in on scroll, with a glowing dot traveling along the path.
  */
-export default function Connector({ from: _from = 'light', to: _to = 'light', className = '' }: ConnectorProps) {
+export default function Connector({ className = '' }: ConnectorProps) {
   return (
     <div className={`relative h-20 overflow-hidden ${className}`} aria-hidden="true">
       <svg

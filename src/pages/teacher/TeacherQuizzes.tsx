@@ -13,7 +13,7 @@ import { useToast } from '../../contexts/ToastContext';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import type { Quiz, Course, QuizQuestion } from '../../types';
 
-type QuizWithQuestions = Quiz & { questions?: QuizQuestion[] };
+type QuizWithQuestions = Quiz & { questions?: QuizQuestion[]; is_published?: boolean };
 
 const EMPTY_FORM = { course_id: '', title: '', description: '', time_limit_minutes: '', pass_mark: 70, max_attempts: 3 };
 
@@ -295,7 +295,7 @@ export default function TeacherQuizzes() {
     </div>
   );
 
-  const QuestionFormModal = ({ quizId: _quizId, onClose }: { quizId: string; onClose: () => void }) => (
+  const QuestionFormModal = ({ onClose }: { quizId: string; onClose: () => void }) => (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white dark:bg-navy-800 rounded-2xl shadow-2xl w-full max-w-lg p-6 animate-slide-up max-h-[90vh] overflow-y-auto">

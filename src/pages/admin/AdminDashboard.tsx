@@ -39,7 +39,7 @@ export default function AdminDashboard() {
         supabase.from('enrollments').select('id', { count: 'exact' }),
         supabase.from('payments').select('amount, status').eq('status', 'completed'),
         supabase.from('certificates').select('id', { count: 'exact' }).eq('revoked', false),
-        supabase.from('activity_logs').select('id, action, entity_type, details, created_at, user:profiles(full_name, email, role)').order('created_at', { ascending: false }).limit(10),
+        supabase.from('activity_logs').select('id, user_id, action, entity_type, details, created_at, user:profiles(full_name, email, role)').order('created_at', { ascending: false }).limit(10),
         supabase.from('payments').select('amount, created_at').eq('status', 'completed').gte('created_at', thirtyDaysAgo.toISOString()),
       ]);
 
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
         publishedCourses,
       });
 
-      if (logsRes.data) setLogs(logsRes.data as ActivityLog[]);
+      if (logsRes.data) setLogs(logsRes.data.map(log => ({ ...log, user: Array.isArray(log.user) ? log.user[0] : log.user })) as ActivityLog[]);
 
       const dailyRevenue: Record<string, number> = {};
       for (let i = 29; i >= 0; i--) {
@@ -235,7 +235,7 @@ export default function AdminDashboard() {
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${actionColors[action] || 'bg-gray-100 text-gray-600 dark:bg-navy-700 dark:text-gray-400'}`}>
                         {log.action}
                       </span>
-                      <span className="text-xs text-gray-400 hidden sm:block">{(log as Record<string, unknown>).entity_type as string}</span>
+                      <span className="text-xs text-gray-400 hidden sm:block">{log.entity_type}</span>
                     </div>
                   </div>
                 );

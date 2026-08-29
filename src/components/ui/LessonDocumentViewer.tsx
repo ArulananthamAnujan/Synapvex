@@ -6,6 +6,7 @@ import {
   Bookmark, Clock, Brain,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { sanitizeHtml } from '../../lib/sanitize';
 
 interface LessonDocument {
   id: string;
@@ -44,7 +45,7 @@ interface TextBlock {
 function parseHtmlToBlocks(html: string): TextBlock[] {
   const blocks: TextBlock[] = [];
   const div = document.createElement('div');
-  div.innerHTML = html;
+  div.innerHTML = sanitizeHtml(html);
   function processNode(node: Element) {
     const tag = node.tagName?.toLowerCase();
     const text = node.textContent?.trim() || '';
@@ -213,9 +214,9 @@ async function generatePptx(title: string, slides: ParsedSlide[]) {
 function parseSlidesFromHtml(html: string): ParsedSlide[] {
   if (!html?.trim()) return [{ heading: 'No slides available', bodyHtml: '<p>Try regenerating notes &amp; slides.</p>', speakerNotes: '', slideType: 'content' }];
   const div = document.createElement('div');
-  div.innerHTML = html;
+  div.innerHTML = sanitizeHtml(html);
   const slideEls = div.querySelectorAll('.slide');
-  if (slideEls.length === 0) return [{ heading: '', bodyHtml: html, speakerNotes: '', slideType: 'content' }];
+  if (slideEls.length === 0) return [{ heading: '', bodyHtml: sanitizeHtml(html), speakerNotes: '', slideType: 'content' }];
   return Array.from(slideEls).map((el, idx) => {
     const notesEl = el.querySelector('.speaker-notes');
     const notes = notesEl?.textContent?.trim().replace(/^Speaker notes:?/i, '').trim() || '';
@@ -260,7 +261,7 @@ function SlideDisplay({ slide, index, total, fullscreen }: { slide: ParsedSlide;
               </h1>
               {slide.bodyHtml && (
                 <div className={`text-blue-200/80 leading-relaxed ${fullscreen ? 'text-xl' : 'text-sm'} notes-body-dark`}
-                  dangerouslySetInnerHTML={{ __html: slide.bodyHtml }} />
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(slide.bodyHtml) }} />
               )}
             </div>
           ) : (
@@ -269,7 +270,7 @@ function SlideDisplay({ slide, index, total, fullscreen }: { slide: ParsedSlide;
                 {slide.heading}
               </h2>
               <div className={`leading-relaxed ${fullscreen ? 'text-lg' : 'text-sm'} ${isSummary ? 'notes-body-dark' : 'notes-body-light'}`}
-                dangerouslySetInnerHTML={{ __html: slide.bodyHtml }} />
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(slide.bodyHtml) }} />
             </>
           )}
         </div>
@@ -390,7 +391,7 @@ function SlidesViewer({ doc }: { doc: LessonDocument }) {
                       {s.heading || `Slide ${idx + 1}`}
                     </p>
                     <div className={`text-xs leading-snug line-clamp-3 opacity-60 ${s.slideType !== 'content' ? 'text-slate-300' : 'text-slate-500'}`}
-                      dangerouslySetInnerHTML={{ __html: s.bodyHtml.replace(/<[^>]+>/g, ' ').slice(0, 120) }} />
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(s.bodyHtml.replace(/<[^>]+>/g, ' ').slice(0, 120)) }} />
                   </div>
                   <div className={`absolute top-2 right-2 text-xs font-mono opacity-40 ${s.slideType !== 'content' ? 'text-slate-400' : 'text-slate-400'}`}>{idx + 1}</div>
                   {idx === slide && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500" />}
@@ -499,7 +500,7 @@ function NotesViewer({ doc }: { doc: LessonDocument }) {
         <div className={`${showNotepad ? 'lg:col-span-3' : ''}`}>
           {hasContent ? (
             <div className="notes-rich-content p-6 lg:p-8">
-              <div dangerouslySetInnerHTML={{ __html: doc.content_html }} />
+              <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(doc.content_html) }} />
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 px-8 text-center">

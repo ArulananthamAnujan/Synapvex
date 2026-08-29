@@ -52,6 +52,7 @@ interface CourseBuilderProps {
 }
 
 interface QuizWithQuestions extends Quiz {
+  is_published?: boolean;
   questions?: QuizQuestion[];
 }
 
@@ -825,9 +826,9 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
 
           if (notesResult.status === 'fulfilled' && notesResult.value?.lessons?.length) {
             for (const lessonNote of notesResult.value.lessons) {
-              const matchedLesson = sectionLessons.find(l =>
+              const matchedLesson = lessons.find(l =>
                 l.title.toLowerCase().trim() === lessonNote.lesson_title?.toLowerCase().trim()
-              ) || sectionLessons[notesResult.value.lessons.indexOf(lessonNote)];
+              ) || lessons[notesResult.value.lessons.indexOf(lessonNote)];
               if (matchedLesson && lessonNote.notes_html) {
                 lessonUpdates.push({ id: matchedLesson.id, content: lessonNote.notes_html });
                 docRows.push({ lesson_id: matchedLesson.id, course_id: courseId, type: 'notes', title: `${matchedLesson.title} — Notes`, content_html: lessonNote.notes_html, order_index: 0 });
@@ -845,7 +846,7 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
           if (!mountedRef.current) return;
 
           if (docRows.length > 0) {
-            Promise.allSettled(lessonUpdates.map(u => supabase.from('lessons').update({ content: u.content }).eq('id', u.id))).catch(() => {});
+            void Promise.allSettled(lessonUpdates.map(u => supabase.from('lessons').update({ content: u.content }).eq('id', u.id)));
             await supabase.from('lesson_documents').insert(docRows);
           } else {
             errors++;
@@ -935,7 +936,7 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
             content_html: html,
             order_index: 0,
           });
-          supabase.from('lessons').update({ content: html }).eq('id', lesson.id).then(() => {}).catch(() => {});
+          void Promise.resolve(supabase.from('lessons').update({ content: html }).eq('id', lesson.id)).catch(() => {});
           notesGenerated++;
         }
       }
@@ -1968,7 +1969,7 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
                     section={section}
                     sIdx={sIdx}
                     expanded={expandedSections.has(section.id)}
-                    onToggle={() => setExpandedSections(prev => { const n = new Set(prev); n.has(section.id) ? n.delete(section.id) : n.add(section.id); return n; })}
+                    onToggle={() => setExpandedSections(prev => { const n = new Set(prev); if (n.has(section.id)) n.delete(section.id); else n.add(section.id); return n; })}
                     onRename={() => { setEditingSectionId(section.id); setEditingSectionTitle(section.title); }}
                     onDelete={() => setDeleteTarget({ type: 'section', id: section.id, name: section.title })}
                     onAddLesson={() => { setAddingLessonTo(section.id); setLessonForm({ title: '', type: 'video', content: '', url: '', duration_minutes: 10, is_preview: false, is_required: true }); }}
@@ -2026,7 +2027,7 @@ export default function CourseBuilder({ navItems, role }: CourseBuilderProps) {
                                   <Eye className="w-3.5 h-3.5" />
                                 </button>
                               )}
-                              {(lesson.type === 'article' || lesson.type === 'text') && lesson.content && (
+                              {lesson.type === 'article' && lesson.content && (
                                 <button
                                   onClick={async () => {
                                     const { summarizeLesson } = await import('../../lib/ai');

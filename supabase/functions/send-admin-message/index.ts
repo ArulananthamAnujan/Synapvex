@@ -154,7 +154,7 @@ Deno.serve(async (req: Request) => {
 
       // The recovery link sends Supabase's default email template.
       // Additionally, we attempt to send our custom HTML email via the Supabase email API
-      const _resetLink = linkData?.properties?.action_link || siteUrl;
+      void (linkData?.properties?.action_link || siteUrl);
 
       const htmlBody = buildNotificationEmail({
         to_name: recipient.full_name || recipient.email,

@@ -152,7 +152,7 @@ export default function Teach() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />
-              <span className="text-sky-300 text-sm font-semibold">Synapvex Learn — For Clients</span>
+              <span className="text-sky-300 text-sm font-semibold">SynapVex Learn — For Educators</span>
             </div>
             <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-5">
               Teach the World.<br />

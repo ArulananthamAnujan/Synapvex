@@ -44,7 +44,8 @@ export default function AdminActivityLog() {
     if (!search) return true;
     const user = log.user as { full_name?: string; email?: string } | undefined;
     const q = search.toLowerCase();
-    return log.action.toLowerCase().includes(q) || log.details.toLowerCase().includes(q) || user?.full_name?.toLowerCase().includes(q);
+    const details = typeof log.details === 'string' ? log.details : JSON.stringify(log.details);
+    return log.action.toLowerCase().includes(q) || details.toLowerCase().includes(q) || user?.full_name?.toLowerCase().includes(q);
   });
 
   return (
@@ -89,7 +90,7 @@ export default function AdminActivityLog() {
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${actionColor}`}>{log.action.replace(/_/g, ' ')}</span>
                         <span className="text-xs text-gray-400 capitalize">{user?.role}</span>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{log.details}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{typeof log.details === 'string' ? log.details : JSON.stringify(log.details)}</p>
                       <p className="text-xs text-gray-400 mt-1">{new Date(log.created_at).toLocaleString('en-AU')}</p>
                     </div>
                     <span className="text-xs text-gray-400 shrink-0 hidden sm:block">{log.resource_type}</span>

@@ -113,7 +113,7 @@ export default function TeacherDashboard() {
             .in('assignments.course_id', courseIds),
         ]).then(([assignRes, subRes, pendRes]) => {
           if (assignRes.data) setAssignments(assignRes.data as Assignment[]);
-          if (subRes.data) setRecentSubmissions(subRes.data as RecentSubmission[]);
+          if (subRes.data) setRecentSubmissions(subRes.data.map(row => ({ ...row, assignment: Array.isArray(row.assignment) ? row.assignment[0] : row.assignment, student: Array.isArray(row.student) ? row.student[0] : row.student })) as RecentSubmission[]);
           setPendingGrades(pendRes.count || 0);
           setLoadingActivity(false);
         });
@@ -132,7 +132,7 @@ export default function TeacherDashboard() {
   return (
     <DashboardLayout
       navItems={teacherNavItems}
-      title="Client Dashboard"
+      title="Teacher Dashboard"
       subtitle={`Welcome back, ${profile?.full_name?.split(' ')[0] || 'there'}!`}
     >
       <div className="space-y-6">

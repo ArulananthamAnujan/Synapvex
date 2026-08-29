@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
+import SeoManager from './components/seo/SeoManager';
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; message: string }> {
   constructor(props: { children: ReactNode }) {
@@ -221,6 +222,7 @@ export default function App() {
         <AuthProvider>
           <ToastProvider>
             <Toaster position="top-right" richColors closeButton />
+            <SeoManager />
             <ErrorBoundary>
             <Suspense fallback={<LoadingScreen />}>
               <Routes>

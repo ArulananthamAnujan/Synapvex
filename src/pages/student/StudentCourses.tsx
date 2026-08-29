@@ -13,6 +13,7 @@ import type { Course } from '../../types';
 const LEVELS = ['All', 'beginner', 'intermediate', 'advanced'];
 
 interface CourseWithEnrollment extends Course {
+  org_id?: string | null;
   enrolled?: boolean;
   progress?: number;
   paymentStatus?: string;
@@ -113,12 +114,13 @@ export default function StudentCourses() {
         const ne = newMap.get(c.id) ?? legacyMap.get(c.id);
         return {
           ...c,
+          teacher: Array.isArray(c.teacher) ? c.teacher[0] : c.teacher,
           enrolled: !!ne,
           progress: ne?.progress ?? 0,
           paymentStatus: ne?.paymentStatus,
         };
       });
-      setCourses(enriched as CourseWithEnrollment[]);
+      setCourses(enriched as unknown as CourseWithEnrollment[]);
       setLoading(false);
     };
     fetchData();

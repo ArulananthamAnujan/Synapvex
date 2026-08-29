@@ -10,6 +10,7 @@ import {
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { studentNavItems } from './studentNav';
 import { supabase } from '../../lib/supabase';
+import { sanitizeHtml } from '../../lib/sanitize';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import { useHasCourseAccess } from '../../hooks/useAccess';
@@ -372,7 +373,9 @@ export default function StudentCoursePlayer() {
     if (!bypassGate && hasAccess) {
       const targetSectionIndex = sections.findIndex(s => s.lessons.some(l => l.id === lesson.id));
       if (targetSectionIndex > 0 && isSectionLocked(targetSectionIndex)) {
-        const blockingSection = sections.slice(0, targetSectionIndex).findLast(s => !isSectionQuizPassed(s.id));
+        const blockingSection = [...sections.slice(0, targetSectionIndex)]
+          .reverse()
+          .find(section => !isSectionQuizPassed(section.id));
         if (blockingSection) {
           sonnerToast.error(`Complete the "${blockingSection.title}" quiz first to unlock this section`);
         }
@@ -788,7 +791,7 @@ export default function StudentCoursePlayer() {
                     )}
 
                     {/* Text / Article content — rich reading experience */}
-                    {(activeLesson.type === 'article' || activeLesson.type === 'text') && (
+                    {activeLesson.type === 'article' && (
                       <div className="bg-white dark:bg-navy-800 rounded-2xl border border-gray-100 dark:border-navy-700 shadow-sm overflow-hidden">
                         {activeLesson.content ? (
                           <>
@@ -807,7 +810,7 @@ export default function StudentCoursePlayer() {
                             </div>
                             {/* Content */}
                             <div className="lesson-text-content px-8 py-8"
-                              dangerouslySetInnerHTML={{ __html: activeLesson.content }} />
+                              dangerouslySetInnerHTML={{ __html: sanitizeHtml(activeLesson.content) }} />
                           </>
                         ) : (
                           <div className="flex flex-col items-center py-16 px-8 text-center">

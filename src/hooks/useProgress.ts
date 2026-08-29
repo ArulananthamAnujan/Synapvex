@@ -112,7 +112,10 @@ export function useMyEnrollments() {
         .select('id,user_id,course_id,enrollment_type,payment_status,payment_id,amount_paid,currency,enrolled_at,completed_at,progress_percent,last_accessed_at,course:courses(id,title,thumbnail_url,total_lessons,category,is_free,price)')
         .eq('user_id', user.id)
         .order('last_accessed_at', { ascending: false });
-      return (data as CourseEnrollmentRow[]) ?? [];
+      return ((data ?? []).map((row) => ({
+        ...row,
+        course: Array.isArray(row.course) ? row.course[0] : row.course,
+      })) as unknown as CourseEnrollmentRow[]);
     },
   });
 }

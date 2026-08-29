@@ -78,13 +78,13 @@ export default function Contact() {
 
     setLoading(true);
     try {
-      const { error } = await supabase.from('contact_messages').insert({
+      const { error } = await supabase.functions.invoke('contact-submit', { body: {
         name: form.name.trim().slice(0, 200),
         email: form.email.trim().slice(0, 200),
         subject: form.subject.slice(0, 200),
         message: form.message.trim().slice(0, 5000),
-        status: 'open',
-      });
+        website: '',
+      } });
       if (error) throw error;
       setLastSubmit(Date.now());
       setSent(true);

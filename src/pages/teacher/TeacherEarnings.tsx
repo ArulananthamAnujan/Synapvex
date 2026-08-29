@@ -95,7 +95,7 @@ export default function TeacherEarnings() {
       ]);
 
       if (summaryRes.data) setSummary(summaryRes.data as EarningsSummary);
-      if (earningsRes.data) setEarnings(earningsRes.data as EarningsRow[]);
+      if (earningsRes.data) setEarnings(earningsRes.data.map(row => ({ ...row, course: Array.isArray(row.course) ? row.course[0] : row.course })) as EarningsRow[]);
       if (payoutsRes.data) setPayouts(payoutsRes.data as PayoutRow[]);
       if (plansRes.data) setAiPlans(plansRes.data.map(p => ({ ...p, features: Array.isArray(p.features) ? p.features : JSON.parse(p.features as unknown as string) })));
       if (creditsRes.data) setAiCredits(creditsRes.data);

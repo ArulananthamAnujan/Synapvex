@@ -189,7 +189,7 @@ Deno.serve(async (req: Request) => {
 
     // ── POST: create user + optional enrolment + welcome email ───────────────
     const body = await req.json();
-    const { email, password, full_name, role, course_ids, temp_password } = body;
+    const { email, password, full_name, role, course_ids } = body;
 
     if (!email || !password || !full_name || !role) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
@@ -259,7 +259,7 @@ Deno.serve(async (req: Request) => {
           email,
         });
         resetLink = linkData?.properties?.action_link || "";
-      } catch (_) { /* non-fatal */ }
+      } catch { /* non-fatal */ }
 
       const { subject, html } = buildWelcomeEmail({
         full_name,

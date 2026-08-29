@@ -575,7 +575,7 @@ export default function TeachRegister() {
           </Link>
           <h2 className="font-playfair text-3xl font-bold text-white mb-4">
             You're signing up as a<br />
-            <span className="text-sky-400">{selectedPlan?.name} Client</span>
+            <span className="text-sky-400">{selectedPlan?.name} Teacher</span>
           </h2>
           <p className="text-slate-400 mb-8 leading-relaxed">
             Create courses, share your link, and build your course business on Synapvex Learn.
@@ -629,7 +629,7 @@ export default function TeachRegister() {
           <div className="w-full max-w-md">
             <div className="mb-6">
               <p className="text-sky-600 text-sm font-semibold uppercase tracking-wider mb-1">Step 2 of 2</p>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Client Account</h1>
+              <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Your Teacher Account</h1>
               <p className="text-gray-500 text-sm">Start free with AI credits to explore — or subscribe now to unlock full limits.</p>
             </div>
 

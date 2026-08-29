@@ -17,7 +17,7 @@ export default function StudentProfile() {
   const [notifDeadlines, setNotifDeadlines] = useState(profile?.notification_deadlines ?? true);
   const [notifGrades, setNotifGrades] = useState(profile?.notification_grades ?? true);
 
-  const [currentPw, setCurrentPw] = useState('');
+  const [, setCurrentPw] = useState('');
   const [newPw, setNewPw] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
   const [showPw, setShowPw] = useState(false);

@@ -159,7 +159,7 @@ export default function AdminUsers() {
         <div className="grid grid-cols-3 gap-4">
           {[
             { label: 'Admins',   count: totals.admin,   icon: Shield,       color: 'text-red-600 bg-red-50 dark:bg-red-900/20' },
-            { label: 'Clients', count: totals.teacher, icon: BookOpen,     color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' },
+            { label: 'Teachers', count: totals.teacher, icon: BookOpen,     color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' },
             { label: 'Students', count: totals.student, icon: GraduationCap, color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20' },
           ].map(s => (
             <div key={s.label} className={`card p-4 flex items-center gap-3 ${s.color}`}>
@@ -183,7 +183,7 @@ export default function AdminUsers() {
               <option value="all">All Roles</option>
               <option value="admin">Admin</option>
               <option value="co_admin">Co-Admin</option>
-              <option value="teacher">Client</option>
+              <option value="teacher">Teacher</option>
               <option value="student">Student</option>
             </select>
             <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="input-field py-2 text-sm w-32">
@@ -304,7 +304,7 @@ export default function AdminUsers() {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Role</label>
                 <select value={editRole} onChange={e => setEditRole(e.target.value)} className="input-field">
                   <option value="student">Student</option>
-                  <option value="teacher">Client</option>
+                  <option value="teacher">Teacher</option>
                   <option value="co_admin">Co-Admin</option>
                   <option value="admin">Admin</option>
                 </select>
@@ -356,7 +356,7 @@ export default function AdminUsers() {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Role</label>
                   <select value={newUser.role} onChange={e => setNewUser(u => ({ ...u, role: e.target.value }))} className="input-field">
                     <option value="student">Student</option>
-                    <option value="teacher">Client</option>
+                    <option value="teacher">Teacher</option>
                     <option value="co_admin">Co-Admin</option>
                     <option value="admin">Admin</option>
                   </select>

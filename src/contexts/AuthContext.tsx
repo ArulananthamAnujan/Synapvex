@@ -20,7 +20,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null, profile: null, session: null, orgMembership: null, loading: true,
   signIn: async () => ({ error: null }),
-  signUp: async (_e, _p, _f, _r) => ({ error: null, data: null }),
+  signUp: async () => ({ error: null, data: null }),
   signOut: async () => {},
   signInWithGoogle: async () => ({ error: null }),
   signInWithMicrosoft: async () => ({ error: null }),

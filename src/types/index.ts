@@ -62,6 +62,7 @@ export interface Lesson {
   type: 'video' | 'pdf' | 'article' | 'link';
   content: string;
   url: string;
+  video_url?: string;
   duration_minutes: number;
   order_index: number;
   is_required: boolean;
@@ -249,6 +250,7 @@ export interface ActivityLog {
   user_id: string;
   action: string;
   entity_type?: string;
+  resource_type?: string;
   entity_id?: string;
   details: string | Record<string, unknown>;
   created_at: string;
@@ -265,6 +267,7 @@ export interface Discussion {
   is_pinned: boolean;
   created_at: string;
   author?: Profile;
+  course?: Pick<Course, 'title'>;
 }
 
 export interface LiveSession {

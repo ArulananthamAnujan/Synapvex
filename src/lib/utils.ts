@@ -15,11 +15,10 @@ export function safeInternalPath(raw: string | null | undefined): string | null 
   return raw;
 }
 
-/** Human-facing label for a role value. The course-creator role is stored
- *  as 'teacher' internally but shown to users as 'Client'. */
+/** Human-facing label for a role value. */
 export function roleLabel(role?: string | null): string {
   switch (role) {
-    case 'teacher': return 'Client';
+    case 'teacher': return 'Teacher';
     case 'org_admin': return 'Organisation';
     case 'co_admin': return 'Co-admin';
     case 'admin': return 'Admin';
@@ -28,8 +27,7 @@ export function roleLabel(role?: string | null): string {
   }
 }
 
-/** Display AI credits with the branded "M" suffix (e.g. 200 -> "200M").
- *  Purely cosmetic — the underlying values are unchanged. */
+/** Display AI credits as an unambiguous quantity. */
 export function formatCredits(n: number | null | undefined): string {
-  return `${(n ?? 0).toLocaleString()}M`;
+  return (n ?? 0).toLocaleString();
 }
