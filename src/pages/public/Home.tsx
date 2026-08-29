@@ -6,6 +6,7 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
+import ProductMotionVisual from '../../components/ui/ProductMotionVisual';
 import { PRODUCTS } from '../../lib/products';
 
 const CAPABILITIES = [
@@ -64,7 +65,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl">
+            <div className="luxury-surface relative overflow-hidden rounded-[26px] border border-white bg-white/92 backdrop-blur-xl lg:rotate-[1deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0 lg:hover:scale-[1.015]">
               <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
               <div className="relative flex items-center gap-2 border-b border-slate-200/80 bg-slate-50/90 px-5 py-3">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-300" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
@@ -81,7 +82,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="relative p-6">
+                <div className="pointer-events-none absolute -right-8 -top-14 h-36 w-44 opacity-45 mix-blend-multiply">
+                  <ProductMotionVisual variant="network" compact />
+                </div>
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
@@ -157,7 +161,11 @@ export default function Home() {
               {PRODUCTS.map((product, index) => {
                 const live = product.status === 'live';
                 const content = (
-                  <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_22px_60px_-40px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-300 hover:shadow-[0_30px_70px_-35px_rgba(2,132,199,0.4)]">
+                    <div className="m-3 mb-0 overflow-hidden rounded-xl transition-transform duration-500 group-hover:scale-[1.02]">
+                      <ProductMotionVisual variant={product.key === 'learn' ? 'learn' : product.key === 'pte' ? 'pte' : 'crm'} compact />
+                    </div>
+                    <div className="flex flex-1 flex-col p-7 pt-6">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#123a59] to-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]">
                         <product.icon className="h-6 w-6 text-white" />
@@ -170,6 +178,7 @@ export default function Home() {
                     <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{product.description}</p>
                     <div className="mt-6 flex items-center gap-2 text-sm font-bold text-sky-700">
                       {live ? 'View platform' : 'Product roadmap'} {live && <ArrowRight className="h-4 w-4" />}
+                    </div>
                     </div>
                   </article>
                 );
@@ -218,13 +227,16 @@ export default function Home() {
 
         <section className="border-y border-slate-200 bg-slate-50 py-28 sm:py-40">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-20 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-16 lg:grid-cols-[0.68fr_1.32fr] lg:items-center">
               <Reveal>
                 <p className="corporate-eyebrow">How we deliver</p>
                 <h2 className="corporate-heading mt-3">Structured delivery. Clear decisions.</h2>
                 <p className="mt-5 text-base leading-7 text-slate-600">
                   A straightforward engagement model keeps teams aligned from the first conversation through launch and continuous improvement.
                 </p>
+                <div className="mt-9 overflow-hidden rounded-2xl shadow-[0_25px_65px_-35px_rgba(3,105,161,.7)]">
+                  <ProductMotionVisual variant="network" />
+                </div>
               </Reveal>
 
               <div className="divide-y divide-slate-200 border-y border-slate-200">
