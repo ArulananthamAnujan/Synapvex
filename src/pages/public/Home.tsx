@@ -39,40 +39,40 @@ export default function Home() {
       <PublicHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-[#020617] pt-36 pb-24 sm:pt-40 sm:pb-28 lg:pt-48 lg:pb-32">
-          <div className="absolute inset-0 corporate-grid opacity-40" aria-hidden="true" />
-          <div className="absolute -left-40 top-12 h-[34rem] w-[34rem] rounded-full bg-blue-600/20 blur-[110px]" aria-hidden="true" />
-          <div className="absolute -right-32 top-20 h-[38rem] w-[38rem] rounded-full bg-cyan-500/15 blur-[120px]" aria-hidden="true" />
-          <div className="absolute bottom-[-18rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-indigo-600/20 blur-[130px]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#fcfdff] via-[#eef8fc] to-[#f8fafc] pt-36 pb-28 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
+          <div className="absolute -left-36 top-0 h-[34rem] w-[34rem] rounded-full bg-amber-400/25 blur-[105px]" aria-hidden="true" />
+          <div className="absolute -right-28 top-0 h-[40rem] w-[40rem] rounded-full bg-sky-400/30 blur-[115px]" aria-hidden="true" />
+          <div className="absolute bottom-[-20rem] left-[40%] h-[36rem] w-[36rem] rounded-full bg-emerald-300/10 blur-[120px]" aria-hidden="true" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
             <div className="max-w-3xl">
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-200 shadow-inner shadow-white/5">
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-sky-800 shadow-[0_8px_24px_-14px_rgba(32,92,133,0.35)] backdrop-blur-sm">
                 Technology products and delivery services
               </div>
-              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-8xl">
-                Technology, <span className="bg-gradient-to-r from-sky-300 to-blue-400 bg-clip-text text-transparent">engineered forward.</span>
+              <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-[#102d48] sm:text-6xl lg:text-8xl">
+                Technology, <span className="bg-gradient-to-r from-sky-800 via-sky-600 to-amber-500 bg-clip-text text-transparent">engineered forward.</span>
               </h1>
-              <p className="mt-10 max-w-xl text-lg leading-8 text-slate-300">
+              <p className="mt-10 max-w-xl text-lg leading-8 text-slate-600">
                 SynapVex builds digital products and delivers the software, cloud, security and support capabilities organisations need to modernise with confidence.
               </p>
               <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200/30 bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-400 px-7 py-4 text-sm font-bold text-white shadow-xl shadow-sky-950/40 transition-all hover:-translate-y-0.5 hover:shadow-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-slate-950">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-800 to-sky-500 px-7 py-4 text-sm font-bold text-white shadow-[0_16px_34px_-14px_rgba(18,91,137,0.6)] transition-all hover:-translate-y-1 hover:shadow-sky-500/30 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2">
                   Discuss your project <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-bold text-white backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-sky-300/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-slate-300">
+                <Link to="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200 bg-white/80 px-7 py-4 text-sm font-bold text-sky-900 shadow-[0_12px_30px_-20px_rgba(24,72,112,0.45)] backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300">
                   Explore our platforms
                 </Link>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/[0.07] shadow-2xl shadow-black/40 backdrop-blur-xl">
-              <div className="flex items-center justify-between border-b border-slate-700 px-6 py-5">
+            <div className="relative overflow-hidden rounded-[26px] border border-white/90 bg-white/90 shadow-[0_30px_80px_rgba(26,78,115,0.16)] backdrop-blur-xl">
+              <div className="absolute right-[-5rem] top-[-5rem] h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
+              <div className="flex items-center justify-between border-b border-sky-100 px-6 py-5">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-300">SynapVex portfolio</p>
-                  <p className="mt-1 text-sm text-slate-400">Products and delivery capabilities</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-700">SynapVex portfolio</p>
+                  <p className="mt-1 text-sm text-slate-500">Products and delivery capabilities</p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300">
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   {liveProducts.length} live platforms
                 </div>
@@ -82,24 +82,24 @@ export default function Home() {
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
                 <div className="space-y-2">
                   {PRODUCTS.map(product => (
-                    <div key={product.key} className="flex items-center gap-4 rounded-xl border border-white/10 bg-slate-950/45 px-4 py-3.5 transition-all hover:border-sky-400/30 hover:bg-white/10">
+                    <div key={product.key} className="flex items-center gap-4 rounded-2xl border border-sky-100 bg-gradient-to-r from-white to-sky-50/60 px-4 py-4 shadow-[0_10px_28px_-22px_rgba(26,78,115,0.45)] transition-all hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-[0_18px_34px_-22px_rgba(245,158,54,0.45)]">
                       <div className={`flex h-10 w-10 shrink-0 items-center justify-center bg-gradient-to-br ${product.gradient}`}>
                         <product.icon className="h-5 w-5 text-white" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-white">{product.name}</p>
-                        <p className="truncate text-xs text-slate-400">{product.tagline}</p>
+                        <p className="truncate text-sm font-bold text-[#102d48]">{product.name}</p>
+                        <p className="truncate text-xs text-slate-500">{product.tagline}</p>
                       </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-300' : 'text-slate-500'}`}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider ${product.status === 'live' ? 'text-emerald-700' : 'text-slate-500'}`}>
                         {product.status === 'live' ? 'Live' : 'In development'}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-6 grid grid-cols-2 gap-px border border-slate-700 bg-slate-700">
+                <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-sky-100 bg-sky-100">
                   {['Software engineering', 'Cloud & infrastructure', 'Cybersecurity', 'Managed support'].map(item => (
-                    <div key={item} className="bg-slate-900 px-3 py-3 text-xs font-medium text-slate-300">{item}</div>
+                    <div key={item} className="bg-white/90 px-3 py-3 text-xs font-semibold text-slate-600">{item}</div>
                   ))}
                 </div>
               </div>
