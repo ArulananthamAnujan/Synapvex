@@ -83,7 +83,7 @@ export default function Home() {
               </div>
 
               <div className="relative p-6">
-                <div className="pointer-events-none absolute -right-8 -top-14 h-36 w-44 opacity-45 mix-blend-multiply">
+                <div className="pointer-events-none absolute -right-20 -top-20 h-36 w-44 opacity-20 mix-blend-multiply">
                   <ProductMotionVisual variant="network" compact />
                 </div>
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Product platforms</p>
