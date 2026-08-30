@@ -132,6 +132,128 @@
   }
 }
 
+/* Final luxury composition: stronger colour rhythm below the hero. */
+.compact-capability-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(125, 211, 252, 0.58);
+  background:
+    linear-gradient(112deg, rgba(255,255,255,0.94), rgba(236,248,252,0.84) 58%, rgba(255,248,229,0.78));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 34px 70px -48px rgba(3, 62, 96, 0.58);
+}
+
+.compact-capability-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/images/company/digital-ecosystem.webp") right center / 48% auto no-repeat;
+  opacity: 0.055;
+  filter: saturate(0.85);
+}
+
+.compact-lower-panel,
+.compact-cta {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.compact-delivery-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(125, 211, 252, 0.22);
+  color: white;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(14,165,233,0.2), transparent 35%),
+    linear-gradient(145deg, #020817, #073451 72%, #075f7c);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 35px 70px -46px rgba(2, 45, 72, 0.85);
+}
+
+.compact-delivery-panel::after {
+  content: "";
+  position: absolute;
+  width: 15rem;
+  height: 15rem;
+  right: -5rem;
+  top: -7rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 999px;
+  box-shadow: 0 0 0 2.5rem rgba(125,211,252,0.035), 0 0 0 5rem rgba(255,255,255,0.025);
+  animation: luxury-orbit-breathe 7s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.compact-delivery-panel .compact-eyebrow { color: #7dd3fc; }
+.compact-delivery-panel .compact-section-title,
+.compact-delivery-panel .compact-step h3 { color: #fff; }
+.compact-delivery-panel .compact-step p { color: #cbd5e1; }
+.compact-delivery-panel .compact-step {
+  border-color: rgba(255,255,255,0.12);
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.045));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+}
+.compact-delivery-panel .compact-step > span {
+  color: #082f49;
+  background: linear-gradient(145deg, #fde68a, #7dd3fc);
+  box-shadow: 0 8px 20px -10px rgba(125,211,252,0.9);
+}
+
+.compact-why-panel {
+  border-color: rgba(245, 190, 70, 0.42);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(245,158,11,0.19), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,0.96), rgba(255,249,232,0.9));
+  box-shadow: inset 0 1px 0 #fff, 0 35px 70px -50px rgba(135, 86, 8, 0.48);
+}
+
+.compact-why-panel .compact-proof {
+  border-color: rgba(255,255,255,0.96);
+  background: rgba(255,255,255,0.72);
+  box-shadow: inset 0 1px 0 #fff, 0 12px 28px -25px rgba(120,76,8,0.55);
+}
+
+.compact-cta {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(125,211,252,0.2);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(14,165,233,0.3), transparent 34%),
+    linear-gradient(122deg, #010617, #052a43 66%, #086d8c);
+}
+
+.compact-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.13) 49%, transparent 63%);
+  background-size: 220% 100%;
+  animation: company-glass-sweep 7s ease-in-out infinite;
+}
+.compact-cta > * { position: relative; z-index: 1; }
+
+.public-glass-page main > section,
+.public-glass-page > section {
+  border-bottom: 1px solid rgba(186,230,253,0.36);
+}
+
+@keyframes luxury-orbit-breathe {
+  from { transform: scale(0.92) rotate(-5deg); opacity: 0.55; }
+  to { transform: scale(1.08) rotate(8deg); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compact-delivery-panel::after,
+  .compact-cta::after { animation: none; }
+}
+
 @layer components {
   .btn-primary {
     @apply relative isolate overflow-hidden border border-white/25 text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
@@ -1223,4 +1345,50 @@
   .compact-product-card p { font-size:1rem !important; }
   .compact-capability-card h3,.compact-step h3,.compact-proof h3 { font-size:1.1rem; }
   .compact-capability-card p,.compact-step p,.compact-proof p { font-size:.96rem; }
+}
+
+/* Cascade lock for the final public-home art direction. */
+.compact-home .compact-capability-band {
+  position:relative; isolation:isolate; overflow:hidden;
+  border-color:rgba(125,211,252,.58);
+  background:linear-gradient(112deg,rgba(255,255,255,.94),rgba(236,248,252,.84) 58%,rgba(255,248,229,.78));
+  box-shadow:inset 0 1px 0 #fff,0 34px 70px -48px rgba(3,62,96,.58);
+}
+.compact-home .compact-capability-band::before {
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:url("/images/company/digital-ecosystem.webp") right center/48% auto no-repeat;
+  opacity:.055; filter:saturate(.85);
+}
+.compact-home .compact-lower-panel,
+.compact-home .compact-cta { opacity:1 !important; transform:none !important; }
+.compact-home .compact-delivery-panel {
+  position:relative; overflow:hidden; color:#fff; border-color:rgba(125,211,252,.22);
+  background:radial-gradient(circle at 92% 8%,rgba(14,165,233,.2),transparent 35%),linear-gradient(145deg,#020817,#073451 72%,#075f7c);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 35px 70px -46px rgba(2,45,72,.85);
+}
+.compact-home .compact-delivery-panel .compact-eyebrow { color:#7dd3fc; }
+.compact-home .compact-delivery-panel .compact-section-title,
+.compact-home .compact-delivery-panel .compact-step h3 { color:#fff; }
+.compact-home .compact-delivery-panel .compact-step p { color:#cbd5e1; }
+.compact-home .compact-delivery-panel .compact-step {
+  border-color:rgba(255,255,255,.12);
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.045));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter:blur(18px);
+}
+.compact-home .compact-delivery-panel .compact-step > span {
+  color:#082f49; background:linear-gradient(145deg,#fde68a,#7dd3fc);
+  box-shadow:0 8px 20px -10px rgba(125,211,252,.9);
+}
+.compact-home .compact-why-panel {
+  border-color:rgba(245,190,70,.42);
+  background:radial-gradient(circle at 92% 8%,rgba(245,158,11,.19),transparent 38%),linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,249,232,.9));
+  box-shadow:inset 0 1px 0 #fff,0 35px 70px -50px rgba(135,86,8,.48);
+}
+.compact-home .compact-why-panel .compact-proof {
+  border-color:rgba(255,255,255,.96); background:rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 #fff,0 12px 28px -25px rgba(120,76,8,.55);
+}
+.compact-home .compact-cta {
+  position:relative; overflow:hidden; border:1px solid rgba(125,211,252,.2);
+  background:radial-gradient(circle at 88% 12%,rgba(14,165,233,.3),transparent 34%),linear-gradient(122deg,#010617,#052a43 66%,#086d8c);
 }
