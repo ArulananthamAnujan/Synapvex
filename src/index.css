@@ -56,8 +56,34 @@
 .premium-page-hero > img[src*="/images/company/"],
 .compact-hero > img[src*="/images/company/"] {
   transform-origin: 72% 50%;
-  animation: company-visual-drift 14s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+  animation: company-visual-drift 10s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+  filter: saturate(1.14) contrast(1.06);
   will-change: transform;
+}
+
+.premium-page-hero > img[src*="/images/company/"] {
+  opacity: 0.28 !important;
+}
+
+.compact-hero > img[src*="/images/company/"] {
+  opacity: 0.2 !important;
+}
+
+.premium-page-hero::after,
+.compact-hero::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(112deg, transparent 28%, rgba(255,255,255,0.2) 45%, rgba(125,211,252,0.12) 51%, transparent 68%);
+  background-size: 220% 100%;
+  animation: company-glass-sweep 8s ease-in-out infinite;
+}
+
+.premium-page-hero > [class~="relative"],
+.compact-hero > [class~="relative"] {
+  z-index: 1;
 }
 
 .public-glass-page .luxury-surface,
@@ -68,13 +94,28 @@
 
 .public-glass-page .luxury-surface:hover,
 .compact-home .compact-product-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.012);
+  box-shadow: 0 22px 46px -28px rgba(3, 78, 121, 0.5);
+}
+
+.public-glass-page a:active,
+.public-glass-page button:active,
+.compact-home a:active,
+.compact-home button:active {
+  transform: translateY(1px) scale(0.985);
 }
 
 @keyframes company-visual-drift {
-  0% { transform: scale(1.015) translate3d(0, 0, 0); }
-  50% { transform: scale(1.045) translate3d(-0.7%, -0.4%, 0); }
-  100% { transform: scale(1.025) translate3d(0.5%, 0.45%, 0); }
+  0% { transform: scale(1.025) translate3d(1.2%, 0.8%, 0) rotate(0.15deg); }
+  50% { transform: scale(1.085) translate3d(-2.2%, -1.3%, 0) rotate(-0.35deg); }
+  100% { transform: scale(1.045) translate3d(1.3%, 1.1%, 0) rotate(0.25deg); }
+}
+
+@keyframes company-glass-sweep {
+  0%, 18% { background-position: 115% 0; opacity: 0; }
+  38% { opacity: 0.8; }
+  62% { opacity: 0.35; }
+  82%, 100% { background-position: -105% 0; opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,6 +123,12 @@
   .compact-hero > img[src*="/images/company/"] {
     animation: none;
     transform: none;
+  }
+
+  .premium-page-hero::after,
+  .compact-hero::after {
+    animation: none;
+    opacity: 0;
   }
 }
 
