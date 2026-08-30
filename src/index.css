@@ -38,6 +38,53 @@
   }
 }
 
+/* Consistent corporate typography and restrained cinematic movement. */
+.public-glass-page,
+.compact-home {
+  font-family: Inter, "General Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.public-glass-page h1,
+.public-glass-page h2,
+.compact-home h1,
+.compact-home h2 {
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.premium-page-hero > img[src*="/images/company/"],
+.compact-hero > img[src*="/images/company/"] {
+  transform-origin: 72% 50%;
+  animation: company-visual-drift 14s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+  will-change: transform;
+}
+
+.public-glass-page .luxury-surface,
+.compact-home .glass-touch,
+.compact-home .compact-product-card {
+  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease, background-color 280ms ease;
+}
+
+.public-glass-page .luxury-surface:hover,
+.compact-home .compact-product-card:hover {
+  transform: translateY(-3px);
+}
+
+@keyframes company-visual-drift {
+  0% { transform: scale(1.015) translate3d(0, 0, 0); }
+  50% { transform: scale(1.045) translate3d(-0.7%, -0.4%, 0); }
+  100% { transform: scale(1.025) translate3d(0.5%, 0.45%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-page-hero > img[src*="/images/company/"],
+  .compact-hero > img[src*="/images/company/"] {
+    animation: none;
+    transform: none;
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply relative isolate overflow-hidden border border-white/25 text-white font-bold px-5 py-2.5 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2;
