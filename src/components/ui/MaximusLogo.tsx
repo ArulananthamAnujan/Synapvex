@@ -41,7 +41,7 @@ export default function MaximusLogo({ height = 64, variant = 'dark', compact = f
   // The corporate site uses the original SynapVex network wordmark. Keep the
   // product-specific text treatment above for the Learn workspace only.
   if (brand === 'corporate' && !logo_url) {
-    return <img src={variant === 'light' ? LIGHT_LOGO : DARK_LOGO} alt="SynapVex — AI Consulting, Websites and Apps" style={style} className={variant === 'light' ? 'brightness-0 invert opacity-95' : undefined} />;
+    return <img src={variant === 'light' ? LIGHT_LOGO : DARK_LOGO} alt="SynapVex — AI Consulting, Websites and Apps" style={style} className={variant === 'light' ? 'brightness-0 invert opacity-90' : 'brightness-[0.91] saturate-[0.78] contrast-[1.04]'} />;
   }
 
   // Admin override wins — show exactly what they configured.

@@ -47,6 +47,7 @@ export default function OurMission() {
       {/* Hero */}
       <section className="premium-page-hero pt-40 pb-28 sm:pt-44 sm:pb-36">
         <div className="absolute inset-0 corporate-grid opacity-30" />
+        <img src="/images/company/mission-compass.webp" alt="A clear technology compass connecting strategy to outcomes" className="absolute inset-y-0 right-0 h-full w-[62%] object-cover opacity-[0.17] [mask-image:linear-gradient(to_left,black,transparent)]" />
         <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

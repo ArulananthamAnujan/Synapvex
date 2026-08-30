@@ -163,6 +163,7 @@ export default function About() {
         {/* Hero */}
         <section className="premium-page-hero py-28 sm:py-36">
           <div className="absolute inset-0 corporate-grid opacity-30" />
+          <img src="/images/company/mission-compass.webp" alt="Technology direction connecting to measurable outcomes" className="absolute inset-y-0 right-0 h-full w-[58%] object-cover object-center opacity-[0.16] [mask-image:linear-gradient(to_left,black,transparent)]" />
           <div className="absolute top-[-6rem] right-[-4rem] w-[30rem] h-[30rem] bg-sky-400/20 rounded-full blur-3xl animate-blob" />
           <div className="absolute bottom-[-8rem] left-[-4rem] w-[26rem] h-[26rem] bg-amber-300/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: '5s' }} />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

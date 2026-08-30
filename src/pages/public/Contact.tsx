@@ -103,6 +103,7 @@ export default function Contact() {
         {/* Hero */}
         <section className="premium-page-hero py-24 sm:py-32">
           <div className="absolute inset-0 corporate-grid opacity-25" />
+          <img src="/images/company/project-conversation.webp" alt="A connected project conversation becoming a clear delivery plan" className="absolute inset-y-0 right-0 h-full w-[60%] object-cover opacity-[0.17] [mask-image:linear-gradient(to_left,black,transparent)]" />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sky-800 font-bold text-xs uppercase tracking-[0.2em] mb-5">We're Here to Help</p>
             <h1 className="font-display text-5xl sm:text-7xl font-semibold text-[#102d48] tracking-[-0.045em] mb-7">Get in Touch</h1>

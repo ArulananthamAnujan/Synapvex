@@ -40,6 +40,7 @@ export default function Home() {
         <section className="compact-hero relative overflow-hidden pt-32 pb-8 sm:pt-40 sm:pb-14">
           <div className="compact-home-orb compact-home-orb-a" />
           <div className="compact-home-orb compact-home-orb-b" />
+          <img src="/images/company/digital-ecosystem.webp" alt="" aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 h-full w-[68%] object-cover object-center opacity-[0.11] mix-blend-multiply [mask-image:linear-gradient(to_left,black,transparent)]" />
           <div className="relative mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
             <div className="compact-kicker">Technology products and delivery services</div>
 
