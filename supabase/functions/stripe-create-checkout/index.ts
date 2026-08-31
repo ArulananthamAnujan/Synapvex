@@ -106,6 +106,13 @@ Deno.serve(async (req: Request) => {
         });
       }
 
+      if (billing_interval && billing_interval !== "quarterly") {
+        return new Response(JSON.stringify({ error: "SynapVex Learn plans use three-month billing" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
       const { data: plan } = await supabase
         .from("teacher_subscription_plans")
         .select("id, name, slug, price_monthly_cents, price_yearly_cents, price_quarterly_cents")
@@ -119,11 +126,16 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      const interval = billing_interval === "yearly" ? "yearly" : billing_interval === "monthly" ? "monthly" : "quarterly";
-      const unitAmount = interval === "yearly"
-        ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
-        : interval === "monthly" ? plan.price_monthly_cents : plan.price_quarterly_cents;
-      const periodLabel = interval === "yearly" ? "12 Months" : interval === "quarterly" ? "3 Months" : "1 Month";
+      const interval = "quarterly";
+      const unitAmount = plan.price_quarterly_cents;
+      const periodLabel = "3 Months";
+
+      if (!unitAmount || unitAmount <= 0) {
+        return new Response(JSON.stringify({ error: "This plan does not have a valid three-month price" }), {
+          status: 409,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -135,9 +147,7 @@ Deno.serve(async (req: Request) => {
               currency: "aud",
               product_data: {
                 name: `Synapvex Learn — ${plan.name} Teacher Plan (${periodLabel})`,
-                description: interval === "yearly"
-                  ? "Annual teacher plan for Synapvex Learn, paid upfront"
-                  : interval === "quarterly" ? "Three-month teacher plan for Synapvex Learn, paid upfront" : "Monthly teacher plan for Synapvex Learn",
+                description: "Three-month teacher plan for Synapvex Learn, paid upfront",
               },
               unit_amount: unitAmount,
             },

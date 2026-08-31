@@ -8,15 +8,19 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { supabase } from '../../lib/supabase';
+import { aud, learnPlanPricing } from '../../lib/pricing';
 
 interface Plan {
   id: string;
   name: string;
   slug: string;
   price_monthly_cents: number;
+  price_quarterly_cents?: number;
+  price_list_quarterly_cents?: number;
   max_courses: number;
   max_students: number;
   ai_tokens_monthly: number;
+  ai_tokens_quarterly?: number;
   features: string[];
   sort_order: number;
 }
@@ -71,10 +75,12 @@ function PlanCard({ plan, isPopular }: { plan: Plan; isPopular: boolean }) {
     navigate(`/teach/register?plan=${plan.slug}`);
   };
 
-  const price = (plan.price_monthly_cents / 100).toFixed(0);
+  const catalogue = learnPlanPricing(plan.slug);
+  const priceCents = catalogue?.priceCents ?? plan.price_quarterly_cents ?? plan.price_monthly_cents * 3;
+  const listPriceCents = catalogue?.listPriceCents ?? plan.price_list_quarterly_cents ?? priceCents;
   const coursesLabel = plan.max_courses === -1 ? 'Unlimited' : `Up to ${plan.max_courses}`;
   const studentsLabel = plan.max_students === -1 ? 'Unlimited' : `Up to ${plan.max_students}`;
-  const tokensLabel = plan.ai_tokens_monthly.toLocaleString();
+  const tokensLabel = (catalogue?.credits ?? plan.ai_tokens_quarterly ?? plan.ai_tokens_monthly * 3).toLocaleString();
 
   return (
     <div className={`relative rounded-2xl border-2 p-8 flex flex-col ${isPopular ? 'border-sky-500 shadow-2xl shadow-sky-100 bg-white scale-105' : 'border-slate-200 bg-white hover:border-sky-200 hover:shadow-lg'} transition-all duration-300`}>
@@ -86,13 +92,14 @@ function PlanCard({ plan, isPopular }: { plan: Plan; isPopular: boolean }) {
       <div className="mb-6">
         <h3 className="font-bold text-slate-900 text-xl mb-2">{plan.name}</h3>
         <div className="flex items-end gap-1">
-          <span className="font-black text-4xl text-slate-900">${price}</span>
-          <span className="text-slate-500 mb-1">/month</span>
+          <span className="font-black text-4xl text-slate-900">{aud(priceCents)}</span>
+          <span className="text-slate-500 mb-1">/3 months</span>
         </div>
+        <div className="mt-1 text-sm text-slate-400 line-through">Regularly {aud(listPriceCents)}</div>
         <div className="mt-3 space-y-1">
           <div className="text-sm text-slate-500"><span className="font-semibold text-slate-700">{coursesLabel}</span> courses</div>
           <div className="text-sm text-slate-500"><span className="font-semibold text-slate-700">{studentsLabel}</span> students</div>
-          <div className="text-sm text-slate-500"><span className="font-semibold text-slate-700">{tokensLabel}</span> AI tokens/month</div>
+          <div className="text-sm text-slate-500"><span className="font-semibold text-slate-700">{tokensLabel}</span> AI credits for 3 months</div>
         </div>
       </div>
       <ul className="space-y-2.5 mb-8 flex-1">
@@ -177,7 +184,7 @@ export default function Teach() {
             <div className="flex flex-wrap gap-10 mt-14">
               {[
                 { value: 'Free', label: 'To Get Started' },
-                { value: '$29', label: 'Plans From /Month' },
+                { value: '$49.99', label: 'Plans From /3 Months' },
                 { value: '70%', label: 'You Keep Per Sale' },
               ].map(stat => (
                 <div key={stat.label}>
@@ -279,7 +286,7 @@ export default function Teach() {
           <div className="text-center mb-14">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Simple Pricing</p>
             <h2 className="font-sans text-4xl font-bold text-slate-900 mb-4">Choose Your Plan</h2>
-            <p className="text-slate-500 max-w-xl mx-auto">Simple per-period pricing — monthly or annual. No hidden fees. Cancel anytime.</p>
+            <p className="text-slate-500 max-w-xl mx-auto">One payment covers three months. The same prices are used on every SynapVex Learn page and at checkout.</p>
           </div>
 
           {plans.length === 0 ? (
@@ -297,7 +304,7 @@ export default function Teach() {
           )}
 
           <p className="text-center text-sm text-slate-400 mt-8">
-            All prices in AUD. Billed monthly. Cancel anytime from your dashboard.
+            All prices in AUD. Billed once for three months. Cancel before your next renewal from your dashboard.
           </p>
         </div>
       </section>
@@ -311,9 +318,9 @@ export default function Teach() {
           <div className="space-y-4">
             {[
               { q: 'Can I share my course links externally?', a: 'Yes. Every course gets a unique public link you can share on social media, email, your website, or anywhere. Students click the link, land on the course preview page, and enrol directly.' },
-              { q: 'Who keeps the course earnings?', a: 'You set your own course price and keep 100% of what students pay. SynapVex charges only the monthly subscription fee — no per-sale commission.' },
-              { q: 'Can I use the AI course builder on all plans?', a: 'AI tools are available on all plans. Starter includes 500 tokens/month; Professional includes 2,000; Business includes 10,000. Tokens reset each billing cycle.' },
-              { q: 'How does billing work?', a: 'Plans are paid per period — monthly, or annually with two months free. You can cancel at any time from Plan & Billing in your dashboard, and your account stays active until the end of the period you paid for.' },
+              { q: 'Who keeps the course earnings?', a: 'You set your own course price and keep 100% of what students pay. SynapVex charges only the three-month subscription fee — no per-sale commission.' },
+              { q: 'Can I use the AI course builder on all plans?', a: 'AI tools are available on all plans. Starter includes 500 credits, Professional includes 900 and Business includes 1,800 for each three-month period.' },
+              { q: 'How does billing work?', a: 'Each plan is paid upfront for three months. You can cancel from Plan & Billing, and your account stays active until the end of the period you paid for.' },
               { q: 'Can I upgrade or downgrade my plan?', a: 'Yes. You can change your plan at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.' },
             ].map(({ q, a }) => (
               <details key={q} className="group bg-white rounded-xl border border-slate-200 p-5 cursor-pointer hover:border-sky-200 transition-colors">

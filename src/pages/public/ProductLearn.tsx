@@ -8,7 +8,7 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import Reveal from '../../components/ui/Reveal';
-import { processingCostCents, processingTotalCents } from '../../lib/pricing';
+import { LEARN_PLAN_CATALOGUE, processingCostCents, processingTotalCents } from '../../lib/pricing';
 
 const STEPS = [
   {
@@ -50,17 +50,20 @@ const TEACHER_FEATURES = [
 
 const PLANS = [
   {
-    name: 'Starter', listPrice: 74.99, price: 49.99,
+    slug: 'starter',
+    name: LEARN_PLAN_CATALOGUE.starter.name, listPrice: LEARN_PLAN_CATALOGUE.starter.listPriceCents / 100, price: LEARN_PLAN_CATALOGUE.starter.priceCents / 100,
     features: ['3 courses', '50 students', '500 AI credits for 3 months', 'Branded course page', 'Quizzes & assignments', 'Email support'],
     popular: false,
   },
   {
-    name: 'Professional', listPrice: 100, price: 89,
+    slug: 'professional',
+    name: LEARN_PLAN_CATALOGUE.professional.name, listPrice: LEARN_PLAN_CATALOGUE.professional.listPriceCents / 100, price: LEARN_PLAN_CATALOGUE.professional.priceCents / 100,
     features: ['15 courses', '500 students', '900 AI credits for 3 months', 'AI course builder', 'Certificates & exams', 'Earnings dashboard', 'Priority support'],
     popular: true,
   },
   {
-    name: 'Business', listPrice: 200, price: 175,
+    slug: 'business',
+    name: LEARN_PLAN_CATALOGUE.business.name, listPrice: LEARN_PLAN_CATALOGUE.business.listPriceCents / 100, price: LEARN_PLAN_CATALOGUE.business.priceCents / 100,
     features: ['Unlimited courses & students', '1,800 AI credits for 3 months', 'Organisation & team of teachers', 'Full AI curriculum builder', 'Advanced analytics', 'Dedicated account manager'],
     popular: false,
   },
@@ -284,7 +287,7 @@ export default function ProductLearn() {
                   ))}
                 </ul>
                 <Link
-                  to="/teach/register"
+                  to={`/teach/register?plan=${plan.slug}`}
                   className={`block text-center px-6 py-3 font-bold rounded-xl transition-colors ${
                     plan.popular
                       ? 'bg-sky-600 hover:bg-sky-700 text-white'

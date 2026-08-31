@@ -11,6 +11,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { formatCredits } from '../../lib/utils';
 import { verifyStripeCheckoutSession } from '../../lib/stripe';
+import { aud, learnPlanPricing } from '../../lib/pricing';
 
 interface SubPlan {
   id: string;
@@ -18,9 +19,12 @@ interface SubPlan {
   slug: string;
   price_monthly_cents: number;
   price_yearly_cents: number | null;
+  price_quarterly_cents?: number;
+  price_list_quarterly_cents?: number;
   max_courses: number;
   max_students: number;
   ai_tokens_monthly: number;
+  ai_tokens_quarterly?: number;
   features: string[];
   sort_order: number;
 }
@@ -29,7 +33,7 @@ interface Subscription {
   id: string;
   plan_id: string;
   status: string;
-  billing_interval: 'monthly' | 'yearly';
+  billing_interval: 'monthly' | 'quarterly' | 'yearly';
   cancel_at_period_end: boolean;
   amount_paid_cents: number | null;
   current_period_start: string | null;
@@ -63,7 +67,7 @@ export default function TeacherBilling() {
   const [freeGranted, setFreeGranted] = useState<number>(0);
   const [totalPurchased, setTotalPurchased] = useState<number>(0);
   const [loading, setLoading] = useState(true);
-  const [interval, setInterval_] = useState<'monthly' | 'yearly'>('monthly');
+  const interval = 'quarterly' as const;
   const [working, setWorking] = useState<string | null>(null);
   // Custom top-up: $1 = 12 credits (convenience rate)
   const [customAmount, setCustomAmount] = useState('');
@@ -86,7 +90,6 @@ export default function TeacherBilling() {
     if (subRes.data) {
       const sub = subRes.data as Subscription;
       setSubscription(sub);
-      if (sub.billing_interval) setInterval_(sub.billing_interval);
     }
     if (plansRes.data) setPlans(plansRes.data as SubPlan[]);
     if (packsRes.data) setPacks(packsRes.data as TokenPack[]);
@@ -183,9 +186,12 @@ export default function TeacherBilling() {
   const periodEnd = subscription?.current_period_end;
   const expired = !!periodEnd && new Date(periodEnd).getTime() < Date.now();
 
-  const planPrice = (plan: SubPlan) => interval === 'yearly'
-    ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
-    : plan.price_monthly_cents;
+  const planPrice = (plan: SubPlan) =>
+    learnPlanPricing(plan.slug)?.priceCents ?? plan.price_quarterly_cents ?? plan.price_monthly_cents * 3;
+  const planListPrice = (plan: SubPlan) =>
+    learnPlanPricing(plan.slug)?.listPriceCents ?? plan.price_list_quarterly_cents ?? planPrice(plan);
+  const planCredits = (plan: SubPlan) =>
+    learnPlanPricing(plan.slug)?.credits ?? plan.ai_tokens_quarterly ?? plan.ai_tokens_monthly * 3;
 
   return (
     <DashboardLayout navItems={teacherNavItems} title="Plan & Billing" subtitle="Your subscription, billing period and AI credits">
@@ -254,7 +260,7 @@ export default function TeacherBilling() {
                   {expired && periodEnd
                     ? `Your ${subscription?.plan?.name ?? ''} plan ended on ${fmtDate(periodEnd)}. Choose a plan below to continue.`
                     : totalPurchased === 0 && freeGranted > 0
-                      ? `You have ${formatCredits(tokenBalance)} of ${formatCredits(freeGranted)} free AI credits left. Subscribe to a monthly or annual plan below to unlock higher limits and keep building once they run out.`
+                      ? `You have ${formatCredits(tokenBalance)} of ${formatCredits(freeGranted)} free AI credits left. Subscribe to a three-month plan below to unlock higher limits and keep building once they run out.`
                       : 'Choose a plan below to activate your teaching account.'}
                 </p>
               </div>
@@ -269,28 +275,14 @@ export default function TeacherBilling() {
               <h3 className="font-bold text-slate-900 dark:text-white">
                 {active && !expired ? 'Renew or change plan' : 'Choose a plan'}
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">Pay per period — no lock-in. Annual is paid upfront and saves 2 months.</p>
+              <p className="text-xs text-slate-400 mt-0.5">One upfront payment covers three months. The same plan prices apply everywhere.</p>
             </div>
-            <div className="flex items-center bg-slate-100 dark:bg-navy-700 rounded-xl p-1">
-              {(['monthly', 'yearly'] as const).map(i => (
-                <button
-                  key={i}
-                  onClick={() => setInterval_(i)}
-                  className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-colors flex items-center gap-1.5 ${
-                    interval === i ? 'bg-white dark:bg-navy-900 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500'
-                  }`}
-                >
-                  {i === 'monthly' ? 'Monthly' : 'Annual'}
-                  {i === 'yearly' && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded-full">2 months free</span>}
-                </button>
-              ))}
-            </div>
+            <div className="rounded-xl bg-sky-50 px-4 py-2 text-sm font-bold text-sky-800 dark:bg-sky-900/20 dark:text-sky-300">Three-month billing</div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4">
             {plans.map(plan => {
               const price = planPrice(plan);
-              const monthlyEquiv = interval === 'yearly' ? price / 12 : price;
               const isCurrent = active && !expired && subscription?.plan_id === plan.id;
               return (
                 <div key={plan.id} className={`rounded-2xl border-2 p-5 flex flex-col ${isCurrent ? 'border-emerald-300 bg-emerald-50/40 dark:bg-emerald-900/10' : 'border-slate-200 dark:border-navy-600'}`}>
@@ -299,18 +291,14 @@ export default function TeacherBilling() {
                     {isCurrent && <span className="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Current</span>}
                   </div>
                   <p className="mb-1">
-                    <span className="text-2xl font-black text-slate-900 dark:text-white">${(price / 100).toFixed(0)}</span>
-                    <span className="text-slate-400 text-sm">/{interval === 'yearly' ? 'year' : 'month'}</span>
+                    <span className="text-2xl font-black text-slate-900 dark:text-white">{aud(price)}</span>
+                    <span className="text-slate-400 text-sm">/3 months</span>
                   </p>
-                  {interval === 'yearly' && (
-                    <p className="text-xs text-emerald-600 font-semibold mb-2 flex items-center gap-1">
-                      <BadgePercent className="w-3.5 h-3.5" /> ≈ ${(monthlyEquiv / 100).toFixed(2)}/month, paid upfront
-                    </p>
-                  )}
+                  <p className="mb-2 flex items-center gap-1 text-xs font-semibold text-slate-400 line-through"><BadgePercent className="h-3.5 w-3.5" /> Regularly {aud(planListPrice(plan))}</p>
                   <ul className="text-xs text-slate-500 space-y-1.5 my-3 flex-1">
                     <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{plan.max_courses === -1 ? 'Unlimited' : `Up to ${plan.max_courses}`} courses</li>
                     <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{plan.max_students === -1 ? 'Unlimited' : `Up to ${plan.max_students}`} students</li>
-                    <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{formatCredits(plan.ai_tokens_monthly)} AI credits/month</li>
+                    <li className="flex gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-sky-500 shrink-0" />{formatCredits(planCredits(plan))} AI credits for 3 months</li>
                   </ul>
                   <button
                     onClick={() => startCheckout({ type: 'teacher_subscription', plan_id: plan.id, billing_interval: interval }, `plan-${plan.id}`)}

@@ -7,6 +7,7 @@ import { roleLabel } from '../../lib/utils';
 import { supabase } from '../../lib/supabase';
 import MaximusLogo from '../../components/ui/MaximusLogo';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
+import { aud, learnPlanPricing } from '../../lib/pricing';
 
 interface Plan {
   id: string;
@@ -14,6 +15,8 @@ interface Plan {
   slug: string;
   price_monthly_cents: number;
   price_yearly_cents: number | null;
+  price_quarterly_cents?: number;
+  price_list_quarterly_cents?: number;
   max_courses: number;
   max_students: number;
   ai_tokens_monthly: number;
@@ -32,7 +35,7 @@ export default function TeachRegister() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [step, setStep] = useState<'plan' | 'register'>('plan');
-  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('monthly');
+  const billingInterval = 'quarterly' as const;
 
   const { signUp, user, profile, signOut, signInWithGoogle, signInWithMicrosoft } = useAuth();
   const { toast } = useToast();
@@ -95,11 +98,12 @@ export default function TeachRegister() {
     setError('');
   };
 
-  const planPriceCents = (plan: Plan) => billingInterval === 'yearly'
-    ? (plan.price_yearly_cents ?? plan.price_monthly_cents * 10)
-    : plan.price_monthly_cents;
-  const intervalSuffix = billingInterval === 'yearly' ? '/yr' : '/mo';
-  const periodDays = billingInterval === 'yearly' ? 365 : 30;
+  const planPriceCents = (plan: Plan) =>
+    learnPlanPricing(plan.slug)?.priceCents ?? plan.price_quarterly_cents ?? plan.price_monthly_cents * 3;
+  const planListPriceCents = (plan: Plan) =>
+    learnPlanPricing(plan.slug)?.listPriceCents ?? plan.price_list_quarterly_cents ?? planPriceCents(plan);
+  const intervalSuffix = '/3 months';
+  const periodDays = 90;
 
   // Start a subscription checkout for an already-signed-in teacher.
   const handleSubscribeExisting = async () => {
@@ -412,26 +416,8 @@ export default function TeachRegister() {
           <div className="text-center mb-12">
             <p className="text-sky-600 font-semibold text-sm uppercase tracking-wider mb-2">Step 1 of 2</p>
             <h1 className="font-sans text-4xl font-bold text-slate-900 mb-3">Choose Your Teaching Plan</h1>
-            <p className="text-slate-500 max-w-lg mx-auto">Pay monthly, or pay for the year upfront and save two months. Cancel anytime.</p>
-            <div className="inline-flex items-center bg-white border border-slate-200 rounded-xl p-1 mt-6">
-              {(['monthly', 'yearly'] as const).map(i => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setBillingInterval(i)}
-                  className={`px-5 py-2 rounded-lg text-sm font-bold transition-colors flex items-center gap-1.5 ${
-                    billingInterval === i ? 'bg-sky-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'
-                  }`}
-                >
-                  {i === 'monthly' ? 'Monthly' : 'Annual'}
-                  {i === 'yearly' && (
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${billingInterval === i ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
-                      2 months free
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
+            <p className="text-slate-500 max-w-lg mx-auto">One upfront payment gives you three months of access. These are the same prices shown throughout SynapVex Learn.</p>
+            <div className="mt-6 inline-flex items-center rounded-xl border border-sky-200 bg-sky-50 px-5 py-2 text-sm font-bold text-sky-800">Three-month billing</div>
           </div>
 
           {plans.length === 0 ? (
@@ -466,14 +452,10 @@ export default function TeachRegister() {
                     )}
                     <h3 className="font-bold text-slate-900 text-lg mb-1">{plan.name}</h3>
                     <div className="flex items-end gap-1 mb-1">
-                      <span className="font-black text-3xl text-slate-900">${(planPriceCents(plan) / 100).toFixed(0)}</span>
+                      <span className="font-black text-3xl text-slate-900">{aud(planPriceCents(plan))}</span>
                       <span className="text-slate-400 text-sm mb-0.5">{intervalSuffix}</span>
                     </div>
-                    {billingInterval === 'yearly' ? (
-                      <p className="text-xs text-emerald-600 font-semibold mb-4">≈ ${(planPriceCents(plan) / 1200).toFixed(2)}/month, paid upfront for the year</p>
-                    ) : (
-                      <div className="mb-4" />
-                    )}
+                    <p className="mb-4 text-xs text-slate-400 line-through">Regularly {aud(planListPriceCents(plan))}</p>
                     <ul className="space-y-2">
                       {(plan.features as string[]).slice(0, 5).map(f => (
                         <li key={f} className="flex items-start gap-2 text-xs text-slate-600">
