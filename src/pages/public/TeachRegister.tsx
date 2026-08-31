@@ -7,7 +7,7 @@ import { roleLabel } from '../../lib/utils';
 import { supabase } from '../../lib/supabase';
 import MaximusLogo from '../../components/ui/MaximusLogo';
 import DarkModeToggle from '../../components/ui/DarkModeToggle';
-import { aud, learnPlanPricing } from '../../lib/pricing';
+import { aud, learnPlanFeatures, learnPlanPricing } from '../../lib/pricing';
 
 interface Plan {
   id: string;
@@ -457,14 +457,14 @@ export default function TeachRegister() {
                     </div>
                     <p className="mb-4 text-xs text-slate-400 line-through">Regularly {aud(planListPriceCents(plan))}</p>
                     <ul className="space-y-2">
-                      {(plan.features as string[]).slice(0, 5).map(f => (
+                      {learnPlanFeatures(plan.slug, plan.features as string[]).slice(0, 5).map(f => (
                         <li key={f} className="flex items-start gap-2 text-xs text-slate-600">
                           <CheckCircle className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${isSelected ? 'text-sky-600' : 'text-emerald-500'}`} />
                           {f}
                         </li>
                       ))}
-                      {(plan.features as string[]).length > 5 && (
-                        <li className="text-xs text-slate-400">+{(plan.features as string[]).length - 5} more features</li>
+                      {learnPlanFeatures(plan.slug, plan.features as string[]).length > 5 && (
+                        <li className="text-xs text-slate-400">+{learnPlanFeatures(plan.slug, plan.features as string[]).length - 5} more features</li>
                       )}
                     </ul>
                   </button>

@@ -31,4 +31,17 @@ export const LEARN_PLAN_CATALOGUE = {
 export const learnPlanPricing = (slug: string) =>
   LEARN_PLAN_CATALOGUE[slug as LearnPlanSlug] ?? null;
 
+export const learnPlanFeatures = (slug: string, features: string[]) => {
+  const pricing = learnPlanPricing(slug);
+  if (!pricing) return features;
+  const creditLabel = `${pricing.credits.toLocaleString()} AI credits for 3 months`;
+  let replaced = false;
+  const consistent = features.map((feature) => {
+    if (!/AI\s+(tokens?|credits?)/i.test(feature)) return feature;
+    replaced = true;
+    return creditLabel;
+  });
+  return replaced ? consistent : [...consistent, creditLabel];
+};
+
 export const aud = (cents: number) => `$${(cents / 100).toFixed(2)}`;

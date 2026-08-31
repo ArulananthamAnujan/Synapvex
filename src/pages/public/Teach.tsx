@@ -8,7 +8,7 @@ import {
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { supabase } from '../../lib/supabase';
-import { aud, learnPlanPricing } from '../../lib/pricing';
+import { aud, learnPlanFeatures, learnPlanPricing } from '../../lib/pricing';
 
 interface Plan {
   id: string;
@@ -103,7 +103,7 @@ function PlanCard({ plan, isPopular }: { plan: Plan; isPopular: boolean }) {
         </div>
       </div>
       <ul className="space-y-2.5 mb-8 flex-1">
-        {(plan.features as string[]).map((f) => (
+        {learnPlanFeatures(plan.slug, plan.features as string[]).map((f) => (
           <li key={f} className="flex items-start gap-2.5 text-sm text-slate-600">
             <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5 ${isPopular ? 'text-sky-600' : 'text-emerald-500'}`} />
             {f}
