@@ -1,0 +1,28 @@
+# Synapvex SPA on Hostinger (Apache/LiteSpeed)
+# Client-side routes (e.g. /courses/:id, /teacher, /login) must all serve
+# index.html so React Router can handle them.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve real files and directories as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else -> index.html (single-page app)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Cache fingerprinted assets aggressively; keep HTML fresh
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|gif|svg|webp|ico)$">
+    Header set Cache-Control "public, max-age=86400, stale-while-revalidate=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

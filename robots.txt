@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /co-admin
+Disallow: /org
+Disallow: /teacher
+Disallow: /student
+Disallow: /dashboard
+Sitemap: https://synapvex.com.au/sitemap.xml
